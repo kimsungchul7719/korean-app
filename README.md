@@ -1,4 +1,4 @@
-# Duy의 한국어 발차기
+# Cú Đá Tiếng Hàn Của Duy (두이의 한국어 발차기)
 
 베트남인을 위한 한국어 학습 웹앱 (Ứng dụng học tiếng Hàn cho người Việt).
 
