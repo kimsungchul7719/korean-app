@@ -257,6 +257,15 @@ select.sel{flex:1 1 140px;background:var(--surface);border:1.5px solid var(--lin
 .empty{text-align:center;color:var(--ink3);padding:40px 16px;font-size:14px}
 .empty .mascot{width:84px;height:84px;margin-bottom:6px}
 
+.inapp{background:linear-gradient(135deg,#F0569B,#FF8A2B);color:#fff;border-radius:20px;padding:16px;
+  margin-top:12px;box-shadow:var(--shx)}
+.inapp h3{margin:0 0 4px;font-family:var(--dp);font-weight:800;font-size:16.5px}
+.inapp p{margin:0;font-size:13px;opacity:.95;line-height:1.55}
+.inapp .btns{margin-top:12px}
+.inapp .btn{background:#fff;color:#D23B6E;font-weight:800;box-shadow:none}
+.inapp .btn.ghost{background:rgba(255,255,255,.22);color:#fff}
+.inapp ol{margin:10px 0 0;padding-left:20px;font-size:13px;line-height:1.7}
+
 /* ===== mục tiêu · sổ lỗi · giọng đọc ===== */
 .goalrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .goalrow button{flex:1 1 60px;border:1.5px solid var(--line);background:var(--surface2);border-radius:12px;
@@ -380,6 +389,7 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
 <main class="wrap">
   <!-- ============ TRANG CHỦ ============ -->
   <section id="page-home">
+    <div id="inappBox"></div>
     <div class="hero">
       <p class="herokicker">두이의 한국어 발차기</p>
       <h2 class="herotitle">Duy Đá Tiếng Hàn</h2>
@@ -4524,6 +4534,58 @@ function updateGoalRing(){
   if (sub) sub.innerHTML = `Mục tiêu hôm nay · 오늘의 목표${daily.streak ? ` · 🔥 ${daily.streak} ngày liên tục` : ""}`;
 }
 
+/* ---- nhận diện trình duyệt trong ứng dụng (in-app browser) ---- */
+const UA = navigator.userAgent || "";
+const IS_ANDROID = /Android/i.test(UA);
+const IS_IOS = /iPhone|iPad|iPod/i.test(UA);
+const IN_APP = /KAKAOTALK|FBAN|FBAV|FB_IAB|Instagram|Line\/|NAVER|DaumApps|Snapchat|Twitter|everytimeApp|TikTok/i.test(UA)
+            || (IS_ANDROID && /;\s*wv\)/i.test(UA))
+            || (IS_IOS && !/Safari/i.test(UA) && /AppleWebKit/i.test(UA));
+const APP_URL = "https://kimsungchul7719.github.io/korean-app/";
+function openInChrome(){
+  if (IS_ANDROID){
+    const u = APP_URL.replace(/^https?:\/\//, "");
+    location.href = "intent://" + u + "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
+      encodeURIComponent(APP_URL) + ";end";
+  } else {
+    location.href = APP_URL;
+  }
+}
+function copyLink(btn){
+  const done = () => { if (btn){ const t = btn.textContent; btn.textContent = "✓ Đã copy"; setTimeout(() => btn.textContent = t, 1800); } };
+  try{
+    if (navigator.clipboard) navigator.clipboard.writeText(APP_URL).then(done, () => fallback());
+    else fallback();
+  }catch(e){ fallback(); }
+  function fallback(){
+    const ta = document.createElement("textarea");
+    ta.value = APP_URL; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); done(); }catch(e){ prompt("Copy link:", APP_URL); }
+    document.body.removeChild(ta);
+  }
+}
+function renderInApp(){
+  const box = document.getElementById("inappBox"); if (!box) return;
+  const noTTS = !window.speechSynthesis;
+  if (!IN_APP && !noTTS){ box.innerHTML = ""; return; }
+  box.innerHTML = `<div class="inapp">
+    <h3>🔇 ${noTTS ? "Trình duyệt này không phát được âm thanh" : "Bạn đang mở trong ứng dụng khác"}</h3>
+    <p>앱 안에서 열린 브라우저(카카오톡·메신저 등)는 한국어 음성 기능이 없습니다.
+       <b>Chrome${IS_IOS ? " hoặc Safari" : ""}으로 열면 모든 듣기 기능이 정상 동작합니다.</b></p>
+    ${IS_IOS ? `<ol>
+        <li>화면 아래/위의 <b>공유 ⬆️</b> 버튼을 누르세요</li>
+        <li><b>Safari로 열기</b>를 선택하세요</li>
+      </ol>` : ""}
+    <div class="btns">
+      ${IS_ANDROID ? `<button class="btn" id="openChrome">🌐 Chrome으로 열기</button>` : ""}
+      <button class="btn ghost" id="copyLink">🔗 링크 복사</button>
+    </div>
+  </div>`;
+  const oc = box.querySelector("#openChrome"); if (oc) oc.onclick = openInChrome;
+  box.querySelector("#copyLink").onclick = e => copyLink(e.currentTarget);
+}
+
 /* ---- giọng đọc tiếng Hàn (ưu tiên giọng nữ) ---- */
 let voices = [], koVoices = [], ttsState = "init", appReady = false;
 const FEM = /(heami|sunhi|seoyeon|sun-?hi|yuna|jiwon|female|nữ|여성|여자|google\s*한국|google\s*korean)/i;
@@ -4576,8 +4638,10 @@ function toast(html, ms){
 let failCount = 0;
 function ttsFail(){
   ttsState = "fail"; failCount++;
-  toast('🔇 <b>Không phát được tiếng Hàn.</b> Thường do máy chưa cài giọng 한국어, ' +
-        'hoặc âm lượng <b>Media</b> đang ở mức 0.' +
+  toast('🔇 <b>Không phát được tiếng Hàn.</b> ' +
+        (IN_APP || !window.speechSynthesis
+          ? '앱 안의 브라우저는 음성 기능이 없습니다. <b>Chrome으로 열어 주세요.</b>'
+          : 'máy có thể chưa cài giọng 한국어, hoặc âm lượng <b>Media</b> đang ở mức 0.') +
         '<div class="btns" style="margin-top:10px"><button class="btn pr" id="toastDiag" style="flex:1">' +
         '🔎 Kiểm tra máy của tôi · 진단하기</button></div>', 9000);
   try{ renderVoiceCard(); }catch(e){}
@@ -4727,7 +4791,7 @@ function refreshHome(){
       <div class="v">${esc(d.vi)} · ${esc(posLabel(d.pos))}${d.lv === 2 ? " · 2급" : ""}</div>
     </div>`;
   document.getElementById("wodPlay").onclick = () => say(d.ko);
-  renderGoalCard(); renderWrongCard(); renderVoiceCard(); updateGoalRing();
+  renderInApp(); renderGoalCard(); renderWrongCard(); renderVoiceCard(); updateGoalRing();
 }
 function renderGoalCard(){
   const box = document.getElementById("goalCard"); if (!box) return;
@@ -4804,11 +4868,12 @@ function runDiag(){
   const ko = sup ? speechSynthesis.getVoices().filter(v => /^ko/i.test(v.lang)) : [];
   d.innerHTML = `<div class="solve" style="margin-top:10px">
     <b style="color:var(--c5)">Kết quả · 진단 결과</b><br>
-    • Trình duyệt: <b>${samsung ? "Samsung Internet" : (/Chrome/i.test(ua) ? "Chrome" : (/Safari/i.test(ua) ? "Safari" : "khác"))}</b><br>
+    • Trình duyệt: <b>${IN_APP ? "In-app browser (앱 내부 브라우저)" : (samsung ? "Samsung Internet" : (/Chrome/i.test(ua) ? "Chrome" : (/Safari/i.test(ua) ? "Safari" : "khác")))}</b><br>
     • Hỗ trợ đọc: <b>${sup ? "có" : "KHÔNG"}</b> · tổng giọng: <b>${all}</b> · giọng Hàn: <b>${ko.length}</b><br>
     ${ko.length ? `• Giọng Hàn: ${ko.map(v => esc(v.name)).join(", ")}<br>` : ""}
     ${lastErr ? `• Lỗi gần nhất: <b>${esc(lastErr)}</b><br>` : ""}
     <br><b style="color:var(--c3)">Cách khắc phục</b><br>
+    ${(IN_APP || !sup) ? "⭐ <b>원인: 앱 내부 브라우저</b> — 카카오톡·메신저 안에서 열면 음성 기능이 아예 없습니다. 홈 화면 맨 위의 <b>Chrome으로 열기</b> 버튼을 누르세요.<br>" : ""}
     ${samsung ? "① <b>Hãy mở app bằng Chrome</b> — Samsung Internet thường không đọc được tiếng Hàn.<br>" : ""}
     ${android ? `${samsung ? "②" : "①"} Cài giọng Hàn: <b>설정(Cài đặt) → 일반(Quản lý chung) → 접근성 → 글자 읽어주기 / 음성 합성</b> →
        엔진을 <b>Google 텍스트 음성 변환</b>으로 바꾸고 → <b>언어 설치 → 한국어</b> 다운로드.<br>
