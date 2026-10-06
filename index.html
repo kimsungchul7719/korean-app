@@ -1,3 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6B5CF6">
+<meta name="description" content="Duy Đá Tiếng Hàn — học tiếng Hàn cho người Việt: từ vựng, cụm từ, câu, ngữ pháp và đề thi nghe/đọc TOPIK I.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236B5CF6'/%3E%3Ctext x='50' y='70' font-size='62' text-anchor='middle' fill='white' font-family='sans-serif'%3E%ED%95%9C%3C/text%3E%3C/svg%3E">
+<style>
+html{-webkit-text-size-adjust:100%;color-scheme:light dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
 <title>Duy Đá Tiếng Hàn</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
@@ -315,6 +332,8 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
+</head>
+<body>
 <svg class="sprite" aria-hidden="true" focusable="false"><symbol id="tiger" viewBox="0 0 120 120">
   <g><ellipse cx="24" cy="30" rx="15" ry="15" fill="#F59A3C"/><ellipse cx="24" cy="31" rx="7" ry="7" fill="#F06A6A"/>
   <ellipse cx="96" cy="30" rx="15" ry="15" fill="#F59A3C"/><ellipse cx="96" cy="31" rx="7" ry="7" fill="#F06A6A"/>
@@ -4547,14 +4566,21 @@ function toast(html, ms){
   if (!toastEl){ toastEl = document.createElement("div"); toastEl.className = "toast"; document.body.appendChild(toastEl); }
   toastEl.innerHTML = html;
   toastEl.hidden = false;
+  const tb = toastEl.querySelector("#toastDiag");
+  if (tb) tb.onclick = () => { toastEl.hidden = true; go("home"); setTimeout(() => {
+    const d = document.getElementById("voiceCard"); if (d) d.scrollIntoView({behavior:"smooth", block:"center"});
+    runDiag();
+  }, 350); };
   toastTimer = setTimeout(() => { if (toastEl) toastEl.hidden = true; }, ms || 5200);
 }
+let failCount = 0;
 function ttsFail(){
-  ttsState = "fail";
-  toast('🔇 <b>Không phát được tiếng Hàn.</b> Hãy bật loa / tắt chế độ im lặng, hoặc cài giọng tiếng Hàn: ' +
-        'Android <b>Cài đặt → Ngôn ngữ → Chuyển văn bản thành lời nói → 한국어</b>, ' +
-        'iPhone <b>Cài đặt → Trợ năng → Nội dung đọc → Giọng nói → Tiếng Hàn</b>.', 7000);
-  renderVoiceCard();
+  ttsState = "fail"; failCount++;
+  toast('🔇 <b>Không phát được tiếng Hàn.</b> Thường do máy chưa cài giọng 한국어, ' +
+        'hoặc âm lượng <b>Media</b> đang ở mức 0.' +
+        '<div class="btns" style="margin-top:10px"><button class="btn pr" id="toastDiag" style="flex:1">' +
+        '🔎 Kiểm tra máy của tôi · 진단하기</button></div>', 9000);
+  try{ renderVoiceCard(); }catch(e){}
 }
 const clean = t => String(t).replace(/【.*?】/g, " ").replace(/\(.*?\)/g, " ").replace(/[()·【】]/g, " ").trim();
 
@@ -5301,3 +5327,6 @@ try{
   window.claude?.hot?.ready ? window.claude.hot.ready(boot) : boot(window.claude?.hot?.data);
 }catch(e){}
 </script>
+
+</body>
+</html>
