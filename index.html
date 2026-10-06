@@ -4602,7 +4602,8 @@ function renderInApp(){
 
 /* ---- giọng đọc tiếng Hàn (ưu tiên giọng nữ) ---- */
 let voices = [], koVoices = [], ttsState = "init", appReady = false;
-const FEM = /(heami|sunhi|seoyeon|sun-?hi|yuna|jiwon|female|nữ|여성|여자|google\s*한국|google\s*korean)/i;
+/* K-드라마 한국어 앱과 동일한 여성 음성 선별 규칙 + 보강 */
+const FEM = /(female|nữ|여성|여자|yuna|heami|sunhi|sun-?hi|seoyeon|서연|지민|나라|jiwon|google\s*한국|google\s*korean)/i;
 const MALE = /(injoon|in-?joon|gook|minsik|male|남성|남자)/i;
 function loadVoices(){
   try{ voices = speechSynthesis.getVoices() || []; }catch(e){ voices = []; }
@@ -4664,7 +4665,7 @@ const clean = t => String(t).replace(/【.*?】/g, " ").replace(/\(.*?\)/g, " ")
 
 function makeUtt(text, rate){
   const u = new SpeechSynthesisUtterance(clean(text));
-  u.lang = "ko-KR"; u.rate = rate || .9; u.pitch = 1.08; u.volume = 1;
+  u.lang = "ko-KR"; u.rate = rate || .93; u.pitch = 1.12; u.volume = 1;   /* K-드라마 앱과 동일 */
   const v = pickVoice(); if (v) u.voice = v;
   return u;
 }
@@ -4858,7 +4859,7 @@ function renderVoiceCard(){
     </div>
     <p class="vstat">${window.speechSynthesis
       ? (koVoices.length
-          ? `Tìm thấy <b>${koVoices.length}</b> giọng tiếng Hàn. Đang dùng: <b>${esc(auto ? auto.name : "mặc định")}</b>.`
+          ? `Tìm thấy <b>${koVoices.length}</b> giọng tiếng Hàn. Đang dùng: <b>${esc(auto ? auto.name : "mặc định")}</b> · tốc độ 0.93 · cao độ 1.12 (giống app K-드라마).`
           : `⚠️ <b>Máy chưa có giọng tiếng Hàn</b> (tổng ${voices.length} giọng). Nhấn <b>Chẩn đoán</b> để xem cách cài.`)
       : "⚠️ Trình duyệt này không đọc được tiếng Hàn. Hãy mở bằng <b>Chrome</b>."}
       ${ttsState === "fail" ? "<br>⚠️ Lần phát gần nhất không ra tiếng." : ""}</p>
@@ -4901,7 +4902,7 @@ function renderVoiceList(){
       primeSpeech();
       try{ speechSynthesis.cancel(); }catch(e){}
       const u = new SpeechSynthesisUtterance("안녕하세요. 오늘도 한국어 공부 같이 해요.");
-      u.lang = "ko-KR"; u.rate = .9; u.pitch = 1.08; u.voice = v;
+      u.lang = "ko-KR"; u.rate = .93; u.pitch = 1.12; u.voice = v;
       u.onstart = () => { ttsState = "ok"; };
       speechSynthesis.speak(u);
     };
@@ -5184,7 +5185,7 @@ function makeRows(data, ids, unit){
   });
   box.addEventListener("click", e => {
     if (e.target.closest(".js-all")){
-      sayList([...box.querySelectorAll(".row")].slice(0, 15).map(r => r.dataset.ko), .9);
+      sayList([...box.querySelectorAll(".row")].slice(0, 15).map(r => r.dataset.ko), .93);
       return;
     }
     const r = e.target.closest(".row"); if (!r) return;
@@ -5295,7 +5296,7 @@ function startExam(len){
 function playExam(q, rate){
   const btn = document.getElementById("exPlay");
   if (btn) btn.classList.add("on");
-  sayList(q.s, rate || .92, () => { const b = document.getElementById("exPlay"); if (b) b.classList.remove("on"); });
+  sayList(q.s, rate || .93, () => { const b = document.getElementById("exPlay"); if (b) b.classList.remove("on"); });
 }
 function drawExam(){
   const box = document.getElementById("examRun");
@@ -5327,7 +5328,7 @@ function drawExam(){
     document.getElementById("exPlay").onclick = () => playExam(q);
     document.getElementById("exSlow").onclick = () => playExam(q, .55);
   } else {
-    document.getElementById("exReadAloud").onclick = () => say(q.p.replace(/【.*?】/g, ""), .9);
+    document.getElementById("exReadAloud").onclick = () => say(q.p.replace(/【.*?】/g, ""), .93);
   }
   box.querySelectorAll("#exOpts .opt").forEach(b => b.onclick = () => {
     if (exState.answered) return;
@@ -5353,7 +5354,7 @@ function drawExam(){
         <button class="btn gh" id="exAgainSlow">🐢 Chậm</button>
         <button class="btn pr" id="exNext">${exState.i + 1 >= n ? "Xem kết quả" : "Câu tiếp →"}</button>
       </div>`;
-    const sayQ = r => listening ? playExam(q, r) : say(q.p.replace(/【.*?】/g, ""), r || .9);
+    const sayQ = r => listening ? playExam(q, r) : say(q.p.replace(/【.*?】/g, ""), r || .93);
     document.getElementById("exAgain").onclick = () => sayQ();
     document.getElementById("exAgainSlow").onclick = () => sayQ(.55);
     document.getElementById("exNext").onclick = () => { exState.i++; drawExam(); };
