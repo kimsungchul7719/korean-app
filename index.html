@@ -273,6 +273,12 @@ select.sel{flex:1 1 140px;background:var(--surface);border:1.5px solid var(--lin
 .exres .big{font-family:var(--dp);font-weight:800;font-size:46px;line-height:1.1;color:var(--c5)}
 .exres .sub{font-size:13.5px;color:var(--ink2);margin-top:2px}
 
+.passage{background:var(--surface2);border-radius:16px;padding:14px 15px;margin:12px 0 2px;
+  font-family:var(--kr);font-size:15.5px;line-height:1.75;white-space:pre-line;font-weight:500}
+.exmode{display:flex;gap:4px;background:var(--surface3);border-radius:13px;padding:4px;margin-top:12px}
+.exmode button{flex:1;border:0;background:none;border-radius:10px;padding:9px 6px;font-size:13px;font-weight:700;color:var(--ink2)}
+.exmode button[aria-selected="true"]{background:var(--surface);color:var(--c5);box-shadow:var(--sh)}
+
 /* ===== bottom nav ===== */
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:0 12px;
   padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));pointer-events:none}
@@ -372,8 +378,8 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
       </button>
       <button class="tile wide" data-go="exam" style="--tc:var(--c5);--tcs:var(--c5s)">
         <span class="bg">듣</span>
-        <span style="flex:1"><span class="tn">Thi nghe TOPIK I</span>
-        <span class="td" style="display:block">Đề thi nghe 1·2급 — có lời thoại, dịch &amp; nghe lại</span></span>
+        <span style="flex:1"><span class="tn">Thi thử TOPIK I</span>
+        <span class="td" style="display:block">Đề nghe &amp; đọc 1·2급 — có lời thoại, dịch &amp; giải thích</span></span>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="color:var(--c5)"><path d="m9 6 6 6-6 6"/></svg>
       </button>
       <button class="tile wide" id="goListen" style="--tc:var(--c5);--tcs:var(--c5s)">
@@ -470,7 +476,7 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
 
   <!-- ============ THI NGHE TOPIK I ============ -->
   <section id="page-exam" hidden style="--tc:var(--c5);--tcs:var(--c5s)">
-    <div class="ptitle"><span class="bg">듣</span><div><h2>Thi nghe TOPIK I</h2><span>듣기 모의시험 · 1~2급</span></div></div>
+    <div class="ptitle"><span class="bg">듣</span><div><h2>Thi thử TOPIK I</h2><span>듣기 · 읽기 모의시험 · 1~2급</span></div></div>
     <div id="examHome"></div>
     <div id="examRun" class="study" hidden></div>
   </section>
@@ -482,7 +488,7 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
   <button role="tab" data-go="phrases" aria-selected="false" style="--nc:var(--c2);--ncs:var(--c2s)"><span class="nb">구</span>Cụm từ</button>
   <button role="tab" data-go="sentences" aria-selected="false" style="--nc:var(--c3);--ncs:var(--c3s)"><span class="nb">문</span>Câu</button>
   <button role="tab" data-go="grammar" aria-selected="false" style="--nc:var(--c4);--ncs:var(--c4s)"><span class="nb">법</span>Ngữ pháp</button>
-  <button role="tab" data-go="exam" aria-selected="false" style="--nc:var(--c5);--ncs:var(--c5s)"><span class="nb">듣</span>Thi nghe</button>
+  <button role="tab" data-go="exam" aria-selected="false" style="--nc:var(--c5);--ncs:var(--c5s)"><span class="nb">시</span>Thi thử</button>
 </div></nav>
 
 <script>
@@ -4242,6 +4248,144 @@ const LISTEN = [
 {k:"중심 생각",lv:2,s:["저는 새 물건을 살 때 오래 쓸 수 있는지 먼저 봐요. 싸게 사도 금방 고장 나면 더 비싸니까요."],t:["Khi mua đồ mới tôi xem trước là dùng được lâu không. Vì mua rẻ mà hỏng ngay thì còn tốn hơn."],o:["싼 물건을 사야 합니다.","오래 쓸 수 있는 물건을 사는 것이 좋습니다.","비싼 물건이 좋습니다.","물건이 자주 고장 납니다."],a:1,v:"Tiêu chí của người nói là độ bền, không phải giá rẻ."},
 {k:"중심 생각",lv:2,s:["한국 생활이 힘들 때마다 저는 고향 음식을 만들어 먹어요. 그러면 기분이 좋아지고 힘이 나요."],t:["Mỗi khi cuộc sống ở Hàn vất vả, tôi nấu món quê nhà để ăn. Làm vậy thì tâm trạng tốt lên và có sức."],o:["한국 음식이 맛있습니다.","고향 음식을 만들어 먹으면 힘이 납니다.","요리를 잘합니다.","한국 생활이 항상 힘듭니다."],a:1,v:"Cách người nói lấy lại tinh thần chính là nấu món quê nhà."}
 ];
+/* ===== BỔ SUNG ĐỀ NGHE ===== */
+const LISTEN2 = [
+{k:"대답",lv:1,s:["날씨가 추워요?"],t:["Trời lạnh không?"],o:["네, 추워요.","네, 더워요.","아니요, 날씨예요.","네, 추우세요."],a:0,v:"Lặp lại chính tính từ 춥다 trong câu trả lời. Không dùng kính ngữ cho cảm giác của bản thân."},
+{k:"대답",lv:1,s:["가방이 무거워요?"],t:["Cặp có nặng không?"],o:["네, 가방이에요.","아니요, 가벼워요.","네, 가방을 사요.","아니요, 가방이 많아요."],a:1,v:"Phủ định 무겁다 bằng từ trái nghĩa 가볍다 là cách trả lời tự nhiên nhất."},
+{k:"대답",lv:1,s:["몇 명이에요?"],t:["Mấy người ạ?"],o:["네 명이에요.","네, 있어요.","사람이에요.","네 시예요."],a:0,v:"몇 명 hỏi số người → số thuần Hàn + 명. 네 시 là 'bốn giờ', khác hẳn."},
+{k:"대답",lv:1,s:["무슨 색을 좋아해요?"],t:["Bạn thích màu gì?"],o:["파란색을 좋아해요.","색이 많아요.","네, 좋아해요.","옷을 좋아해요."],a:0,v:"무슨 색 hỏi màu → phải nêu tên màu cụ thể."},
+{k:"대답",lv:1,s:["어디가 아파요?"],t:["Bạn đau ở đâu?"],o:["병원에 가요.","배가 아파요.","네, 아파요.","약을 먹어요."],a:1,v:"어디 hỏi vị trí đau → nêu bộ phận cơ thể + 이/가 아파요."},
+{k:"대답",lv:1,s:["이름이 뭐예요?"],t:["Tên bạn là gì?"],o:["베트남 사람이에요.","흐엉이에요.","학생이에요.","네, 이름이에요."],a:1,v:"이름이 뭐예요? được trả lời bằng chính tên của mình."},
+{k:"대답",lv:1,s:["김치를 먹을 수 있어요?"],t:["Bạn ăn được kim chi không?"],o:["네, 먹을 수 있어요.","네, 김치예요.","아니요, 먹어요.","네, 먹고 싶어요."],a:0,v:"Câu hỏi về khả năng 을 수 있어요? → trả lời bằng 을 수 있어요/없어요."},
+{k:"대답",lv:2,s:["지금 어디에 계세요?"],t:["Bây giờ anh/chị đang ở đâu ạ?"],o:["집에 있어요.","집에 가요.","네, 계세요.","집이에요."],a:0,v:"계시다 là kính ngữ của 있다. Nói về mình thì dùng 있어요, và phải trả lời nơi chốn."},
+{k:"대답",lv:2,s:["이 자리에 앉아도 될까요?"],t:["Tôi ngồi chỗ này được không ạ?"],o:["네, 앉으세요.","네, 앉았어요.","아니요, 앉아요.","네, 앉고 싶어요."],a:0,v:"Xin phép bằng 아도 될까요? → cho phép bằng 네, 앉으세요."},
+{k:"대답",lv:2,s:["표가 아직 남아 있어요?"],t:["Vé vẫn còn chứ ạ?"],o:["네, 두 장 남았어요.","네, 표예요.","아니요, 표를 사요.","네, 표가 비싸요."],a:0,v:"남아 있다 hỏi còn lại hay không → trả lời bằng số lượng còn lại."},
+{k:"대답",lv:2,s:["무슨 일 하세요?"],t:["Anh/chị làm nghề gì ạ?"],o:["회사에 다녀요.","일이 많아요.","네, 일해요.","회사에 가요."],a:0,v:"무슨 일 하세요? hỏi nghề nghiệp → 회사에 다니다 (làm ở công ty) là cách trả lời phổ biến."},
+{k:"대답",lv:2,s:["주말에 시간 괜찮으세요?"],t:["Cuối tuần anh/chị có rảnh không ạ?"],o:["네, 괜찮아요.","네, 주말이에요.","아니요, 괜찮으세요.","네, 시간이에요."],a:0,v:"Hỏi lịch trống → 네, 괜찮아요 nghĩa là 'được, tôi rảnh'."},
+
+{k:"이어지는 말",lv:1,s:["다녀오겠습니다."],t:["Con/em đi đây ạ (rồi về)."],o:["다녀오세요.","어서 오세요.","잘 먹겠습니다.","반갑습니다."],a:0,v:"Người đi nói 다녀오겠습니다, người ở nhà đáp 다녀오세요."},
+{k:"이어지는 말",lv:1,s:["잘 먹었습니다."],t:["Cảm ơn vì bữa ăn ạ."],o:["맛있게 드세요.","많이 드셨어요?","또 오세요.","안녕히 계세요."],a:1,v:"Sau khi khách ăn xong, chủ nhà thường hỏi 많이 드셨어요? (ăn no chưa)."},
+{k:"이어지는 말",lv:1,s:["여기 앉으세요."],t:["Mời ngồi đây."],o:["감사합니다.","죄송합니다.","안녕히 가세요.","잘 먹겠습니다."],a:0,v:"Được mời ngồi thì cảm ơn."},
+{k:"이어지는 말",lv:2,s:["늦어서 정말 죄송합니다."],t:["Tôi thật sự xin lỗi vì đến muộn."],o:["괜찮아요. 저도 방금 왔어요.","네, 늦었어요.","안녕히 가세요.","축하합니다."],a:0,v:"Nhận lời xin lỗi thì xoa dịu: 괜찮아요 + lý do để người kia bớt ngại."},
+{k:"이어지는 말",lv:2,s:["이거 선물이에요. 받으세요."],t:["Đây là quà. Anh/chị nhận nhé."],o:["고맙습니다. 잘 쓸게요.","죄송합니다.","또 오세요.","잘 먹겠습니다."],a:0,v:"Nhận quà thì cảm ơn và nói sẽ dùng tốt: 잘 쓸게요."},
+{k:"이어지는 말",lv:2,s:["주말 잘 보내세요."],t:["Chúc anh/chị cuối tuần vui vẻ."],o:["네, 주말 잘 보내세요.","네, 잘 먹겠습니다.","아니요, 괜찮아요.","처음 뵙겠습니다."],a:0,v:"Lời chúc cuối tuần được đáp lại bằng chính câu đó."},
+{k:"이어지는 말",lv:2,s:["제가 도와드릴까요?"],t:["Để tôi giúp anh/chị nhé?"],o:["네, 감사합니다.","네, 도와드릴까요?","아니요, 도와주세요.","네, 축하합니다."],a:0,v:"Được đề nghị giúp đỡ thì nhận lời và cảm ơn."},
+{k:"이어지는 말",lv:2,s:["많이 기다리셨죠? 죄송해요."],t:["Anh/chị đợi lâu rồi nhỉ? Xin lỗi."],o:["아니에요, 괜찮아요.","네, 기다리세요.","네, 축하해요.","아니요, 반갑습니다."],a:0,v:"Người kia xin lỗi vì để chờ → 아니에요, 괜찮아요 là đáp lịch sự."},
+
+{k:"장소",lv:1,s:["표 두 장 주세요.","어느 영화를 보시겠어요?"],t:["Cho tôi hai vé.","Quý khách xem phim nào ạ?"],o:["영화관","극장 앞","서점","공원"],a:0,v:"Mua vé và chọn phim → rạp chiếu phim (영화관)."},
+{k:"장소",lv:1,s:["몇 층으로 가세요?","오 층 부탁합니다."],t:["Anh/chị đi tầng mấy?","Cho tôi tầng năm."],o:["엘리베이터","버스","지하철","계단"],a:0,v:"Hỏi tầng và bấm hộ tầng → trong thang máy (엘리베이터)."},
+{k:"장소",lv:1,s:["무엇을 드시겠어요?","아메리카노 한 잔 주세요."],t:["Quý khách dùng gì ạ?","Cho tôi một ly americano."],o:["카페","식당","가게","편의점"],a:0,v:"Gọi cà phê → quán cà phê (카페)."},
+{k:"장소",lv:2,s:["이 책 어디에 있어요?","저쪽 두 번째 책장에 있습니다."],t:["Cuốn sách này ở đâu ạ?","Ở giá sách thứ hai đằng kia ạ."],o:["서점","도서관","교실","문구점"],a:0,v:"Hỏi vị trí sách để mua, nhân viên chỉ giá sách → tiệm sách (서점). Nếu mượn thì mới là 도서관."},
+{k:"장소",lv:2,s:["이번 주 토요일에 두 명 예약하고 싶은데요.","몇 시로 해 드릴까요?"],t:["Tôi muốn đặt bàn hai người thứ Bảy này.","Mấy giờ ạ?"],o:["식당","호텔","병원","미용실"],a:0,v:"Đặt bàn cho hai người theo giờ → nhà hàng (식당)."},
+{k:"장소",lv:2,s:["여기에 짐을 맡길 수 있어요?","네, 저녁 여덟 시까지 보관해 드립니다."],t:["Tôi gửi hành lý ở đây được không?","Vâng, chúng tôi giữ đến tám giờ tối."],o:["호텔","공항","식당","학교"],a:0,v:"Giữ hành lý theo giờ cho khách → khách sạn (호텔)."},
+{k:"장소",lv:2,s:["교통카드를 충전해 주세요.","얼마 넣어 드릴까요?"],t:["Nạp tiền thẻ giao thông giúp tôi.","Nạp bao nhiêu ạ?"],o:["편의점","은행","역 매표소","버스"],a:0,v:"Ở Hàn, nạp thẻ giao thông chủ yếu làm ở cửa hàng tiện lợi (편의점)."},
+{k:"장소",lv:2,s:["옷이 좀 큰데 바꿀 수 있을까요?","영수증 가지고 오셨어요?"],t:["Áo hơi rộng, tôi đổi được không?","Anh/chị có mang hoá đơn không ạ?"],o:["옷 가게","세탁소","우체국","은행"],a:0,v:"Đổi size áo và cần hoá đơn → cửa hàng quần áo (옷 가게)."},
+{k:"장소",lv:2,s:["다음 환자분 들어오세요.","안녕하세요, 어제 예약했습니다."],t:["Mời bệnh nhân tiếp theo vào.","Chào bác sĩ, hôm qua tôi đã đặt lịch."],o:["병원","약국","학교","회사"],a:0,v:"환자(bệnh nhân) và gọi vào khám → bệnh viện (병원)."},
+{k:"장소",lv:2,s:["이 자리 비었나요?","아니요, 일행이 곧 옵니다."],t:["Chỗ này trống không ạ?","Không ạ, người cùng đi sắp tới."],o:["카페","도서관","지하철","영화관"],a:0,v:"Hỏi ghế trống trong không gian có bàn và người đi cùng → quán cà phê (카페)."},
+
+{k:"화제",lv:1,s:["저는 아홉 시에 자요.","저는 열두 시에 자요."],t:["Tôi ngủ lúc chín giờ.","Tôi ngủ lúc mười hai giờ."],o:["시간","잠","밤","하루"],a:1,v:"Cả hai nói giờ đi ngủ của mình → chủ đề giấc ngủ (잠)."},
+{k:"화제",lv:1,s:["저는 강아지를 키워요.","저는 고양이를 키워요."],t:["Tôi nuôi chó.","Tôi nuôi mèo."],o:["동물","집","친구","취미"],a:0,v:"Nuôi chó, mèo → chủ đề động vật (동물)."},
+{k:"화제",lv:1,s:["제 방에는 침대가 있어요.","제 방에는 책상이 있어요."],t:["Phòng tôi có giường.","Phòng tôi có bàn học."],o:["방","가구","집","학교"],a:0,v:"Cả hai tả đồ đạc trong phòng mình → chủ đề căn phòng (방)."},
+{k:"화제",lv:1,s:["저는 빨간색 옷을 자주 입어요.","저는 검은색 옷이 많아요."],t:["Tôi hay mặc đồ màu đỏ.","Tôi có nhiều đồ màu đen."],o:["옷","색","쇼핑","유행"],a:0,v:"Nói về quần áo mình mặc và sở hữu → chủ đề quần áo (옷)."},
+{k:"화제",lv:2,s:["저는 아침을 꼭 먹어요.","저는 바빠서 자주 못 먹어요."],t:["Tôi nhất định ăn sáng.","Tôi bận nên hay bỏ bữa sáng."],o:["아침 식사","건강","시간","음식"],a:0,v:"Cả hai nói về việc ăn sáng của mình → chủ đề bữa sáng (아침 식사)."},
+{k:"화제",lv:2,s:["저는 매달 조금씩 저축해요.","저는 다 써서 못 모아요."],t:["Mỗi tháng tôi tiết kiệm một chút.","Tôi tiêu hết nên không để dành được."],o:["저축","월급","은행","생활"],a:0,v:"Nói về việc để dành tiền hay không → chủ đề tiết kiệm (저축)."},
+{k:"화제",lv:2,s:["저는 지하철에서 책을 읽어요.","저는 음악을 들어요."],t:["Trên tàu điện tôi đọc sách.","Tôi thì nghe nhạc."],o:["지하철에서 하는 일","교통","취미","시간"],a:0,v:"Cả hai kể việc mình làm trên tàu điện → chủ đề 'việc làm khi đi tàu'."},
+{k:"화제",lv:2,s:["저는 사진으로 기록해요.","저는 일기를 써요."],t:["Tôi ghi lại bằng ảnh.","Tôi thì viết nhật ký."],o:["기록 방법","사진","글쓰기","추억"],a:0,v:"Hai cách khác nhau để ghi lại cuộc sống → chủ đề cách ghi chép (기록 방법)."},
+{k:"화제",lv:2,s:["저는 버스보다 지하철이 편해요.","저는 걷는 게 제일 좋아요."],t:["Với tôi tàu điện tiện hơn xe buýt.","Tôi thì thích đi bộ nhất."],o:["이동 방법","운동","교통비","시간"],a:0,v:"So sánh cách di chuyển yêu thích → chủ đề phương tiện/cách đi lại."},
+{k:"화제",lv:2,s:["저는 설날에 고향에 가요.","저는 올해는 한국에 있을 거예요."],t:["Tết tôi về quê.","Năm nay tôi sẽ ở lại Hàn."],o:["명절 계획","고향","여행","가족"],a:0,v:"Cả hai nói sẽ làm gì vào dịp lễ → chủ đề kế hoạch ngày lễ."},
+
+{k:"내용 일치",lv:2,s:["오늘 점심 같이 먹을까요?","좋아요. 그런데 열두 시 반에 회의가 끝나요."],t:["Trưa nay cùng ăn nhé?","Được. Nhưng mười hai rưỡi tôi mới họp xong."],o:["두 사람은 점심을 안 먹습니다.","회의가 열두 시에 시작합니다.","회의가 끝난 후에 점심을 먹습니다.","여자는 바빠서 못 갑니다."],a:2,v:"Người kia đồng ý nhưng nêu điều kiện thời gian → sẽ ăn sau khi họp xong."},
+{k:"내용 일치",lv:2,s:["한국 음식 만들 줄 알아요?","김치찌개만 만들 수 있어요. 어머니한테 배웠어요."],t:["Bạn biết nấu món Hàn không?","Tôi chỉ nấu được canh kim chi. Tôi học từ mẹ."],o:["한국 음식을 못 만듭니다.","김치찌개를 만들 수 있습니다.","요리를 배우고 있습니다.","식당에서 일했습니다."],a:1,v:"만 (chỉ) cho thấy người này nấu được một món, học từ mẹ."},
+{k:"내용 일치",lv:2,s:["버스 정류장이 어디에 있어요?","이 길로 쭉 가면 은행 앞에 있어요."],t:["Trạm xe buýt ở đâu ạ?","Đi thẳng đường này thì có ở trước ngân hàng."],o:["정류장은 은행 뒤에 있습니다.","정류장은 은행 앞에 있습니다.","은행은 멀리 있습니다.","버스가 안 옵니다."],a:1,v:"은행 앞 = trước ngân hàng, không phải phía sau."},
+{k:"내용 일치",lv:2,s:["요즘 한국어 수업은 어때요?","숙제가 많지만 선생님이 재미있게 가르쳐 주세요."],t:["Lớp tiếng Hàn dạo này thế nào?","Bài tập nhiều nhưng thầy cô dạy rất vui."],o:["숙제가 없습니다.","수업이 지루합니다.","숙제는 많지만 수업은 재미있습니다.","선생님이 바쁩니다."],a:2,v:"Cấu trúc 지만 nối hai mặt: bài tập nhiều (xấu) nhưng lớp vui (tốt)."},
+{k:"내용 일치",lv:2,s:["휴대폰이 왜 그래요?","떨어뜨려서 화면이 깨졌어요. 내일 수리하러 가요."],t:["Điện thoại bạn sao vậy?","Tôi làm rơi nên vỡ màn hình. Mai tôi đi sửa."],o:["휴대폰을 새로 샀습니다.","오늘 수리했습니다.","화면이 깨져서 내일 고칠 겁니다.","휴대폰을 잃어버렸습니다."],a:2,v:"깨졌다(đã vỡ) + 내일 수리하러 가요(mai đi sửa) → chưa sửa, mai mới sửa."},
+{k:"내용 일치",lv:2,s:["이 근처에 싼 식당 알아요?","학교 뒤에 있어요. 오천 원이면 먹을 수 있어요."],t:["Gần đây có quán rẻ không?","Phía sau trường có. Năm nghìn won là ăn được."],o:["식당이 학교 앞에 있습니다.","식당이 비쌉니다.","오천 원으로 먹을 수 있습니다.","식당을 모릅니다."],a:2,v:"오천 원이면 먹을 수 있다 = với năm nghìn won là ăn được, tức là rẻ."},
+{k:"내용 일치",lv:2,s:["운동 자주 하세요?","예전에는 매일 했는데 요즘은 일주일에 한 번쯤 해요."],t:["Anh/chị có hay tập không?","Trước thì ngày nào cũng tập, dạo này khoảng một tuần một lần."],o:["지금도 매일 운동합니다.","운동을 전혀 안 합니다.","예전보다 운동을 적게 합니다.","다음 주부터 시작합니다."],a:2,v:"예전에는 매일 → 요즘은 일주일에 한 번: tần suất đã giảm."},
+{k:"내용 일치",lv:2,s:["짐이 많아 보여요. 도와드릴까요?","괜찮아요. 가벼워서 혼자 들 수 있어요."],t:["Hành lý trông nhiều quá. Để tôi giúp nhé?","Không sao. Nhẹ nên tôi tự xách được."],o:["여자는 도움을 받았습니다.","짐이 아주 무겁습니다.","도움을 거절했습니다.","짐이 하나도 없습니다."],a:2,v:"괜찮아요 + 혼자 들 수 있어요 = từ chối lời giúp đỡ một cách lịch sự."},
+{k:"내용 일치",lv:2,s:["내일 몇 시에 만날까요?","두 시 어때요? 그 전에는 수업이 있어요."],t:["Mai mình gặp lúc mấy giờ?","Hai giờ được không? Trước đó tôi có lớp."],o:["두 시 전에 만납니다.","수업이 끝나고 만납니다.","내일은 수업이 없습니다.","오늘 만납니다."],a:1,v:"Trước hai giờ còn có lớp → cuộc gặp diễn ra sau khi tan học."},
+{k:"내용 일치",lv:2,s:["그 가게 아직 해요?","아니요, 지난달에 문을 닫았어요."],t:["Quán đó còn mở không?","Không, tháng trước đóng cửa rồi."],o:["가게가 지금도 영업합니다.","가게가 지난달에 문을 닫았습니다.","가게가 새로 생겼습니다.","가게가 이사했습니다."],a:1,v:"문을 닫다 ở đây nghĩa là đóng cửa hẳn (ngừng kinh doanh)."},
+{k:"내용 일치",lv:2,s:["약속 장소를 바꿔도 될까요?","네, 괜찮아요. 어디가 좋으세요?"],t:["Đổi địa điểm hẹn được không?","Vâng, không sao. Anh/chị muốn chỗ nào?"],o:["약속을 취소했습니다.","약속 장소를 바꾸기로 했습니다.","약속 시간을 바꿨습니다.","약속이 없습니다."],a:1,v:"Đổi 장소(địa điểm), không phải 시간(thời gian), và không huỷ hẹn."},
+{k:"내용 일치",lv:2,s:["이 영화 재미있어요?","저는 좋았는데 친구는 지루하다고 했어요."],t:["Phim này hay không?","Tôi thấy hay nhưng bạn tôi bảo chán."],o:["두 사람 다 재미있어했습니다.","말하는 사람은 재미있게 봤습니다.","영화가 지루했습니다.","영화를 안 봤습니다."],a:1,v:"저는 좋았다 = bản thân thấy hay; bạn thì nghĩ khác."},
+
+{k:"중심 생각",lv:2,s:["저는 지하철을 탈 때 항상 책을 가지고 다녀요. 짧은 시간이지만 하루에 삼십 분은 읽을 수 있거든요."],t:["Khi đi tàu điện tôi luôn mang theo sách. Thời gian ngắn thôi nhưng mỗi ngày đọc được ba mươi phút."],o:["지하철이 편합니다.","짧은 시간도 모으면 책을 읽을 수 있습니다.","책이 무겁습니다.","지하철에서 자야 합니다."],a:1,v:"Ý chính: tận dụng thời gian ngắn để đọc sách."},
+{k:"중심 생각",lv:2,s:["저는 새 단어를 외울 때 꼭 문장으로 외워요. 단어만 외우면 금방 잊어버리거든요."],t:["Khi học từ mới tôi luôn học theo cả câu. Vì chỉ học từ rời thì quên rất nhanh."],o:["단어를 많이 외워야 합니다.","단어는 문장으로 외우는 것이 좋습니다.","외우기가 어렵습니다.","문장이 깁니다."],a:1,v:"Chủ trương của người nói: học từ trong câu, không học rời."},
+{k:"중심 생각",lv:2,s:["저는 일이 많을 때 먼저 할 일을 적어요. 그러면 무엇부터 해야 할지 알 수 있어서 마음이 편해져요."],t:["Khi nhiều việc tôi viết ra trước. Như vậy biết phải làm gì trước nên lòng thấy nhẹ."],o:["일이 너무 많습니다.","할 일을 적으면 일하기 쉬워집니다.","메모지가 필요합니다.","일을 빨리 해야 합니다."],a:1,v:"Hành động (viết danh sách) + lợi ích (biết thứ tự, nhẹ lòng) = ý chính."},
+{k:"중심 생각",lv:2,s:["한국에 처음 왔을 때는 친구가 없어서 외로웠어요. 그래서 동호회에 가입했는데 지금은 좋은 친구가 많이 생겼어요."],t:["Lần đầu sang Hàn tôi không có bạn nên cô đơn. Vì vậy tôi vào câu lạc bộ, giờ có nhiều bạn tốt."],o:["한국 생활은 외롭습니다.","동호회 활동으로 친구를 사귈 수 있습니다.","친구가 필요 없습니다.","한국 친구는 사귀기 어렵습니다."],a:1,v:"Kết quả sau khi tham gia câu lạc bộ chính là thông điệp của đoạn."},
+{k:"중심 생각",lv:2,s:["저는 물건을 많이 사지 않아요. 집에 물건이 적으면 청소도 쉽고 돈도 아낄 수 있어요."],t:["Tôi không mua nhiều đồ. Nhà ít đồ thì dọn cũng dễ mà lại tiết kiệm tiền."],o:["물건을 많이 사야 합니다.","물건이 적으면 좋은 점이 많습니다.","청소가 힘듭니다.","돈이 많이 듭니다."],a:1,v:"Hai lợi ích nêu ra đều ủng hộ việc sống với ít đồ đạc."},
+{k:"중심 생각",lv:2,s:["저는 모르는 단어가 나와도 바로 사전을 찾지 않아요. 앞뒤 문장을 보면 뜻을 짐작할 수 있을 때가 많거든요."],t:["Gặp từ lạ tôi không tra từ điển ngay. Vì nhìn câu trước sau thường đoán được nghĩa."],o:["사전을 자주 찾아야 합니다.","앞뒤 문장으로 단어 뜻을 짐작할 수 있습니다.","모르는 단어가 많습니다.","사전이 필요 없습니다."],a:1,v:"Lý do (거든요) giải thích cho thói quen: đoán nghĩa qua ngữ cảnh."},
+{k:"중심 생각",lv:2,s:["저는 일주일에 한 번은 가족에게 전화해요. 바빠도 목소리를 들으면 서로 안심이 되니까요."],t:["Mỗi tuần tôi gọi cho gia đình một lần. Dù bận nhưng nghe giọng nhau là cả hai bên yên tâm."],o:["전화는 매일 해야 합니다.","바빠도 가족과 연락하는 것이 중요합니다.","가족이 걱정이 많습니다.","전화 요금이 비쌉니다."],a:1,v:"Thông điệp: dù bận vẫn nên giữ liên lạc với gia đình."}
+];
+/* ===== ĐỀ ĐỌC TOPIK I (읽기) =====
+   k: dạng · p: bài đọc (한국어) · t: dịch tiếng Việt · o: lựa chọn · a: đáp án · v: giải thích */
+const READING = [
+{k:"주제",lv:1,p:"저는 사과를 좋아합니다. 딸기도 좋아합니다.",t:"Tôi thích táo. Tôi cũng thích dâu tây.",o:["과일","채소","음식","가게"],a:0,v:"사과(táo)와 딸기(dâu) đều là trái cây → chủ đề 과일."},
+{k:"주제",lv:1,p:"형은 스물다섯 살입니다. 저는 스무 살입니다.",t:"Anh tôi hai mươi lăm tuổi. Tôi hai mươi tuổi.",o:["나이","가족","형제","친구"],a:0,v:"Cả hai câu đều nói số tuổi → chủ đề 나이 (tuổi tác)."},
+{k:"주제",lv:1,p:"오늘은 월요일입니다. 내일은 화요일입니다.",t:"Hôm nay là thứ Hai. Ngày mai là thứ Ba.",o:["요일","날짜","시간","계획"],a:0,v:"월요일, 화요일 là các thứ trong tuần → chủ đề 요일."},
+{k:"주제",lv:1,p:"교실에 칠판이 있습니다. 책상도 많이 있습니다.",t:"Trong lớp có bảng. Cũng có nhiều bàn học.",o:["교실","학교","공부","가구"],a:0,v:"Bài tả những thứ có trong lớp học → chủ đề 교실."},
+{k:"주제",lv:1,p:"저는 키가 큽니다. 동생은 키가 작습니다.",t:"Tôi cao. Em tôi thì thấp.",o:["키","가족","운동","모습"],a:0,v:"So sánh chiều cao của hai người → chủ đề 키."},
+{k:"주제",lv:1,p:"아버지는 의사입니다. 어머니는 선생님입니다.",t:"Bố tôi là bác sĩ. Mẹ tôi là giáo viên.",o:["직업","가족","부모님","회사"],a:0,v:"Cả hai câu đều nêu nghề nghiệp → chủ đề 직업."},
+{k:"주제",lv:1,p:"봄에는 꽃이 핍니다. 겨울에는 눈이 옵니다.",t:"Mùa xuân hoa nở. Mùa đông thì có tuyết.",o:["계절","날씨","꽃","여행"],a:0,v:"Nói về đặc trưng từng mùa → chủ đề 계절 (mùa)."},
+{k:"주제",lv:2,p:"저는 지하철로 회사에 갑니다. 동생은 버스를 탑니다.",t:"Tôi đi làm bằng tàu điện ngầm. Em tôi đi xe buýt.",o:["교통","회사","출근","시간"],a:0,v:"Phương tiện đi lại của hai người → chủ đề 교통."},
+{k:"주제",lv:2,p:"저는 주말에 보통 운동을 합니다. 가끔 영화도 봅니다.",t:"Cuối tuần tôi thường tập thể dục. Thỉnh thoảng cũng xem phim.",o:["취미","주말","운동","영화"],a:0,v:"Những việc làm lúc rảnh → chủ đề 취미 (sở thích)."},
+{k:"주제",lv:2,p:"이 가방은 오만 원입니다. 저 신발은 삼만 원입니다.",t:"Cái cặp này năm mươi nghìn won. Đôi giày kia ba mươi nghìn won.",o:["값","쇼핑","가방","옷"],a:0,v:"Cả hai câu đều nêu giá tiền → chủ đề 값 (giá cả)."},
+{k:"주제",lv:2,p:"저는 매일 일곱 시에 일어납니다. 그리고 열한 시에 잡니다.",t:"Ngày nào tôi cũng dậy lúc bảy giờ. Và ngủ lúc mười một giờ.",o:["하루 생활","시간","아침","잠"],a:0,v:"Giờ dậy và giờ ngủ hằng ngày → chủ đề sinh hoạt một ngày."},
+{k:"주제",lv:2,p:"저는 한국어를 배웁니다. 수업은 월요일과 수요일에 있습니다.",t:"Tôi học tiếng Hàn. Lớp học vào thứ Hai và thứ Tư.",o:["한국어 수업","학교","공부","요일"],a:0,v:"Nội dung tập trung vào lớp tiếng Hàn và lịch học."},
+
+{k:"빈칸",lv:1,p:"저는 학생( ). 한국어를 배웁니다.",t:"Tôi ( ) học sinh. Tôi học tiếng Hàn.",o:["이에요","예요","입니다","합니다"],a:2,v:"Câu kết thúc bằng 습니다 nên phải dùng cùng thể trang trọng: 학생입니다. (학생 có phụ âm cuối nên là 이에요 nếu dùng thể 요.)"},
+{k:"빈칸",lv:1,p:"도서관( ) 책을 읽습니다.",t:"Tôi đọc sách ( ) thư viện.",o:["에","에서","으로","의"],a:1,v:"Hành động 읽다 diễn ra tại địa điểm → dùng 에서, không dùng 에."},
+{k:"빈칸",lv:1,p:"학교( ) 갑니다.",t:"Tôi đi ( ) trường.",o:["에","에서","을","도"],a:0,v:"Động từ di chuyển 가다 đi với 에 (điểm đến)."},
+{k:"빈칸",lv:1,p:"밥( ) 먹습니다.",t:"Tôi ăn cơm.",o:["이","을","에","로"],a:1,v:"밥 là tân ngữ và có phụ âm cuối → 을."},
+{k:"빈칸",lv:1,p:"친구( ) 영화를 봤습니다.",t:"Tôi đã xem phim ( ) bạn.",o:["하고","에게","에서","으로"],a:0,v:"'cùng với bạn' → 친구하고 (= 친구와/친구랑)."},
+{k:"빈칸",lv:1,p:"지하철( ) 회사에 갑니다.",t:"Tôi đến công ty ( ) tàu điện ngầm.",o:["에","에서","으로","을"],a:2,v:"Phương tiện đi lại dùng (으)로. 지하철 có phụ âm cuối nên là 으로."},
+{k:"빈칸",lv:1,p:"날씨가 춥습니다. 그래서 옷을 많이 ( ).",t:"Trời lạnh. Vì vậy tôi mặc nhiều áo.",o:["입습니다","신습니다","씁니다","탑니다"],a:0,v:"Với 옷 phải dùng 입다. 신다 dùng cho giày tất, 쓰다 cho mũ, 타다 cho xe."},
+{k:"빈칸",lv:1,p:"배가 고픕니다. 그래서 식당에 ( ).",t:"Tôi đói bụng. Vì vậy tôi đến quán ăn.",o:["갑니다","옵니다","봅니다","삽니다"],a:0,v:"Đi đến quán ăn → 가다. 오다 là chiều ngược lại (đến chỗ người nói)."},
+{k:"빈칸",lv:2,p:"시간이 없습니다. ( ) 택시를 탔습니다.",t:"Tôi không có thời gian. ( ) tôi đã đi taxi.",o:["그래서","그리고","하지만","그런데"],a:0,v:"Vế trước là lý do, vế sau là kết quả → 그래서 (vì vậy)."},
+{k:"빈칸",lv:2,p:"열심히 공부했습니다. ( ) 시험을 잘 못 봤습니다.",t:"Tôi đã học chăm chỉ. ( ) tôi thi không tốt.",o:["그래서","하지만","그리고","그러면"],a:1,v:"Hai vế trái ngược nhau → 하지만 (nhưng)."},
+{k:"빈칸",lv:2,p:"비가 ( ) 우산을 가져가세요.",t:"Trời mưa nên hãy mang theo ô.",o:["오니까","와서","오지만","오면서"],a:0,v:"Vế sau là câu đề nghị/mệnh lệnh (가세요) → phải dùng 으니까, không dùng 아서/어서."},
+{k:"빈칸",lv:2,p:"저는 매운 음식을 못 먹습니다. ( ) 김치는 좋아합니다.",t:"Tôi không ăn được đồ cay. ( ) tôi lại thích kim chi.",o:["그런데","그래서","그리고","그러면"],a:0,v:"Thông tin sau đi ngược với điều vừa nói → 그런데."},
+{k:"빈칸",lv:2,p:"수업이 끝난 ( ) 친구를 만났습니다.",t:"Sau khi tan học tôi đã gặp bạn.",o:["후에","전에","때","동안"],a:0,v:"Động từ chia 은/ㄴ + 후에 = sau khi. 전에 thì phải dùng 끝나기 전에."},
+{k:"빈칸",lv:2,p:"저는 한국에서 일하( ) 한국어를 배웁니다.",t:"Tôi học tiếng Hàn để làm việc ở Hàn Quốc.",o:["려고","어서","지만","면서"],a:0,v:"Mục đích → V + 으려고. (Nếu là 'vừa làm vừa học' thì mới dùng 면서.)"},
+{k:"빈칸",lv:2,p:"음식이 너무 ( ) 다 먹지 못했습니다.",t:"Đồ ăn nhiều quá nên tôi không ăn hết được.",o:["많아서","많지만","많으면","많고"],a:0,v:"Lý do dẫn tới kết quả ở quá khứ → 아서/어서."},
+{k:"빈칸",lv:2,p:"저는 커피를 안 마십니다. ( ) 잠을 못 자기 때문입니다.",t:"Tôi không uống cà phê. Vì ( ) không ngủ được.",o:["마시면","마셔서","마시고","마시지만"],a:0,v:"Điều kiện giả định 'nếu uống thì…' → 으면."},
+{k:"빈칸",lv:2,p:"이 옷은 조금 큽니다. 더 작은 ( ) 있습니까?",t:"Áo này hơi rộng. Có cỡ nhỏ hơn không?",o:["것이","것을","것에","것으로"],a:0,v:"것 là chủ ngữ của 있습니까 → 것이 있습니까."},
+{k:"빈칸",lv:2,p:"저는 한국에 온 ( ) 이 년이 되었습니다.",t:"Tôi sang Hàn được hai năm rồi.",o:["지","때","후","동안"],a:0,v:"Cấu trúc đo thời gian trôi qua: V + 은 지 + thời gian + 되다."},
+{k:"빈칸",lv:2,p:"친구가 ( ) 전에 방을 청소했습니다.",t:"Tôi đã dọn phòng trước khi bạn đến.",o:["오기","와서","온","오면"],a:0,v:"Trước khi làm gì → V + 기 전에 (gốc động từ + 기)."},
+{k:"빈칸",lv:2,p:"밥을 ( ) 약을 드세요.",t:"Hãy uống thuốc sau khi ăn cơm.",o:["먹은 후에","먹기 전에","먹으면서","먹지만"],a:0,v:"식후(sau bữa ăn) → 먹은 후에."},
+
+{k:"실용문",lv:1,p:"【한국 식당】\n점심 11:00 ~ 14:00\n저녁 17:00 ~ 21:00\n매주 월요일 쉽니다",t:"【Nhà hàng Hàn Quốc】\nTrưa 11:00–14:00\nTối 17:00–21:00\nNghỉ thứ Hai hằng tuần",o:["월요일에 문을 엽니다.","저녁에는 아홉 시까지 합니다.","오후 세 시에 밥을 먹을 수 있습니다.","하루 종일 영업합니다."],a:1,v:"저녁 영업이 21:00까지 = đến chín giờ tối. Thứ Hai nghỉ, 15h là giờ nghỉ giữa ca."},
+{k:"실용문",lv:1,p:"【한국어 교실】\n요일: 화요일, 목요일\n시간: 저녁 7시 ~ 9시\n장소: 3층 교실\n수강료: 무료",t:"【Lớp tiếng Hàn】\nThứ: Ba, Năm\nGiờ: 19:00–21:00 tối\nNơi: phòng học tầng 3\nHọc phí: miễn phí",o:["수업은 매일 있습니다.","수업료를 내야 합니다.","수업은 두 시간 동안 합니다.","수업은 아침에 합니다."],a:2,v:"7시부터 9시까지 = hai tiếng. Lớp miễn phí và chỉ học hai buổi/tuần."},
+{k:"실용문",lv:2,p:"【영화 할인】\n매주 수요일\n오전 영화 50% 할인\n학생증을 보여 주세요",t:"【Giảm giá phim】\nThứ Tư hằng tuần\nGiảm 50% suất chiếu buổi sáng\nXin xuất trình thẻ học sinh",o:["주말에 할인합니다.","저녁 영화도 할인합니다.","수요일 오전에 반값입니다.","누구나 할인을 받습니다."],a:2,v:"수요일 + 오전 + 50% = thứ Tư buổi sáng giảm một nửa, và cần thẻ học sinh."},
+{k:"실용문",lv:2,p:"【택배 안내】\n월~금: 오전 9시 ~ 오후 6시\n토요일: 오전만\n일요일: 쉽니다",t:"【Thông báo chuyển phát】\nT2–T6: 9:00–18:00\nThứ Bảy: chỉ buổi sáng\nChủ nhật: nghỉ",o:["일요일에도 택배를 받습니다.","토요일에는 오후에 합니다.","토요일 오전에 택배를 보낼 수 있습니다.","평일에는 저녁 늦게까지 합니다."],a:2,v:"토요일은 오전만 영업 = thứ Bảy chỉ làm buổi sáng."},
+{k:"실용문",lv:2,p:"【아르바이트 모집】\n커피숍 직원\n주 3일 (금·토·일)\n시간: 오후 1시 ~ 6시\n한국어 가능자 우대",t:"【Tuyển việc làm thêm】\nNhân viên quán cà phê\n3 ngày/tuần (T6·T7·CN)\nGiờ: 13:00–18:00\nƯu tiên người biết tiếng Hàn",o:["매일 일합니다.","오전에 일합니다.","일주일에 삼 일 일합니다.","한국어를 몰라도 됩니다."],a:2,v:"주 3일 = ba ngày một tuần, làm buổi chiều, ưu tiên người biết tiếng Hàn."},
+{k:"실용문",lv:2,p:"【병원 안내】\n진료: 오전 9시 ~ 오후 5시\n점심시간: 12시 ~ 1시\n토요일: 오전 9시 ~ 12시\n예약 전화: 02-123-4567",t:"【Thông báo bệnh viện】\nKhám: 9:00–17:00\nNghỉ trưa: 12:00–13:00\nThứ Bảy: 9:00–12:00\nĐặt lịch: 02-123-4567",o:["열두 시 반에 진료를 받습니다.","토요일 오후에도 진료합니다.","토요일은 오전에만 진료합니다.","예약은 할 수 없습니다."],a:2,v:"토요일 9시~12시 = thứ Bảy chỉ khám buổi sáng. 12시 반은 점심시간이라 진료가 없습니다."},
+{k:"실용문",lv:2,p:"【도서관 이용 안내】\n대출: 한 번에 다섯 권\n기간: 이 주일\n연장: 한 번 가능\n연체 시 삼십 일 대출 정지",t:"【Hướng dẫn dùng thư viện】\nMượn: 5 cuốn mỗi lần\nThời hạn: 2 tuần\nGia hạn: được 1 lần\nTrả trễ: ngừng cho mượn 30 ngày",o:["책을 열 권 빌릴 수 있습니다.","기간은 한 달입니다.","연장은 한 번 할 수 있습니다.","연체해도 괜찮습니다."],a:2,v:"연장 한 번 가능 = chỉ được gia hạn một lần; mượn tối đa 5 cuốn trong 2 tuần."},
+{k:"실용문",lv:2,p:"【할인 쿠폰】\n만 원 이상 구매 시 2,000원 할인\n사용 기간: 12월 31일까지\n다른 쿠폰과 함께 쓸 수 없습니다",t:"【Phiếu giảm giá】\nMua từ 10.000 won được giảm 2.000 won\nHạn dùng: đến 31/12\nKhông dùng chung với phiếu khác",o:["오천 원을 사도 할인됩니다.","쿠폰을 두 개 쓸 수 있습니다.","만 원 이상 사야 할인을 받습니다.","기간이 없습니다."],a:2,v:"만 원 이상 구매 시 = phải mua từ 10.000 won trở lên mới được giảm."},
+
+{k:"내용 일치",lv:2,p:"저는 매일 아침 여섯 시에 일어납니다. 그리고 삼십 분 동안 운동을 합니다. 운동이 끝나면 샤워를 하고 아침을 먹습니다.",t:"Ngày nào tôi cũng dậy lúc sáu giờ sáng. Rồi tập thể dục ba mươi phút. Tập xong thì tắm và ăn sáng.",o:["운동을 한 시간 합니다.","아침을 먹고 운동합니다.","운동 후에 샤워를 합니다.","아침에 운동하지 않습니다."],a:2,v:"Trình tự: tập → tắm → ăn sáng. Thời gian tập là 30 phút, không phải 1 tiếng."},
+{k:"내용 일치",lv:2,p:"지난 주말에 친구와 부산에 갔습니다. 기차로 세 시간쯤 걸렸습니다. 바다를 보고 생선회도 먹었습니다. 아주 즐거웠습니다.",t:"Cuối tuần trước tôi đi Busan với bạn. Đi tàu mất khoảng ba tiếng. Chúng tôi ngắm biển và ăn gỏi cá. Rất vui.",o:["혼자 부산에 갔습니다.","버스로 갔습니다.","부산에서 바다를 봤습니다.","부산이 재미없었습니다."],a:2,v:"Đi cùng bạn, bằng tàu hoả, có ngắm biển và thấy rất vui."},
+{k:"내용 일치",lv:2,p:"우리 집은 학교에서 가깝습니다. 그래서 저는 걸어서 학교에 갑니다. 십 분쯤 걸립니다. 비가 오는 날에는 버스를 탑니다.",t:"Nhà tôi gần trường. Vì vậy tôi đi bộ đến trường, mất khoảng mười phút. Ngày mưa thì tôi đi xe buýt.",o:["집이 학교에서 멉니다.","항상 버스를 탑니다.","비가 오면 버스를 탑니다.","학교까지 한 시간 걸립니다."],a:2,v:"Bình thường đi bộ 10 phút, chỉ hôm mưa mới đi xe buýt."},
+{k:"내용 일치",lv:2,p:"저는 한국 음식을 좋아합니다. 특히 비빔밥을 자주 먹습니다. 처음에는 매워서 힘들었지만 지금은 괜찮습니다.",t:"Tôi thích món Hàn. Đặc biệt hay ăn cơm trộn. Ban đầu cay nên tôi thấy khó nhưng giờ ổn rồi.",o:["한국 음식을 싫어합니다.","지금도 매운 것을 못 먹습니다.","비빔밥을 자주 먹습니다.","한 번도 먹어 보지 않았습니다."],a:2,v:"특히 비빔밥을 자주 먹는다 = đặc biệt hay ăn bibimbap; và giờ đã quen vị cay."},
+{k:"내용 일치",lv:2,p:"다음 주 토요일은 제 생일입니다. 친구들을 집으로 초대했습니다. 제가 음식을 만들 겁니다. 친구들이 케이크를 사 온다고 했습니다.",t:"Thứ Bảy tuần sau là sinh nhật tôi. Tôi đã mời bạn bè đến nhà. Tôi sẽ nấu ăn. Các bạn bảo sẽ mua bánh kem đến.",o:["식당에서 생일 파티를 합니다.","제가 케이크를 삽니다.","친구들이 케이크를 가져옵니다.","생일은 지난주였습니다."],a:2,v:"Bạn bè mang bánh, còn người viết nấu ăn; tiệc tổ chức ở nhà và chưa diễn ra."},
+{k:"내용 일치",lv:2,p:"저는 작년부터 한국어를 배우고 있습니다. 일주일에 두 번 학원에 갑니다. 숙제가 많지만 재미있습니다. 내년에는 시험을 볼 계획입니다.",t:"Tôi học tiếng Hàn từ năm ngoái. Mỗi tuần đến trung tâm hai lần. Bài tập nhiều nhưng vui. Sang năm tôi định đi thi.",o:["한국어를 올해 시작했습니다.","학원에 매일 갑니다.","내년에 시험을 볼 겁니다.","숙제가 없습니다."],a:2,v:"내년에 시험을 볼 계획 = dự định thi vào năm sau. Bắt đầu học từ năm ngoái, tuần hai buổi."},
+{k:"내용 일치",lv:2,p:"어제 친구에게 선물을 받았습니다. 한국어 사전이었습니다. 제가 한국어를 공부하는 것을 알고 사 주었습니다. 정말 고마웠습니다.",t:"Hôm qua tôi được bạn tặng quà. Đó là cuốn từ điển tiếng Hàn. Bạn ấy biết tôi học tiếng Hàn nên mua tặng. Tôi rất cảm kích.",o:["친구에게 선물을 주었습니다.","선물은 책상이었습니다.","친구가 사전을 선물했습니다.","선물이 마음에 안 들었습니다."],a:2,v:"받았습니다 = được nhận, và món quà là 사전 (từ điển)."},
+{k:"내용 일치",lv:2,p:"저는 작은 방에서 삽니다. 방은 좁지만 깨끗합니다. 창문이 커서 햇빛이 잘 들어옵니다. 저는 이 방이 마음에 듭니다.",t:"Tôi sống trong căn phòng nhỏ. Phòng hẹp nhưng sạch. Cửa sổ to nên nắng vào nhiều. Tôi ưng căn phòng này.",o:["방이 넓습니다.","방이 더럽습니다.","창문이 커서 밝습니다.","방이 마음에 안 듭니다."],a:2,v:"창문이 커서 햇빛이 잘 들어온다 = cửa sổ to nên phòng sáng."},
+{k:"내용 일치",lv:2,p:"어제는 하루 종일 비가 왔습니다. 그래서 약속을 취소하고 집에서 영화를 봤습니다. 밖에 나가지 못해서 조금 아쉬웠습니다.",t:"Hôm qua mưa cả ngày. Vì vậy tôi huỷ hẹn và xem phim ở nhà. Không ra ngoài được nên hơi tiếc.",o:["어제 친구를 만났습니다.","어제 날씨가 좋았습니다.","비 때문에 약속을 취소했습니다.","영화를 보러 갔습니다."],a:2,v:"Mưa → huỷ hẹn, xem phim tại nhà (không phải ra rạp)."},
+{k:"내용 일치",lv:2,p:"우리 회사는 아홉 시에 시작합니다. 저는 보통 여덟 시 반에 도착합니다. 일찍 오면 커피를 마시면서 하루 일을 준비합니다.",t:"Công ty tôi bắt đầu lúc chín giờ. Tôi thường đến lúc tám rưỡi. Đến sớm thì tôi vừa uống cà phê vừa chuẩn bị công việc trong ngày.",o:["아홉 시에 도착합니다.","항상 늦게 옵니다.","삼십 분 일찍 도착합니다.","커피를 안 마십니다."],a:2,v:"9시 시작, 8시 반 도착 → sớm hơn 30 phút."},
+
+{k:"중심 생각",lv:2,p:"저는 요리를 못했습니다. 그런데 유튜브를 보면서 따라 하니까 조금씩 할 수 있게 되었습니다. 지금은 친구들에게 음식을 만들어 줍니다.",t:"Tôi từng không biết nấu ăn. Nhưng xem YouTube làm theo thì dần dần làm được. Giờ tôi còn nấu cho bạn bè.",o:["요리는 배우기 어렵습니다.","따라 하면서 배우면 요리를 할 수 있게 됩니다.","유튜브는 재미있습니다.","친구들이 요리를 잘합니다."],a:1,v:"Quá trình: không biết → làm theo → làm được → nấu cho người khác."},
+{k:"중심 생각",lv:2,p:"저는 지하철에서 자리가 나도 잘 앉지 않습니다. 서서 가면 졸지 않고 내릴 역을 놓치지 않기 때문입니다.",t:"Trên tàu điện dù có chỗ tôi cũng ít khi ngồi. Vì đứng thì không ngủ gật và không bị lỡ ga xuống.",o:["앉는 것이 편합니다.","서서 가면 역을 놓치지 않습니다.","지하철이 복잡합니다.","자리가 없습니다."],a:1,v:"Lý do đứng là để tỉnh táo, không lỡ ga."},
+{k:"중심 생각",lv:2,p:"외국어를 배울 때 가장 중요한 것은 매일 듣는 것입니다. 하루에 십 분이라도 계속 들으면 귀가 먼저 익숙해집니다.",t:"Khi học ngoại ngữ, quan trọng nhất là nghe mỗi ngày. Dù chỉ mười phút một ngày, nghe đều thì tai sẽ quen trước.",o:["외국어는 어렵습니다.","매일 조금씩 듣는 것이 중요합니다.","십 분은 짧습니다.","말하기가 제일 중요합니다."],a:1,v:"Câu đầu đã nêu rõ: nghe mỗi ngày là quan trọng nhất."},
+{k:"중심 생각",lv:2,p:"저는 물건을 버리기 전에 다시 쓸 수 있는지 생각합니다. 작은 것이라도 다시 쓰면 쓰레기가 줄어들기 때문입니다.",t:"Trước khi vứt đồ tôi nghĩ xem có dùng lại được không. Vì dù là thứ nhỏ, dùng lại thì rác cũng giảm.",o:["물건을 많이 사야 합니다.","다시 쓰면 쓰레기를 줄일 수 있습니다.","쓰레기가 많습니다.","물건을 빨리 버려야 합니다."],a:1,v:"Thông điệp môi trường: tái sử dụng để giảm rác."},
+{k:"중심 생각",lv:2,p:"한국 친구를 사귀고 싶으면 먼저 인사를 해 보세요. 작은 인사가 대화의 시작이 됩니다.",t:"Nếu muốn kết bạn người Hàn, hãy chào trước. Lời chào nhỏ sẽ thành khởi đầu cho cuộc trò chuyện.",o:["한국 친구는 사귀기 어렵습니다.","먼저 인사하면 친구를 사귈 수 있습니다.","대화는 길어야 합니다.","인사는 중요하지 않습니다."],a:1,v:"Lời khuyên: chủ động chào hỏi trước."},
+{k:"중심 생각",lv:2,p:"저는 계획을 세울 때 너무 많이 쓰지 않습니다. 할 일이 많으면 시작하기도 전에 지치기 때문입니다.",t:"Khi lập kế hoạch tôi không viết quá nhiều. Vì nhiều việc quá thì chưa bắt đầu đã thấy mệt.",o:["계획은 자세할수록 좋습니다.","계획은 적당히 세우는 것이 좋습니다.","계획이 필요 없습니다.","할 일이 많습니다."],a:1,v:"Chủ trương: kế hoạch vừa phải để không nản."},
+
+{k:"순서 배열",lv:2,p:"(가) 그래서 가까운 병원에 갔습니다.\n(나) 어제 아침부터 머리가 아팠습니다.\n(다) 의사 선생님이 약을 주셨습니다.\n(라) 약을 먹고 푹 쉬니까 괜찮아졌습니다.",t:"(가) Vì vậy tôi đến bệnh viện gần nhà.\n(나) Từ sáng hôm qua tôi bị đau đầu.\n(다) Bác sĩ đã kê thuốc cho tôi.\n(라) Uống thuốc và nghỉ kỹ thì đã đỡ.",o:["나-가-다-라","가-나-다-라","나-다-가-라","가-다-나-라"],a:0,v:"Trình tự: bị đau (나) → đến bệnh viện (가) → nhận thuốc (다) → uống thuốc và khỏi (라). 그래서 luôn đứng sau nguyên nhân."},
+{k:"순서 배열",lv:2,p:"(가) 지난주에 새 휴대폰을 샀습니다.\n(나) 그런데 이틀 만에 고장이 났습니다.\n(다) 가게에 가서 바꿔 달라고 했습니다.\n(라) 가게에서 새것으로 바꿔 주었습니다.",t:"(가) Tuần trước tôi mua điện thoại mới.\n(나) Nhưng hai ngày sau thì hỏng.\n(다) Tôi đến cửa hàng xin đổi.\n(라) Cửa hàng đã đổi cái mới cho tôi.",o:["가-나-다-라","나-가-다-라","가-다-나-라","다-가-나-라"],a:0,v:"Mua (가) → hỏng (나) → đến đòi đổi (다) → được đổi (라)."},
+{k:"순서 배열",lv:2,p:"(가) 저는 매일 아침 공원에서 걷습니다.\n(나) 처음에는 십 분도 힘들었습니다.\n(다) 지금은 한 시간도 걸을 수 있습니다.\n(라) 하지만 매일 조금씩 늘렸습니다.",t:"(가) Sáng nào tôi cũng đi bộ ở công viên.\n(나) Ban đầu mười phút cũng thấy mệt.\n(다) Giờ tôi đi được cả tiếng.\n(라) Nhưng tôi tăng dần mỗi ngày một chút.",o:["가-나-라-다","가-다-나-라","나-가-라-다","가-라-나-다"],a:0,v:"Giới thiệu thói quen (가) → lúc đầu khó (나) → nhưng tăng dần (라) → kết quả hiện tại (다)."},
+{k:"순서 배열",lv:2,p:"(가) 친구에게서 전화가 왔습니다.\n(나) 저녁을 먹고 쉬고 있었습니다.\n(다) 내일 같이 등산을 가자고 했습니다.\n(라) 저는 좋다고 대답했습니다.",t:"(가) Bạn tôi gọi điện đến.\n(나) Tôi đang ăn tối xong và nghỉ ngơi.\n(다) Bạn rủ mai cùng đi leo núi.\n(라) Tôi đáp là được.",o:["나-가-다-라","가-나-다-라","나-다-가-라","가-다-라-나"],a:0,v:"Bối cảnh (나) → điện thoại đến (가) → nội dung lời rủ (다) → trả lời (라)."},
+{k:"순서 배열",lv:2,p:"(가) 그래서 사전에서 찾아봤습니다.\n(나) 어제 한국 책을 읽었습니다.\n(다) 모르는 단어가 많이 나왔습니다.\n(라) 단어를 공책에 적어서 외웠습니다.",t:"(가) Vì vậy tôi đã tra từ điển.\n(나) Hôm qua tôi đọc sách tiếng Hàn.\n(다) Có nhiều từ tôi không biết.\n(라) Tôi chép từ vào vở và học thuộc.",o:["나-다-가-라","가-나-다-라","나-가-다-라","다-나-가-라"],a:0,v:"Đọc sách (나) → gặp từ lạ (다) → nên tra từ điển (가) → chép và học (라)."},
+{k:"순서 배열",lv:2,p:"(가) 지하철역까지 뛰어갔습니다.\n(나) 오늘 아침에 늦잠을 잤습니다.\n(다) 다행히 지각하지 않았습니다.\n(라) 마침 지하철이 바로 왔습니다.",t:"(가) Tôi chạy đến ga tàu điện.\n(나) Sáng nay tôi ngủ quên.\n(다) May là tôi không đến muộn.\n(라) Vừa hay tàu đến ngay.",o:["나-가-라-다","가-나-라-다","나-라-가-다","나-가-다-라"],a:0,v:"Ngủ quên (나) → chạy ra ga (가) → tàu đến ngay (라) → nên không muộn (다)."}
+];
 /* ===================== CẤP ĐỘ & HỖ TRỢ ===================== */
 /* Những từ cơ bản ở trên nhưng thuộc mức TOPIK 2급 */
 const LV2 = new Set(("손님,부모님,결혼,변호사,기자,직업,사장님,우체국,편의점,백화점,도시,나라,층,식사,반찬,간장,고추장,문화,주소,"+
@@ -4671,28 +4815,45 @@ const EXTYPES = [
   {k:"내용 일치", ko:"들은 내용과 같은 것을 고르십시오.", vi:"Chọn nội dung trùng với đoạn hội thoại"},
   {k:"중심 생각", ko:"남자/여자의 중심 생각을 고르십시오.", vi:"Chọn ý chính của người nói"}
 ];
-const exType = k => EXTYPES.find(t => t.k === k) || EXTYPES[0];
-let exState = {type:"", len:10, pool:[], i:0, score:0, wrong:[], answered:false};
+const curTypes = () => exState.mode === "listen" ? EXTYPES : RTYPES;
+const exType = k => curTypes().find(t => t.k === k) || curTypes()[0];
+const curBank = () => exState.mode === "listen" ? LIST_ALL : READING;
+const LIST_ALL = LISTEN.concat(LISTEN2);
+const RTYPES = [
+  {k:"주제", ko:"무엇에 대한 이야기입니까?", vi:"Đoạn văn nói về điều gì?"},
+  {k:"빈칸", ko:"( )에 들어갈 말로 가장 알맞은 것을 고르십시오.", vi:"Chọn từ thích hợp điền vào chỗ trống"},
+  {k:"실용문", ko:"다음 글의 내용과 같은 것을 고르십시오.", vi:"Đọc thông báo và chọn câu đúng"},
+  {k:"내용 일치", ko:"글을 읽고 같은 내용을 고르십시오.", vi:"Chọn nội dung trùng với bài đọc"},
+  {k:"중심 생각", ko:"이 글의 중심 생각을 고르십시오.", vi:"Chọn ý chính của bài"},
+  {k:"순서 배열", ko:"순서대로 맞게 나열한 것을 고르십시오.", vi:"Sắp xếp các câu theo đúng thứ tự"}
+];
+let exState = {mode:"listen", type:"", len:10, pool:[], i:0, score:0, wrong:[], answered:false};
 
 function examPool(type){
-  return LISTEN.filter(q => okLv(q) && (!type || q.k === type));
+  return curBank().filter(q => okLv(q) && (!type || q.k === type));
 }
 function examHome(){
   const box = document.getElementById("examHome");
   document.getElementById("examRun").hidden = true;
   box.hidden = false;
-  const best = store.get("exbest", 0);
+  const listening = exState.mode === "listen";
+  const best = store.get(listening ? "exbest" : "exbestR", 0);
   const total = examPool("").length;
   box.innerHTML = `
+    <div class="exmode" id="exmode" role="tablist">
+      <button role="tab" data-m="listen" aria-selected="${listening}">🎧 듣기 Nghe</button>
+      <button role="tab" data-m="read" aria-selected="${!listening}">📖 읽기 Đọc</button>
+    </div>
     <div class="exintro">
-      <h3>Đề luyện nghe TOPIK I</h3>
-      <p>Nghe tiếng Hàn rồi chọn đáp án. Trả lời xong sẽ hiện <b>lời thoại tiếng Hàn</b>, <b>bản dịch tiếng Việt</b>,
-         <b>giải thích</b> và nút <b>nghe lại</b>.</p>
+      <h3>${listening ? "Đề luyện nghe TOPIK I" : "Đề luyện đọc TOPIK I"}</h3>
+      <p>${listening
+          ? "Nghe tiếng Hàn rồi chọn đáp án. Trả lời xong sẽ hiện <b>lời thoại tiếng Hàn</b>, <b>bản dịch tiếng Việt</b>, <b>giải thích</b> và nút <b>nghe lại</b>."
+          : "Đọc đoạn tiếng Hàn rồi chọn đáp án. Trả lời xong sẽ hiện <b>bản dịch tiếng Việt</b>, <b>giải thích</b> và nút <b>đọc to</b> để luyện cả tai."}</p>
       <div class="extypes" id="extypes">
         <button class="extype" data-k="" aria-pressed="true">
           <span class="n">전</span><span class="d"><span class="kr">전체 유형</span><span class="vi">Tất cả dạng câu hỏi</span></span>
           <span class="c">${total}</span></button>
-        ${EXTYPES.map((t, i) => `
+        ${curTypes().map((t, i) => `
         <button class="extype" data-k="${esc(t.k)}" aria-pressed="false">
           <span class="n">${i + 1}</span>
           <span class="d"><span class="kr">${esc(t.ko)}</span><span class="vi">${esc(t.vi)}</span></span>
@@ -4705,6 +4866,10 @@ function examHome(){
         <button class="btn pr" data-len="0">Toàn bộ</button>
       </div>
     </div>`;
+  box.querySelector("#exmode").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b || b.dataset.m === exState.mode) return;
+    exState.mode = b.dataset.m; exState.type = ""; examHome();
+  });
   box.querySelector("#extypes").addEventListener("click", e => {
     const b = e.target.closest(".extype"); if (!b) return;
     exState.type = b.dataset.k;
@@ -4730,7 +4895,7 @@ function drawExam(){
   const box = document.getElementById("examRun");
   const n = exState.pool.length;
   if (exState.i >= n){ examResult(); return; }
-  const q = exState.pool[exState.i], t = exType(q.k);
+  const q = exState.pool[exState.i], t = exType(q.k), listening = exState.mode === "listen";
   exState.answered = false;
   box.innerHTML = `
     <div class="q">
@@ -4738,19 +4903,26 @@ function drawExam(){
         <span>Câu ${exState.i + 1} / ${n} · ${exState.score}점</span></div>
       <div class="bar" style="margin:0 0 14px"><i style="width:${Math.round(exState.i / n * 100)}%"></i></div>
       <p class="exq"><b>${esc(t.ko)}</b>${esc(t.vi)}</p>
+      ${listening ? `
       <div class="listenbox">
         ${MASCOT_HP}
         <button class="wavebtn" id="exPlay" aria-label="Nghe lại">${SPKBIG}</button>
-      </div>
+      </div>` : `<div class="passage">${esc(q.p)}</div>`}
       <div class="opts" id="exOpts">
         ${q.o.map((o, i) => `<button class="opt" data-i="${i}"><b style="color:var(--c5)">${i + 1}</b>&nbsp; ${esc(o)}</button>`).join("")}
       </div>
-      <div class="btns"><button class="btn gh" id="exSlow">🐢 Nghe chậm</button></div>
+      <div class="btns">${listening
+        ? `<button class="btn gh" id="exSlow">🐢 Nghe chậm</button>`
+        : `<button class="btn gh" id="exReadAloud">${SPK} Đọc to</button>`}</div>
       <div id="exAfter"></div>
     </div>`;
-  playExam(q);
-  document.getElementById("exPlay").onclick = () => playExam(q);
-  document.getElementById("exSlow").onclick = () => playExam(q, .55);
+  if (listening){
+    playExam(q);
+    document.getElementById("exPlay").onclick = () => playExam(q);
+    document.getElementById("exSlow").onclick = () => playExam(q, .55);
+  } else {
+    document.getElementById("exReadAloud").onclick = () => say(q.p.replace(/【.*?】/g, ""), .9);
+  }
   box.querySelectorAll("#exOpts .opt").forEach(b => b.onclick = () => {
     if (exState.answered) return;
     exState.answered = true;
@@ -4762,28 +4934,34 @@ function drawExam(){
     });
     document.getElementById("exAfter").innerHTML = `
       <div class="script">
-        <p class="lab">Lời thoại · 대화 내용</p>
-        ${q.s.map((line, i) => `<div class="ln"><div class="k">${esc(line)}</div><div class="v">${esc(q.t[i] || "")}</div></div>`).join("")}
+        <p class="lab">${listening ? "Lời thoại · 대화 내용" : "Bản dịch · 번역"}</p>
+        ${listening
+          ? q.s.map((line, i) => `<div class="ln"><div class="k">${esc(line)}</div><div class="v">${esc(q.t[i] || "")}</div></div>`).join("")
+          : `<div class="ln"><div class="k" style="white-space:pre-line">${esc(q.p)}</div><div class="v" style="white-space:pre-line">${esc(q.t)}</div></div>`}
       </div>
       <div class="solve"><b>Đáp án ${q.a + 1}.</b> ${esc(q.o[q.a])}<br>${esc(q.v)}</div>
       <div class="btns">
-        <button class="btn gh" id="exAgain">${SPK} Nghe lại</button>
+        <button class="btn gh" id="exAgain">${SPK} ${listening ? "Nghe lại" : "Đọc to"}</button>
         <button class="btn gh" id="exAgainSlow">🐢 Chậm</button>
         <button class="btn pr" id="exNext">${exState.i + 1 >= n ? "Xem kết quả" : "Câu tiếp →"}</button>
       </div>`;
-    document.getElementById("exAgain").onclick = () => playExam(q);
-    document.getElementById("exAgainSlow").onclick = () => playExam(q, .55);
+    const sayQ = r => listening ? playExam(q, r) : say(q.p.replace(/【.*?】/g, ""), r || .9);
+    document.getElementById("exAgain").onclick = () => sayQ();
+    document.getElementById("exAgainSlow").onclick = () => sayQ(.55);
     document.getElementById("exNext").onclick = () => { exState.i++; drawExam(); };
     document.getElementById("exAfter").scrollIntoView({behavior:"smooth", block:"nearest"});
   });
 }
 function examResult(){
   const n = exState.pool.length, pct = Math.round(exState.score / n * 100);
-  const best = store.get("exbest", 0);
-  if (pct > best) store.set("exbest", pct);
+  const key = exState.mode === "listen" ? "exbest" : "exbestR";
+  const best = store.get(key, 0);
+  if (pct > best) store.set(key, pct);
   const msg = pct >= 80 ? "아주 잘했어요! Xuất sắc — bạn sẵn sàng cho TOPIK I rồi."
             : pct >= 60 ? "잘하고 있어요! Khá tốt — nghe lại các câu sai là chắc hơn nữa."
-            : "괜찮아요! Hãy nghe lại lời thoại vài lần, tai sẽ quen rất nhanh.";
+            : (exState.mode === "listen"
+                ? "괜찮아요! Hãy nghe lại lời thoại vài lần, tai sẽ quen rất nhanh."
+                : "괜찮아요! Đọc lại bài và bản dịch vài lần, lần sau sẽ nhanh hơn nhiều.");
   document.getElementById("examRun").innerHTML = `
     <div class="q exres">
       ${MASCOT_HP}
