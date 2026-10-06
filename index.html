@@ -240,15 +240,48 @@ select.sel{flex:1 1 140px;background:var(--surface);border:1.5px solid var(--lin
 .empty{text-align:center;color:var(--ink3);padding:40px 16px;font-size:14px}
 .empty .mascot{width:84px;height:84px;margin-bottom:6px}
 
+/* ===== thi nghe ===== */
+.exintro{background:var(--surface);border-radius:22px;box-shadow:var(--sh);padding:18px;margin-top:12px}
+.exintro h3{margin:0 0 4px;font-family:var(--dp);font-weight:800;font-size:18px}
+.exintro p{margin:0;font-size:13px;color:var(--ink2)}
+.extypes{display:flex;flex-direction:column;gap:7px;margin:14px 0 4px}
+.extype{display:flex;align-items:center;gap:10px;background:var(--surface2);border:0;border-radius:13px;padding:10px 12px;text-align:left;width:100%}
+.extype .n{flex:none;width:26px;height:26px;border-radius:9px;background:var(--c5s);color:var(--c5);
+  display:grid;place-items:center;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+.extype .d{flex:1;min-width:0}
+.extype .kr{font-family:var(--kr);font-size:13.5px;font-weight:700;display:block}
+.extype .vi{font-size:12px;color:var(--ink2);display:block}
+.extype .c{font-size:11px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.extype[aria-pressed="true"]{background:var(--c5);}
+.extype[aria-pressed="true"] .kr,.extype[aria-pressed="true"] .vi,.extype[aria-pressed="true"] .c{color:#fff}
+.extype[aria-pressed="true"] .n{background:rgba(255,255,255,.25);color:#fff}
+.exbar{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:700;
+  color:var(--ink2);font-variant-numeric:tabular-nums;margin-bottom:10px}
+.exbadge{font-family:var(--kr);font-size:11px;font-weight:800;color:var(--c5);background:var(--c5s);
+  border-radius:7px;padding:3px 9px}
+.exq{text-align:center;font-size:13px;color:var(--ink2);margin:2px 0 0}
+.exq b{display:block;font-family:var(--kr);font-size:15px;color:var(--ink);font-weight:700;margin-bottom:2px}
+.script{background:var(--c5s);border-radius:16px;padding:13px 14px;margin-top:14px}
+.script .lab{color:var(--c5);margin-bottom:8px}
+.script .ln{margin-bottom:9px}
+.script .ln:last-child{margin-bottom:0}
+.script .k{font-family:var(--kr);font-size:14.5px;font-weight:600;line-height:1.5}
+.script .v{font-size:12.8px;color:var(--ink2);margin-top:1px}
+.solve{background:var(--surface2);border-radius:16px;padding:13px 14px;margin-top:9px;font-size:13.3px;color:var(--ink2);line-height:1.6}
+.solve b{color:var(--ok)}
+.exres{text-align:center}
+.exres .big{font-family:var(--dp);font-weight:800;font-size:46px;line-height:1.1;color:var(--c5)}
+.exres .sub{font-size:13.5px;color:var(--ink2);margin-top:2px}
+
 /* ===== bottom nav ===== */
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:0 12px;
   padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));pointer-events:none}
 nav.bottom .navin{pointer-events:auto;max-width:520px;margin:0 auto;background:var(--surface);
   border:1px solid var(--line);border-radius:22px;box-shadow:0 -2px 30px -10px rgba(22,24,60,.3);
-  display:grid;grid-template-columns:repeat(5,1fr);padding:7px 6px}
-nav.bottom button{border:0;background:none;padding:6px 2px 5px;border-radius:14px;display:flex;flex-direction:column;
-  align-items:center;gap:3px;color:var(--ink3);font-size:10.5px;font-weight:600;line-height:1.1}
-nav.bottom button .nb{width:30px;height:30px;border-radius:11px;display:grid;place-items:center;
+  display:grid;grid-template-columns:repeat(6,1fr);padding:7px 4px}
+nav.bottom button{border:0;background:none;padding:6px 1px 5px;border-radius:14px;display:flex;flex-direction:column;
+  align-items:center;gap:3px;color:var(--ink3);font-size:9.5px;font-weight:600;line-height:1.1}
+nav.bottom button .nb{width:28px;height:28px;border-radius:11px;display:grid;place-items:center;
   font-family:var(--kr);font-weight:900;font-size:14px;background:var(--surface2);transition:background .15s}
 nav.bottom button[aria-selected="true"]{color:var(--nc)}
 nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc)}
@@ -336,6 +369,12 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
       <button class="tile" data-go="grammar" style="--tc:var(--c4);--tcs:var(--c4s)">
         <span class="bg">법</span><span class="tn">Ngữ pháp</span>
         <span class="td">Mẫu câu TOPIK 1·2급</span><span class="tc" id="cntG"></span>
+      </button>
+      <button class="tile wide" data-go="exam" style="--tc:var(--c5);--tcs:var(--c5s)">
+        <span class="bg">듣</span>
+        <span style="flex:1"><span class="tn">Thi nghe TOPIK I</span>
+        <span class="td" style="display:block">Đề thi nghe 1·2급 — có lời thoại, dịch &amp; nghe lại</span></span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="color:var(--c5)"><path d="m9 6 6 6-6 6"/></svg>
       </button>
       <button class="tile wide" id="goListen" style="--tc:var(--c5);--tcs:var(--c5s)">
         <span class="bg">듣</span>
@@ -428,6 +467,13 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
     <p class="meta" id="gmeta"></p>
     <div id="glist" class="gram"></div>
   </section>
+
+  <!-- ============ THI NGHE TOPIK I ============ -->
+  <section id="page-exam" hidden style="--tc:var(--c5);--tcs:var(--c5s)">
+    <div class="ptitle"><span class="bg">듣</span><div><h2>Thi nghe TOPIK I</h2><span>듣기 모의시험 · 1~2급</span></div></div>
+    <div id="examHome"></div>
+    <div id="examRun" class="study" hidden></div>
+  </section>
 </main>
 
 <nav class="bottom" aria-label="Điều hướng chính"><div class="navin" id="nav" role="tablist">
@@ -436,6 +482,7 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
   <button role="tab" data-go="phrases" aria-selected="false" style="--nc:var(--c2);--ncs:var(--c2s)"><span class="nb">구</span>Cụm từ</button>
   <button role="tab" data-go="sentences" aria-selected="false" style="--nc:var(--c3);--ncs:var(--c3s)"><span class="nb">문</span>Câu</button>
   <button role="tab" data-go="grammar" aria-selected="false" style="--nc:var(--c4);--ncs:var(--c4s)"><span class="nb">법</span>Ngữ pháp</button>
+  <button role="tab" data-go="exam" aria-selected="false" style="--nc:var(--c5);--ncs:var(--c5s)"><span class="nb">듣</span>Thi nghe</button>
 </div></nav>
 
 <script>
@@ -4099,6 +4146,102 @@ const SENTENCES3 = [
 "오늘 하루도 수고한 나에게 고마워요.|oneul harudo sugohan naege gomawoyo|Cảm ơn bản thân đã cố gắng cả ngày hôm nay.|Cảm nghĩ|3",
 "내년에는 더 나은 사람이 되고 싶어요.|naenyeoneneun deo naeun sarami doego sipeoyo|Sang năm tôi muốn thành người tốt hơn.|Cảm nghĩ|3"
 ];
+/* ===== ĐỀ LUYỆN NGHE TOPIK I (1·2급) =====
+   k: dạng câu hỏi · lv: cấp độ · s: lời thoại (nghe) · t: dịch tiếng Việt
+   o: 4 lựa chọn · a: đáp án đúng · v: giải thích                        */
+const LISTEN = [
+{k:"대답",lv:1,s:["책을 읽어요?"],t:["Bạn có đọc sách không?"],o:["네, 책이에요.","네, 책을 읽어요.","아니요, 책이 없어요.","아니요, 책을 좋아해요."],a:1,v:"Câu hỏi dùng động từ 읽다 nên câu trả lời cũng phải lặp lại chính động từ đó: 네, 책을 읽어요."},
+{k:"대답",lv:1,s:["학생이에요?"],t:["Bạn là học sinh à?"],o:["네, 학생이에요.","네, 학교예요.","아니요, 학생을 봐요.","아니요, 공부해요."],a:0,v:"Câu hỏi với 이에요? thì trả lời bằng 네, N이에요. 학교(trường) là địa điểm, không phải người."},
+{k:"대답",lv:1,s:["커피를 마셔요?"],t:["Bạn uống cà phê chứ?"],o:["네, 커피가 있어요.","네, 커피를 마셔요.","아니요, 커피예요.","아니요, 커피를 사요."],a:1,v:"Lặp lại động từ 마시다 trong câu trả lời. 사다(mua) là hành động khác."},
+{k:"대답",lv:1,s:["오늘 바빠요?"],t:["Hôm nay bạn bận không?"],o:["네, 바빠요.","네, 바쁘세요.","아니요, 바빠요.","네, 바쁩니까?"],a:0,v:"Nói về bản thân thì không dùng kính ngữ 바쁘세요. Đáp án đúng là 네, 바빠요."},
+{k:"대답",lv:1,s:["동생이 있어요?"],t:["Bạn có em không?"],o:["네, 동생이에요.","네, 동생이 있어요.","아니요, 동생을 봐요.","아니요, 동생이 좋아요."],a:1,v:"Câu hỏi 있어요? được trả lời bằng 있어요/없어요."},
+{k:"대답",lv:1,s:["어디에 가요?"],t:["Bạn đi đâu đấy?"],o:["네, 가요.","아니요, 안 가요.","학교에 가요.","친구하고 가요."],a:2,v:"어디 là câu hỏi về nơi chốn nên phải trả lời bằng địa điểm + 에 가요. Không trả lời 네/아니요."},
+{k:"대답",lv:1,s:["누구를 만나요?"],t:["Bạn gặp ai?"],o:["학교에서 만나요.","친구를 만나요.","네, 만나요.","내일 만나요."],a:1,v:"누구 hỏi về người, nên trả lời bằng tên người hoặc danh từ chỉ người."},
+{k:"대답",lv:1,s:["언제 와요?"],t:["Khi nào bạn đến?"],o:["집에 와요.","동생이 와요.","내일 와요.","네, 와요."],a:2,v:"언제 hỏi thời gian → trả lời bằng từ chỉ thời gian: 내일."},
+{k:"대답",lv:1,s:["이게 얼마예요?"],t:["Cái này bao nhiêu tiền?"],o:["삼천 원이에요.","세 개예요.","가게예요.","네, 좋아요."],a:0,v:"얼마 hỏi giá tiền nên phải trả lời bằng số tiền (원)."},
+{k:"대답",lv:1,s:["생일이 언제예요?"],t:["Sinh nhật bạn là khi nào?"],o:["친구 생일이에요.","오월 십일이에요.","생일 축하해요.","케이크를 먹어요."],a:1,v:"언제 hỏi ngày tháng → 오월 십일 (ngày 10 tháng 5)."},
+{k:"대답",lv:1,s:["무슨 음식을 좋아해요?"],t:["Bạn thích món ăn gì?"],o:["식당에 가요.","김치찌개를 좋아해요.","네, 좋아해요.","많이 먹어요."],a:1,v:"무슨 N hỏi loại cụ thể → phải nêu tên món ăn."},
+{k:"대답",lv:1,s:["몇 시에 일어나요?"],t:["Bạn thức dậy lúc mấy giờ?"],o:["일곱 시에 일어나요.","일곱 개 있어요.","아침에 먹어요.","네, 일어나요."],a:0,v:"몇 시 hỏi giờ → dùng số thuần Hàn + 시: 일곱 시."},
+{k:"대답",lv:2,s:["주말에 뭐 할 거예요?"],t:["Cuối tuần bạn sẽ làm gì?"],o:["주말에 했어요.","영화를 볼 거예요.","네, 할 거예요.","주말이 좋아요."],a:1,v:"Câu hỏi ở thì tương lai 을 거예요 → trả lời cũng dùng 을 거예요."},
+{k:"대답",lv:2,s:["어제 뭐 했어요?"],t:["Hôm qua bạn đã làm gì?"],o:["친구를 만났어요.","친구를 만나요.","친구를 만날 거예요.","네, 했어요."],a:0,v:"어제 là quá khứ nên động từ phải chia 았/었어요."},
+{k:"대답",lv:2,s:["한국어를 얼마나 배웠어요?"],t:["Bạn học tiếng Hàn bao lâu rồi?"],o:["학원에서 배웠어요.","여섯 달 배웠어요.","한국어를 배워요.","선생님이 가르쳐요."],a:1,v:"얼마나 ở đây hỏi khoảng thời gian → trả lời bằng độ dài thời gian."},
+{k:"대답",lv:2,s:["여기에서 사진을 찍어도 돼요?"],t:["Tôi chụp ảnh ở đây được không?"],o:["네, 찍었어요.","네, 찍으세요.","아니요, 찍어요.","네, 찍고 싶어요."],a:1,v:"Câu xin phép 아/어도 돼요? được trả lời bằng cách cho phép: 네, 찍으세요. (Cấm thì nói 아니요, 찍으면 안 돼요.)"},
+{k:"대답",lv:2,s:["창문 좀 닫아 주시겠어요?"],t:["Anh/chị đóng cửa sổ giúp tôi được không?"],o:["네, 닫았어요.","네, 알겠습니다.","아니요, 닫아요.","네, 닫고 싶어요."],a:1,v:"Lời nhờ vả lịch sự được đáp lại bằng 네, 알겠습니다 (vâng, tôi hiểu rồi)."},
+{k:"대답",lv:2,s:["같이 점심 먹을까요?"],t:["Mình cùng ăn trưa nhé?"],o:["네, 좋아요.","네, 먹었어요.","아니요, 먹어요.","점심이에요."],a:0,v:"Lời rủ rê 을까요? được đồng ý bằng 네, 좋아요 hoặc 그럽시다."},
+{k:"대답",lv:2,s:["많이 기다리셨어요?"],t:["Anh/chị đợi lâu chưa?"],o:["아니요, 저도 방금 왔어요.","네, 기다리세요.","아니요, 기다릴 거예요.","네, 기다립니다."],a:0,v:"Câu hỏi thăm → đáp tự nhiên là \"không, tôi cũng vừa đến\"."},
+{k:"대답",lv:2,s:["시험 잘 봤어요?"],t:["Bạn thi tốt chứ?"],o:["네, 시험이에요.","아니요, 좀 어려웠어요.","네, 시험을 봐요.","아니요, 볼 거예요."],a:1,v:"Câu hỏi quá khứ về kết quả → trả lời bằng cảm nhận ở quá khứ: 어려웠어요."},
+
+{k:"이어지는 말",lv:1,s:["안녕히 계세요."],t:["Tôi về nhé (nói với người ở lại)."],o:["안녕히 가세요.","반갑습니다.","처음 뵙겠습니다.","잘 먹겠습니다."],a:0,v:"Người ở lại nói 안녕히 계세요, người đi nghe xong đáp 안녕히 가세요."},
+{k:"이어지는 말",lv:1,s:["처음 뵙겠습니다."],t:["Rất hân hạnh được gặp lần đầu."],o:["안녕히 가세요.","만나서 반갑습니다.","잘 먹었습니다.","또 오세요."],a:1,v:"Chào lần đầu gặp mặt thì đáp lại bằng 만나서 반갑습니다."},
+{k:"이어지는 말",lv:1,s:["감사합니다."],t:["Xin cảm ơn."],o:["아니에요.","죄송합니다.","괜찮으세요?","잘 가요."],a:0,v:"Đáp lại lời cảm ơn: 아니에요 / 천만에요 (không có gì)."},
+{k:"이어지는 말",lv:1,s:["죄송합니다."],t:["Tôi xin lỗi."],o:["감사합니다.","괜찮습니다.","반갑습니다.","안녕하세요."],a:1,v:"Đáp lại lời xin lỗi: 괜찮습니다 (không sao đâu)."},
+{k:"이어지는 말",lv:1,s:["맛있게 드세요."],t:["Chúc anh/chị ăn ngon miệng."],o:["잘 먹겠습니다.","안녕히 가세요.","또 오세요.","반갑습니다."],a:0,v:"Trước khi ăn thì nói 잘 먹겠습니다; sau khi ăn xong nói 잘 먹었습니다."},
+{k:"이어지는 말",lv:1,s:["생일 축하합니다."],t:["Chúc mừng sinh nhật."],o:["고맙습니다.","죄송합니다.","안녕히 계세요.","잘 먹겠습니다."],a:0,v:"Nhận lời chúc thì cảm ơn: 고맙습니다."},
+{k:"이어지는 말",lv:1,s:["어서 오세요."],t:["Mời vào (chào khách)."],o:["안녕히 계세요.","네, 안녕하세요.","잘 먹었습니다.","또 뵙겠습니다."],a:1,v:"Khi được chào đón vào quán, khách đáp lại bằng lời chào thông thường."},
+{k:"이어지는 말",lv:2,s:["수고하셨습니다."],t:["Anh/chị đã vất vả rồi."],o:["수고하셨습니다.","잘 먹겠습니다.","처음 뵙겠습니다.","어서 오세요."],a:0,v:"Câu chào khi hết giờ làm — hai bên nói lại cùng một câu với nhau."},
+{k:"이어지는 말",lv:2,s:["실례지만, 말씀 좀 묻겠습니다."],t:["Xin lỗi, cho tôi hỏi một chút."],o:["네, 말씀하세요.","네, 잘 먹겠습니다.","아니요, 괜찮아요.","네, 안녕히 가세요."],a:0,v:"Khi ai đó xin phép hỏi, ta mời họ nói: 네, 말씀하세요."},
+{k:"이어지는 말",lv:2,s:["오랜만이에요. 잘 지냈어요?"],t:["Lâu rồi không gặp. Bạn vẫn khoẻ chứ?"],o:["네, 덕분에 잘 지냈어요.","네, 처음 뵙겠습니다.","아니요, 안녕히 가세요.","네, 잘 먹었습니다."],a:0,v:"Hỏi thăm sau thời gian dài → 덕분에 (nhờ bạn) là cách đáp lịch sự và tự nhiên."},
+{k:"이어지는 말",lv:2,s:["몸이 안 좋아서 내일 못 올 것 같아요."],t:["Tôi không khoẻ nên mai chắc không đến được."],o:["푹 쉬세요.","축하합니다.","잘 먹겠습니다.","처음 뵙겠습니다."],a:0,v:"Nghe tin ai đó ốm thì nói lời quan tâm: 푹 쉬세요 (nghỉ cho kỹ nhé)."},
+{k:"이어지는 말",lv:2,s:["이번에 시험에 합격했어요."],t:["Lần này tôi đã đỗ kỳ thi."],o:["정말 축하해요.","많이 아프세요?","죄송합니다.","안녕히 계세요."],a:0,v:"Nghe tin vui thì chúc mừng: 축하해요."},
+
+{k:"장소",lv:1,s:["어서 오세요. 뭘 드릴까요?","사과 세 개 주세요."],t:["Mời vào. Chị cần gì ạ?","Cho tôi ba quả táo."],o:["가게","은행","병원","학교"],a:0,v:"Mua táo và nghe câu chào khách 어서 오세요 → đây là cửa hàng (가게)."},
+{k:"장소",lv:1,s:["어디가 아프세요?","머리가 아프고 열도 나요."],t:["Anh/chị đau ở đâu?","Tôi đau đầu và còn sốt nữa."],o:["약국","병원","식당","우체국"],a:1,v:"Người hỏi bệnh và bệnh nhân kể triệu chứng → bệnh viện (병원)."},
+{k:"장소",lv:1,s:["이 책을 빌리고 싶어요.","학생증을 보여 주세요."],t:["Tôi muốn mượn cuốn sách này.","Cho tôi xem thẻ sinh viên."],o:["서점","도서관","교실","은행"],a:1,v:"Mượn sách và xuất trình thẻ → thư viện (도서관). 서점 là tiệm sách để mua."},
+{k:"장소",lv:1,s:["통장을 만들려고 왔어요.","신분증 있으세요?"],t:["Tôi đến để mở sổ tài khoản.","Anh/chị có giấy tờ tuỳ thân không?"],o:["은행","우체국","시청","학교"],a:0,v:"통장(sổ tài khoản) chỉ mở ở ngân hàng (은행)."},
+{k:"장소",lv:1,s:["서울역까지 한 장 주세요.","네, 삼천 원입니다."],t:["Cho tôi một vé đến ga Seoul.","Vâng, ba nghìn won ạ."],o:["백화점","역","공항","식당"],a:1,v:"Mua vé tàu → nhà ga (역)."},
+{k:"장소",lv:1,s:["메뉴 좀 보여 주세요.","여기 있습니다. 주문하시겠어요?"],t:["Cho tôi xem thực đơn.","Đây ạ. Quý khách gọi món chưa?"],o:["식당","가게","시장","카페"],a:0,v:"Xem thực đơn và gọi món → nhà hàng (식당)."},
+{k:"장소",lv:1,s:["이 약은 하루에 세 번 드세요.","식사 후에 먹으면 돼요?"],t:["Thuốc này uống ba lần một ngày.","Uống sau bữa ăn đúng không ạ?"],o:["병원","약국","가게","편의점"],a:1,v:"Người bán giải thích cách uống thuốc → hiệu thuốc (약국)."},
+{k:"장소",lv:2,s:["이 소포를 베트남으로 보내고 싶어요.","무게를 먼저 재겠습니다."],t:["Tôi muốn gửi bưu kiện này sang Việt Nam.","Tôi sẽ cân trước ạ."],o:["우체국","은행","공항","가게"],a:0,v:"Gửi bưu kiện, cân trọng lượng → bưu điện (우체국)."},
+{k:"장소",lv:2,s:["머리를 조금만 짧게 잘라 주세요.","앞머리도 자를까요?"],t:["Cắt tóc ngắn bớt chút giúp tôi.","Cắt cả tóc mái không ạ?"],o:["미용실","병원","옷 가게","세탁소"],a:0,v:"Cắt tóc, cắt mái → tiệm làm tóc (미용실)."},
+{k:"장소",lv:2,s:["여권을 보여 주시겠어요?","네, 여기 있습니다. 짐은 하나예요."],t:["Cho tôi xem hộ chiếu được không ạ?","Vâng, đây ạ. Hành lý một kiện thôi."],o:["공항","역","호텔","대사관"],a:0,v:"Kiểm tra hộ chiếu và hành lý ký gửi → sân bay (공항)."},
+{k:"장소",lv:2,s:["방을 보러 왔는데요.","월세는 오십만 원이에요."],t:["Tôi đến xem phòng.","Tiền thuê tháng là năm trăm nghìn won."],o:["부동산","은행","호텔","학교"],a:0,v:"Xem phòng và hỏi tiền thuê → văn phòng bất động sản (부동산)."},
+{k:"장소",lv:2,s:["이 옷 입어 봐도 돼요?","네, 탈의실은 저쪽입니다."],t:["Tôi thử áo này được không?","Vâng, phòng thử ở đằng kia ạ."],o:["옷 가게","세탁소","미용실","서점"],a:0,v:"Thử quần áo, có phòng thử → cửa hàng quần áo (옷 가게)."},
+{k:"장소",lv:2,s:["외국인 등록증을 신청하러 왔습니다.","번호표를 뽑고 기다려 주세요."],t:["Tôi đến đăng ký thẻ người nước ngoài.","Xin lấy số và chờ ạ."],o:["출입국사무소","은행","병원","학교"],a:0,v:"Đăng ký thẻ cư trú → cục xuất nhập cảnh (출입국사무소)."},
+{k:"장소",lv:2,s:["다음 역에서 갈아타세요.","네, 몇 호선으로 갈아타요?"],t:["Hãy đổi tuyến ở ga sau.","Vâng, đổi sang tuyến số mấy ạ?"],o:["지하철","비행기","택시","배"],a:0,v:"Nói về đổi tuyến, số tuyến(호선) → tàu điện ngầm (지하철)."},
+{k:"장소",lv:2,s:["이 바지 좀 세탁해 주세요.","언제까지 해 드릴까요?"],t:["Giặt giúp tôi cái quần này.","Khi nào anh/chị cần ạ?"],o:["세탁소","옷 가게","미용실","가게"],a:0,v:"Gửi quần áo đi giặt → tiệm giặt (세탁소)."},
+
+{k:"화제",lv:1,s:["저는 사과를 좋아해요.","저는 바나나를 좋아해요."],t:["Tôi thích táo.","Tôi thì thích chuối."],o:["과일","음식","가게","계절"],a:0,v:"Táo và chuối đều là trái cây → chủ đề là 과일."},
+{k:"화제",lv:1,s:["오늘 날씨가 참 좋네요.","네, 하늘도 맑아요."],t:["Hôm nay thời tiết đẹp thật.","Vâng, trời cũng quang nữa."],o:["날씨","계절","여행","운동"],a:0,v:"Nói về trời đẹp, trời quang → chủ đề thời tiết (날씨)."},
+{k:"화제",lv:1,s:["제 동생은 열 살이에요.","제 동생은 중학생이에요."],t:["Em tôi mười tuổi.","Em tôi là học sinh cấp hai."],o:["가족","학교","나이","친구"],a:0,v:"Cả hai đều kể về em mình → chủ đề gia đình (가족)."},
+{k:"화제",lv:1,s:["저는 매일 아침에 운동해요.","저는 저녁에 수영을 해요."],t:["Sáng nào tôi cũng tập thể dục.","Tôi thì buổi tối đi bơi."],o:["운동","건강","시간","취미"],a:0,v:"Tập thể dục và bơi lội → chủ đề thể thao/vận động (운동)."},
+{k:"화제",lv:1,s:["저는 버스로 학교에 가요.","저는 지하철을 타요."],t:["Tôi đi học bằng xe buýt.","Tôi thì đi tàu điện ngầm."],o:["교통","학교","시간","장소"],a:0,v:"Xe buýt và tàu điện là phương tiện → chủ đề giao thông (교통)."},
+{k:"화제",lv:1,s:["이 옷은 삼만 원이에요.","좀 비싸네요."],t:["Cái áo này ba mươi nghìn won.","Hơi đắt nhỉ."],o:["값","옷","가게","돈"],a:0,v:"Nói về số tiền và đắt/rẻ → chủ đề giá cả (값)."},
+{k:"화제",lv:1,s:["제 생일은 유월이에요.","제 생일은 구월이에요."],t:["Sinh nhật tôi vào tháng sáu.","Sinh nhật tôi tháng chín."],o:["생일","계절","달력","선물"],a:0,v:"Cả hai nói về ngày sinh nhật của mình → chủ đề 생일."},
+{k:"화제",lv:2,s:["저는 주말에 보통 집에서 쉬어요.","저는 친구를 만나러 나가요."],t:["Cuối tuần tôi thường nghỉ ở nhà.","Tôi thì ra ngoài gặp bạn."],o:["주말","친구","집","휴가"],a:0,v:"Cả hai kể việc mình làm vào cuối tuần → chủ đề 주말."},
+{k:"화제",lv:2,s:["저는 한국 드라마를 자주 봐요.","저는 한국 노래를 많이 들어요."],t:["Tôi hay xem phim Hàn.","Tôi thì nghe nhiều nhạc Hàn."],o:["취미","한국","영화","음악"],a:0,v:"Việc mình thường làm lúc rảnh → chủ đề sở thích (취미)."},
+{k:"화제",lv:2,s:["저는 아홉 시부터 여섯 시까지 일해요.","저는 밤에 일하는 날도 있어요."],t:["Tôi làm từ chín giờ đến sáu giờ.","Tôi thì có ngày làm ban đêm."],o:["직업","시간","회사","근무 시간"],a:3,v:"Cả hai nói về khung giờ làm việc của mình → chủ đề 근무 시간 (giờ làm việc)."},
+{k:"화제",lv:2,s:["저는 작은 방에서 혼자 살아요.","저는 친구하고 같이 살아요."],t:["Tôi sống một mình trong phòng nhỏ.","Tôi sống chung với bạn."],o:["집","가족","친구","방"],a:0,v:"Nói về nơi mình ở và sống với ai → chủ đề nhà ở (집)."},
+{k:"화제",lv:2,s:["저는 음식을 만드는 걸 좋아해요.","저는 먹는 걸 더 좋아해요."],t:["Tôi thích nấu ăn.","Tôi thì thích ăn hơn."],o:["요리","음식","식당","취미"],a:0,v:"Chuyện làm món ăn/ăn món ăn, trọng tâm là 요리 (nấu nướng)."},
+{k:"화제",lv:2,s:["한국어는 발음이 어려워요.","저는 문법이 더 어려워요."],t:["Tiếng Hàn phát âm khó.","Với tôi ngữ pháp còn khó hơn."],o:["한국어 공부","학교","시험","선생님"],a:0,v:"Hai người bàn về cái khó khi học tiếng Hàn → chủ đề việc học tiếng Hàn."},
+{k:"화제",lv:2,s:["저는 여름보다 겨울이 좋아요.","저는 더운 게 좋아요."],t:["Tôi thích mùa đông hơn mùa hè.","Tôi thì thích trời nóng."],o:["계절","날씨","여행","온도"],a:0,v:"So sánh mùa hè với mùa đông → chủ đề mùa (계절)."},
+
+{k:"내용 일치",lv:2,s:["주말에 뭐 했어요?","친구하고 영화를 봤어요. 아주 재미있었어요."],t:["Cuối tuần bạn đã làm gì?","Tôi đi xem phim với bạn. Hay lắm."],o:["주말에 집에서 쉬었습니다.","친구와 영화를 봤습니다.","영화가 재미없었습니다.","혼자 영화를 봤습니다."],a:1,v:"Lời thoại nói rõ: xem phim cùng bạn và phim rất hay → đáp án là \"đã xem phim với bạn\"."},
+{k:"내용 일치",lv:2,s:["내일 시간 있어요?","미안해요. 내일은 약속이 있어요."],t:["Mai bạn có thời gian không?","Xin lỗi. Mai tôi có hẹn rồi."],o:["내일 시간이 많습니다.","내일 약속이 있습니다.","오늘 약속이 있습니다.","약속을 취소했습니다."],a:1,v:"Người trả lời nói 내일은 약속이 있어요 — ngày mai đã có hẹn."},
+{k:"내용 일치",lv:2,s:["이 식당 자주 와요?","네, 음식도 맛있고 값도 싸서 자주 와요."],t:["Bạn hay đến quán này à?","Vâng, món ngon mà giá lại rẻ nên tôi hay đến."],o:["음식이 비쌉니다.","처음 온 식당입니다.","음식이 맛있고 쌉니다.","값이 비싸지만 맛있습니다."],a:2,v:"맛있고 값도 싸다 = vừa ngon vừa rẻ. Đó là lý do người này hay đến."},
+{k:"내용 일치",lv:2,s:["어제 왜 안 왔어요?","감기에 걸려서 병원에 갔어요."],t:["Hôm qua sao bạn không đến?","Tôi bị cảm nên đã đi bệnh viện."],o:["어제 회사에 갔습니다.","어제 아파서 못 왔습니다.","오늘 병원에 갑니다.","감기가 다 나았습니다."],a:1,v:"Bị cảm (감기에 걸리다) nên đi bệnh viện → hôm qua ốm nên không đến được."},
+{k:"내용 일치",lv:2,s:["한국에 온 지 얼마나 됐어요?","이 년 됐어요. 지금은 많이 익숙해졌어요."],t:["Bạn sang Hàn bao lâu rồi?","Được hai năm rồi. Giờ tôi quen nhiều rồi."],o:["한국에 온 지 두 달 됐습니다.","한국 생활이 아직 힘듭니다.","한국에 온 지 이 년 됐습니다.","곧 한국에 갈 겁니다."],a:2,v:"이 년 = hai năm. Và người này nói đã quen (익숙해졌어요), không còn khó khăn."},
+{k:"내용 일치",lv:2,s:["이 가방 어디에서 샀어요?","인터넷으로 샀어요. 가격도 싸고 배송도 빨랐어요."],t:["Túi này bạn mua ở đâu?","Tôi mua trên mạng. Giá rẻ mà giao cũng nhanh."],o:["백화점에서 샀습니다.","배송이 느렸습니다.","인터넷에서 샀습니다.","가방이 비쌌습니다."],a:2,v:"인터넷으로 샀다 = mua qua mạng; giá rẻ và giao nhanh."},
+{k:"내용 일치",lv:2,s:["주말에 등산 갈까요?","좋아요. 그런데 비가 오면 다음에 가요."],t:["Cuối tuần mình đi leo núi nhé?","Được. Nhưng nếu mưa thì để lần sau."],o:["두 사람은 비가 와도 갑니다.","여자는 등산을 싫어합니다.","비가 오면 등산을 미룹니다.","이미 등산을 다녀왔습니다."],a:2,v:"비가 오면 다음에 가요 = nếu mưa thì đi lần sau → hoãn lại."},
+{k:"내용 일치",lv:2,s:["요즘도 아르바이트 해요?","아니요, 지난달에 그만뒀어요. 공부할 시간이 없어서요."],t:["Dạo này bạn còn làm thêm không?","Không, tháng trước tôi nghỉ rồi. Vì không có thời gian học."],o:["지금도 아르바이트를 합니다.","공부 때문에 일을 그만뒀습니다.","돈이 많아서 그만뒀습니다.","다음 달에 그만둘 겁니다."],a:1,v:"공부할 시간이 없어서 = vì không có thời gian học → đó là lý do nghỉ việc làm thêm."},
+{k:"내용 일치",lv:2,s:["집에서 회사까지 멀어요?","지하철로 사십 분쯤 걸려요. 가깝지는 않아요."],t:["Từ nhà đến công ty có xa không?","Đi tàu điện mất khoảng bốn mươi phút. Cũng không gần."],o:["회사가 집에서 가깝습니다.","걸어서 사십 분 걸립니다.","지하철로 사십 분 걸립니다.","버스로 다닙니다."],a:2,v:"지하철로 사십 분 = bốn mươi phút bằng tàu điện ngầm, không phải đi bộ."},
+{k:"내용 일치",lv:2,s:["표를 예매했어요?","네, 어제 인터넷으로 두 장 예매했어요."],t:["Bạn đặt vé chưa?","Rồi, hôm qua tôi đặt hai vé qua mạng."],o:["표를 아직 안 샀습니다.","오늘 표를 살 겁니다.","어제 표 두 장을 샀습니다.","한 장만 예매했습니다."],a:2,v:"어제 + 두 장 + 예매했다 → đã mua hai vé từ hôm qua."},
+{k:"내용 일치",lv:2,s:["이번 휴가에 뭐 할 거예요?","부모님을 뵈러 고향에 갈 거예요."],t:["Kỳ nghỉ này bạn sẽ làm gì?","Tôi sẽ về quê thăm bố mẹ."],o:["휴가에 일을 합니다.","고향에 갈 계획입니다.","여행을 갈 겁니다.","집에서 쉴 겁니다."],a:1,v:"고향에 갈 거예요 = sẽ về quê, và mục đích là thăm bố mẹ."},
+{k:"내용 일치",lv:2,s:["한국 음식 중에서 뭐가 제일 좋아요?","전에는 불고기였는데 지금은 김치찌개가 제일 좋아요."],t:["Trong món Hàn bạn thích nhất món nào?","Trước là thịt nướng, giờ thì canh kim chi nhất."],o:["지금도 불고기를 제일 좋아합니다.","김치찌개를 제일 좋아합니다.","한국 음식을 싫어합니다.","매운 음식을 못 먹습니다."],a:1,v:"전에는 ~였는데 지금은 ~ = trước kia là… còn bây giờ là… → hiện tại thích canh kim chi nhất."},
+{k:"내용 일치",lv:2,s:["오늘 좀 피곤해 보여요.","어제 밤늦게까지 일해서 세 시간밖에 못 잤어요."],t:["Hôm nay trông bạn mệt mỏi.","Hôm qua tôi làm đến khuya nên chỉ ngủ được ba tiếng."],o:["어제 일찍 잤습니다.","세 시간만 잤습니다.","오늘 일을 많이 했습니다.","피곤하지 않습니다."],a:1,v:"세 시간밖에 못 잤다 = chỉ ngủ được ba tiếng (밖에 + phủ định)."},
+{k:"내용 일치",lv:2,s:["그 영화 봤어요?","보고 싶었는데 표가 없어서 못 봤어요."],t:["Bạn xem phim đó chưa?","Tôi muốn xem nhưng hết vé nên không xem được."],o:["영화를 봤습니다.","영화를 보고 싶지 않았습니다.","표가 없어서 못 봤습니다.","내일 볼 겁니다."],a:2,v:"보고 싶었는데 못 봤다 = muốn xem nhưng không xem được, lý do là hết vé."},
+{k:"내용 일치",lv:2,s:["이사했다면서요?","네, 지난주에 회사 근처로 옮겼어요. 출근이 훨씬 편해졌어요."],t:["Nghe nói bạn chuyển nhà?","Vâng, tuần trước tôi chuyển đến gần công ty. Đi làm tiện hơn hẳn."],o:["아직 이사하지 않았습니다.","회사에서 먼 곳으로 갔습니다.","회사 근처로 이사했습니다.","출근이 더 힘들어졌습니다."],a:2,v:"회사 근처로 옮겼다 = chuyển đến gần công ty nên việc đi làm tiện hơn."},
+
+{k:"중심 생각",lv:2,s:["저는 매일 아침에 삼십 분씩 걸어요. 돈도 안 들고 건강에도 좋아서 계속하고 있어요."],t:["Sáng nào tôi cũng đi bộ ba mươi phút. Không tốn tiền lại tốt cho sức khoẻ nên tôi vẫn duy trì."],o:["아침에 일찍 일어나야 합니다.","걷기는 돈이 많이 듭니다.","걷기 운동은 돈이 안 들고 건강에 좋습니다.","운동은 삼십 분이면 충분합니다."],a:2,v:"Ý chính nằm ở lý do duy trì: không tốn tiền (돈도 안 들다) và tốt cho sức khoẻ."},
+{k:"중심 생각",lv:2,s:["한국어를 잘하고 싶으면 매일 조금씩 공부하는 게 좋아요. 하루에 많이 하고 며칠 쉬는 것보다 효과가 좋아요."],t:["Muốn giỏi tiếng Hàn thì nên học mỗi ngày một chút. Hiệu quả hơn là học thật nhiều một hôm rồi nghỉ mấy ngày."],o:["하루에 많이 공부해야 합니다.","매일 조금씩 공부하는 것이 좋습니다.","한국어는 배우기 어렵습니다.","며칠 쉬어도 괜찮습니다."],a:1,v:"Câu chủ đề là 매일 조금씩 공부하는 게 좋다 — học đều đặn mỗi ngày."},
+{k:"중심 생각",lv:2,s:["저는 음식을 만들어서 먹어요. 식당 음식보다 싸고 제 입맛에 맞게 만들 수 있어서 좋아요."],t:["Tôi tự nấu ăn. Rẻ hơn đồ ở quán và lại nấu hợp khẩu vị của mình nên tôi thích."],o:["식당 음식이 더 맛있습니다.","요리하는 것은 어렵습니다.","집에서 만들어 먹는 것이 좋습니다.","식당에 자주 갑니다."],a:2,v:"Hai lý do nêu ra đều ủng hộ việc tự nấu ăn ở nhà."},
+{k:"중심 생각",lv:2,s:["저는 약속 시간보다 십 분 일찍 나가요. 길이 막힐 수도 있고 늦으면 다른 사람이 기다려야 하니까요."],t:["Tôi ra sớm mười phút so với giờ hẹn. Vì có thể tắc đường, mà muộn thì người khác phải chờ."],o:["약속 시간에 늦어도 괜찮습니다.","약속 시간보다 일찍 가는 것이 좋습니다.","길이 자주 막힙니다.","기다리는 것을 싫어합니다."],a:1,v:"Ý chính là thói quen đi sớm; phần sau chỉ là lý do."},
+{k:"중심 생각",lv:2,s:["처음에는 한국어로 말할 때 실수할까 봐 걱정했어요. 그런데 틀려도 자꾸 말하니까 실력이 빨리 늘었어요."],t:["Ban đầu tôi sợ nói sai khi dùng tiếng Hàn. Nhưng cứ nói dù sai thì trình độ lại lên nhanh."],o:["실수하면 안 됩니다.","말하기 연습은 필요 없습니다.","틀려도 자꾸 말하는 것이 중요합니다.","한국어는 어렵습니다."],a:2,v:"Kết luận của người nói: cứ nói nhiều dù có sai thì mới tiến bộ."},
+{k:"중심 생각",lv:2,s:["저는 물건을 사기 전에 후기를 꼭 읽어요. 사진만 보고 사면 실제와 다를 때가 많거든요."],t:["Trước khi mua đồ tôi luôn đọc đánh giá. Vì chỉ nhìn ảnh mà mua thì nhiều khi khác thực tế."],o:["사진을 보고 사는 것이 좋습니다.","물건을 사기 전에 후기를 읽는 것이 좋습니다.","인터넷 쇼핑은 위험합니다.","물건값이 비쌉니다."],a:1,v:"Câu đầu là ý chính, câu sau (거든요) chỉ nêu lý do."},
+{k:"중심 생각",lv:2,s:["저는 모르는 것이 있으면 바로 물어봐요. 혼자 오래 고민하는 것보다 시간이 훨씬 절약되니까요."],t:["Có gì không biết là tôi hỏi ngay. Vì tiết kiệm thời gian hơn nhiều so với tự loay hoay lâu."],o:["혼자 생각하는 것이 좋습니다.","모르면 바로 물어보는 것이 좋습니다.","질문을 많이 하면 안 됩니다.","시간이 부족합니다."],a:1,v:"Người nói chủ trương hỏi ngay thay vì tự nghĩ mãi."},
+{k:"중심 생각",lv:2,s:["저는 주말에 휴대폰을 멀리 둬요. 그래야 가족과 이야기할 시간이 생기더라고요."],t:["Cuối tuần tôi để điện thoại xa ra. Có vậy mới có thời gian nói chuyện với gia đình."],o:["휴대폰이 꼭 필요합니다.","주말에는 쉬어야 합니다.","휴대폰을 멀리 하면 가족과 시간을 보낼 수 있습니다.","가족이 바쁩니다."],a:2,v:"Hành động (để điện thoại xa) và kết quả (có thời gian cho gia đình) chính là ý chính."},
+{k:"중심 생각",lv:2,s:["저는 새 물건을 살 때 오래 쓸 수 있는지 먼저 봐요. 싸게 사도 금방 고장 나면 더 비싸니까요."],t:["Khi mua đồ mới tôi xem trước là dùng được lâu không. Vì mua rẻ mà hỏng ngay thì còn tốn hơn."],o:["싼 물건을 사야 합니다.","오래 쓸 수 있는 물건을 사는 것이 좋습니다.","비싼 물건이 좋습니다.","물건이 자주 고장 납니다."],a:1,v:"Tiêu chí của người nói là độ bền, không phải giá rẻ."},
+{k:"중심 생각",lv:2,s:["한국 생활이 힘들 때마다 저는 고향 음식을 만들어 먹어요. 그러면 기분이 좋아지고 힘이 나요."],t:["Mỗi khi cuộc sống ở Hàn vất vả, tôi nấu món quê nhà để ăn. Làm vậy thì tâm trạng tốt lên và có sức."],o:["한국 음식이 맛있습니다.","고향 음식을 만들어 먹으면 힘이 납니다.","요리를 잘합니다.","한국 생활이 항상 힘듭니다."],a:1,v:"Cách người nói lấy lại tinh thần chính là nấu món quê nhà."}
+];
 /* ===================== CẤP ĐỘ & HỖ TRỢ ===================== */
 /* Những từ cơ bản ở trên nhưng thuộc mức TOPIK 2급 */
 const LV2 = new Set(("손님,부모님,결혼,변호사,기자,직업,사장님,우체국,편의점,백화점,도시,나라,층,식사,반찬,간장,고추장,문화,주소,"+
@@ -4209,7 +4352,7 @@ const MASCOT_HP = '<svg class="mascot" style="--hp-display:block" aria-hidden="t
 const lv2badge = o => o.lv === 2 ? '<span class="badge2">2급</span>' : "";
 
 /* ===================== ĐIỀU HƯỚNG ===================== */
-const PAGES = ["home","words","phrases","sentences","grammar"];
+const PAGES = ["home","words","phrases","sentences","grammar","exam"];
 function go(page){
   PAGES.forEach(p => { document.getElementById("page-" + p).hidden = (p !== page); });
   document.querySelectorAll("#nav button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.go === page)));
@@ -4217,6 +4360,7 @@ function go(page){
   try{ speechSynthesis.cancel(); }catch(e){}
   window.scrollTo({top:0, behavior:"instant"});
   if (page === "home") refreshHome();
+  if (page === "exam") examHome();
 }
 document.getElementById("nav").addEventListener("click", e => {
   const b = e.target.closest("button[data-go]"); if (b) go(b.dataset.go);
@@ -4236,6 +4380,7 @@ document.getElementById("levelSeg").addEventListener("click", e => {
   LEVEL = b.dataset.lv;
   document.querySelectorAll("#levelSeg button").forEach(x => x.setAttribute("aria-selected", String(x === b)));
   fillTopics(); renderWords(); drawPhrases(); drawSentences(); drawGrammar(); refreshHome();
+  if (!document.getElementById("page-exam").hidden) examHome();
 });
 
 /* ===================== TRANG CHỦ ===================== */
@@ -4516,6 +4661,147 @@ function makeRows(data, ids, unit){
 }
 const drawPhrases = makeRows(PH, {q:"pq", topic:"ptopic", meta:"pmeta", list:"plist", listen:"plisten"}, "cụm từ");
 const drawSentences = makeRows(SE, {q:"sq", topic:"stopic", meta:"smeta", list:"slist", listen:"slisten"}, "câu");
+
+/* ===================== THI NGHE TOPIK I ===================== */
+const EXTYPES = [
+  {k:"대답", ko:"질문을 듣고 알맞은 대답을 고르십시오.", vi:"Nghe câu hỏi và chọn câu trả lời phù hợp"},
+  {k:"이어지는 말", ko:"이어지는 말을 고르십시오.", vi:"Nghe và chọn câu nói tiếp theo cho đúng"},
+  {k:"장소", ko:"여기는 어디입니까?", vi:"Hai người đang ở đâu?"},
+  {k:"화제", ko:"무엇에 대해 이야기하고 있습니까?", vi:"Họ đang nói về chuyện gì?"},
+  {k:"내용 일치", ko:"들은 내용과 같은 것을 고르십시오.", vi:"Chọn nội dung trùng với đoạn hội thoại"},
+  {k:"중심 생각", ko:"남자/여자의 중심 생각을 고르십시오.", vi:"Chọn ý chính của người nói"}
+];
+const exType = k => EXTYPES.find(t => t.k === k) || EXTYPES[0];
+let exState = {type:"", len:10, pool:[], i:0, score:0, wrong:[], answered:false};
+
+function examPool(type){
+  return LISTEN.filter(q => okLv(q) && (!type || q.k === type));
+}
+function examHome(){
+  const box = document.getElementById("examHome");
+  document.getElementById("examRun").hidden = true;
+  box.hidden = false;
+  const best = store.get("exbest", 0);
+  const total = examPool("").length;
+  box.innerHTML = `
+    <div class="exintro">
+      <h3>Đề luyện nghe TOPIK I</h3>
+      <p>Nghe tiếng Hàn rồi chọn đáp án. Trả lời xong sẽ hiện <b>lời thoại tiếng Hàn</b>, <b>bản dịch tiếng Việt</b>,
+         <b>giải thích</b> và nút <b>nghe lại</b>.</p>
+      <div class="extypes" id="extypes">
+        <button class="extype" data-k="" aria-pressed="true">
+          <span class="n">전</span><span class="d"><span class="kr">전체 유형</span><span class="vi">Tất cả dạng câu hỏi</span></span>
+          <span class="c">${total}</span></button>
+        ${EXTYPES.map((t, i) => `
+        <button class="extype" data-k="${esc(t.k)}" aria-pressed="false">
+          <span class="n">${i + 1}</span>
+          <span class="d"><span class="kr">${esc(t.ko)}</span><span class="vi">${esc(t.vi)}</span></span>
+          <span class="c">${examPool(t.k).length}</span></button>`).join("")}
+      </div>
+      <p class="meta" style="margin:12px 0 6px">Chọn số câu để bắt đầu${best ? ` · điểm cao nhất của bạn: <b>${best}%</b>` : ""}</p>
+      <div class="btns">
+        <button class="btn gh" data-len="5">5 câu</button>
+        <button class="btn gh" data-len="10">10 câu</button>
+        <button class="btn pr" data-len="0">Toàn bộ</button>
+      </div>
+    </div>`;
+  box.querySelector("#extypes").addEventListener("click", e => {
+    const b = e.target.closest(".extype"); if (!b) return;
+    exState.type = b.dataset.k;
+    box.querySelectorAll(".extype").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  });
+  box.querySelectorAll("[data-len]").forEach(b => b.onclick = () => startExam(Number(b.dataset.len)));
+}
+function startExam(len){
+  const pool = shuffle(examPool(exState.type));
+  if (!pool.length){ alert("Không có câu hỏi ở mức này. Hãy đổi cấp độ ở thanh trên."); return; }
+  exState.pool = len ? pool.slice(0, len) : pool;
+  exState.i = 0; exState.score = 0; exState.wrong = []; exState.answered = false;
+  document.getElementById("examHome").hidden = true;
+  document.getElementById("examRun").hidden = false;
+  drawExam();
+}
+function playExam(q, rate){
+  const btn = document.getElementById("exPlay");
+  if (btn) btn.classList.add("on");
+  sayList(q.s, rate || .92, () => { const b = document.getElementById("exPlay"); if (b) b.classList.remove("on"); });
+}
+function drawExam(){
+  const box = document.getElementById("examRun");
+  const n = exState.pool.length;
+  if (exState.i >= n){ examResult(); return; }
+  const q = exState.pool[exState.i], t = exType(q.k);
+  exState.answered = false;
+  box.innerHTML = `
+    <div class="q">
+      <div class="exbar"><span class="exbadge">${esc(q.k)}</span>
+        <span>Câu ${exState.i + 1} / ${n} · ${exState.score}점</span></div>
+      <div class="bar" style="margin:0 0 14px"><i style="width:${Math.round(exState.i / n * 100)}%"></i></div>
+      <p class="exq"><b>${esc(t.ko)}</b>${esc(t.vi)}</p>
+      <div class="listenbox">
+        ${MASCOT_HP}
+        <button class="wavebtn" id="exPlay" aria-label="Nghe lại">${SPKBIG}</button>
+      </div>
+      <div class="opts" id="exOpts">
+        ${q.o.map((o, i) => `<button class="opt" data-i="${i}"><b style="color:var(--c5)">${i + 1}</b>&nbsp; ${esc(o)}</button>`).join("")}
+      </div>
+      <div class="btns"><button class="btn gh" id="exSlow">🐢 Nghe chậm</button></div>
+      <div id="exAfter"></div>
+    </div>`;
+  playExam(q);
+  document.getElementById("exPlay").onclick = () => playExam(q);
+  document.getElementById("exSlow").onclick = () => playExam(q, .55);
+  box.querySelectorAll("#exOpts .opt").forEach(b => b.onclick = () => {
+    if (exState.answered) return;
+    exState.answered = true;
+    const pick = Number(b.dataset.i), right = pick === q.a;
+    if (right) exState.score++; else exState.wrong.push(q);
+    box.querySelectorAll("#exOpts .opt").forEach(x => {
+      x.disabled = true;
+      if (Number(x.dataset.i) === q.a) x.classList.add("right"); else if (x === b) x.classList.add("wrong");
+    });
+    document.getElementById("exAfter").innerHTML = `
+      <div class="script">
+        <p class="lab">Lời thoại · 대화 내용</p>
+        ${q.s.map((line, i) => `<div class="ln"><div class="k">${esc(line)}</div><div class="v">${esc(q.t[i] || "")}</div></div>`).join("")}
+      </div>
+      <div class="solve"><b>Đáp án ${q.a + 1}.</b> ${esc(q.o[q.a])}<br>${esc(q.v)}</div>
+      <div class="btns">
+        <button class="btn gh" id="exAgain">${SPK} Nghe lại</button>
+        <button class="btn gh" id="exAgainSlow">🐢 Chậm</button>
+        <button class="btn pr" id="exNext">${exState.i + 1 >= n ? "Xem kết quả" : "Câu tiếp →"}</button>
+      </div>`;
+    document.getElementById("exAgain").onclick = () => playExam(q);
+    document.getElementById("exAgainSlow").onclick = () => playExam(q, .55);
+    document.getElementById("exNext").onclick = () => { exState.i++; drawExam(); };
+    document.getElementById("exAfter").scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+}
+function examResult(){
+  const n = exState.pool.length, pct = Math.round(exState.score / n * 100);
+  const best = store.get("exbest", 0);
+  if (pct > best) store.set("exbest", pct);
+  const msg = pct >= 80 ? "아주 잘했어요! Xuất sắc — bạn sẵn sàng cho TOPIK I rồi."
+            : pct >= 60 ? "잘하고 있어요! Khá tốt — nghe lại các câu sai là chắc hơn nữa."
+            : "괜찮아요! Hãy nghe lại lời thoại vài lần, tai sẽ quen rất nhanh.";
+  document.getElementById("examRun").innerHTML = `
+    <div class="q exres">
+      ${MASCOT_HP}
+      <div class="big">${pct}%</div>
+      <div class="sub">Đúng <b>${exState.score}</b> / ${n} câu${pct > best ? " · kỷ lục mới 🎉" : ""}</div>
+      <p class="meta" style="margin-top:10px">${esc(msg)}</p>
+      <div class="btns">
+        ${exState.wrong.length ? `<button class="btn no" id="exRetryWrong">Làm lại ${exState.wrong.length} câu sai</button>` : ""}
+        <button class="btn pr" id="exRetry">Làm lại từ đầu</button>
+        <button class="btn gh" id="exBack">Chọn dạng khác</button>
+      </div>
+    </div>`;
+  const w = exState.wrong.slice();
+  const rw = document.getElementById("exRetryWrong");
+  if (rw) rw.onclick = () => { exState.pool = shuffle(w); exState.i = 0; exState.score = 0; exState.wrong = []; drawExam(); };
+  document.getElementById("exRetry").onclick = () => startExam(n);
+  document.getElementById("exBack").onclick = () => examHome();
+}
 
 /* ===================== NGỮ PHÁP ===================== */
 const gq = document.getElementById("gq");
