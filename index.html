@@ -278,6 +278,13 @@ select.sel{flex:1 1 140px;background:var(--surface);border:1.5px solid var(--lin
 .vrow{display:flex;gap:9px;margin-top:9px;flex-wrap:wrap;align-items:center}
 .vrow select{flex:1 1 170px}
 .vstat{font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.5}
+.vlist{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.vitem{display:flex;align-items:center;gap:9px;background:var(--surface2);border-radius:13px;padding:10px 11px}
+.vitem.on{background:var(--c5s);outline:2px solid var(--c5)}
+.vitem .nm{flex:1;min-width:0;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vitem .tag{font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--c4s);color:var(--c4)}
+.vitem .pick{border:0;background:var(--c5);color:#fff;border-radius:10px;padding:7px 12px;font-size:12px;font-weight:700}
+.vitem .pick[disabled]{background:var(--surface3);color:var(--ink3)}
 .toast{position:fixed;left:16px;right:16px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:90;
   background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.5;
   box-shadow:0 10px 30px -10px rgba(0,0,0,.6);max-width:520px;margin:0 auto}
@@ -4487,9 +4494,16 @@ let LEVEL = "";           /* "", "1", "2" */
 const okLv = o => !LEVEL || String(o.lv) === LEVEL;
 
 /* lưu tiến độ trên máy người học */
+const memStore = {};
 const store = {
-  get(k, fb){ try{ const v = localStorage.getItem("thmn_" + k); return v ? JSON.parse(v) : fb; }catch(e){ return fb; } },
-  set(k, v){ try{ localStorage.setItem("thmn_" + k, JSON.stringify(v)); }catch(e){} }
+  get(k, fb){
+    try{ const v = localStorage.getItem("thmn_" + k); if (v !== null) return JSON.parse(v); }catch(e){}
+    return (k in memStore) ? memStore[k] : fb;
+  },
+  set(k, v){
+    memStore[k] = v;
+    try{ localStorage.setItem("thmn_" + k, JSON.stringify(v)); }catch(e){}
+  }
 };
 let known = new Set(store.get("known", []));
 let starred = new Set(store.get("star", []));
@@ -4849,14 +4863,56 @@ function renderVoiceCard(){
       : "⚠️ Trình duyệt này không đọc được tiếng Hàn. Hãy mở bằng <b>Chrome</b>."}
       ${ttsState === "fail" ? "<br>⚠️ Lần phát gần nhất không ra tiếng." : ""}</p>
     <div class="btns" style="margin-top:8px">
-      <button class="btn gh" id="voiceDiag">🔎 Chẩn đoán âm thanh · 음성 진단</button>
+      <button class="btn gh" id="voiceCompare" style="flex:1 1 150px">🎧 So sánh giọng · 목소리 비교</button>
+      <button class="btn gh" id="voiceDiag" style="flex:1 1 150px">🔎 Chẩn đoán · 음성 진단</button>
     </div>
+    <div id="vlistBox"></div>
     <div id="diagBox"></div>`;
   box.querySelector("#voiceSel").onchange = e => { store.set("voice", e.target.value); renderVoiceCard(); say("안녕하세요"); };
   box.querySelector("#voiceTest").onclick = () => { primeSpeech(); say("안녕하세요. 한국어 공부를 시작할까요?"); };
   box.querySelector("#voiceDiag").onclick = () => runDiag();
+  box.querySelector("#voiceCompare").onclick = () => renderVoiceList();
 }
 
+function renderVoiceList(){
+  const d = document.getElementById("vlistBox"); if (!d) return;
+  if (d.innerHTML){ d.innerHTML = ""; return; }
+  if (!koVoices.length){
+    d.innerHTML = `<p class="vstat">⚠️ Máy chưa cài giọng tiếng Hàn nào nên không có gì để so sánh.
+      Hãy nhấn <b>Chẩn đoán</b> để xem cách cài.</p>`;
+    return;
+  }
+  const cur = store.get("voice", ""), auto = pickVoice();
+  d.innerHTML = `<p class="vstat" style="margin-top:12px">
+      Nhấn ▶ để nghe thử từng giọng, rồi nhấn <b>Chọn</b> cho giọng bạn thích.
+      <br>목소리를 눌러 들어보고 마음에 드는 걸 <b>선택</b>하세요.</p>
+    <div class="vlist">
+      ${koVoices.map((v, i) => `
+        <div class="vitem ${v.voiceURI === (cur || (auto && auto.voiceURI)) ? "on" : ""}" data-i="${i}">
+          <button class="icb js-vplay" style="color:var(--c5)" aria-label="Nghe thử">${SPK}</button>
+          <span class="nm">${esc(v.name)}</span>
+          ${FEM.test(v.name) ? '<span class="tag">여성</span>' : (MALE.test(v.name) ? '<span class="tag" style="background:var(--c1s);color:var(--c1)">남성</span>' : "")}
+          <button class="pick js-vpick" ${v.voiceURI === cur ? "disabled" : ""}>${v.voiceURI === cur ? "✓ 사용 중" : "선택"}</button>
+        </div>`).join("")}
+    </div>`;
+  d.querySelectorAll(".vitem").forEach(row => {
+    const v = koVoices[Number(row.dataset.i)];
+    row.querySelector(".js-vplay").onclick = () => {
+      primeSpeech();
+      try{ speechSynthesis.cancel(); }catch(e){}
+      const u = new SpeechSynthesisUtterance("안녕하세요. 오늘도 한국어 공부 같이 해요.");
+      u.lang = "ko-KR"; u.rate = .9; u.pitch = 1.08; u.voice = v;
+      u.onstart = () => { ttsState = "ok"; };
+      speechSynthesis.speak(u);
+    };
+    const pick = row.querySelector(".js-vpick");
+    if (pick) pick.onclick = () => {
+      store.set("voice", v.voiceURI);
+      renderVoiceCard();
+      setTimeout(() => { renderVoiceList(); say("이 목소리로 읽어 드릴게요."); }, 60);
+    };
+  });
+}
 function runDiag(){
   const d = document.getElementById("diagBox"); if (!d) return;
   const ua = navigator.userAgent;
