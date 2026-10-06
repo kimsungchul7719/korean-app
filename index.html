@@ -1,0 +1,3651 @@
+<title>Duy의 한국어 발차기</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+:root{
+  --bg:#F3F5FF; --surface:#FFFFFF; --surface2:#EFF2FF; --surface3:#E4E9FF;
+  --ink:#141633; --ink2:#5B5F85; --ink3:#8A8FB4;
+  --line:#E3E7FA; --line2:#CED5F3;
+  --c1:#4C62F5; --c1s:#E4E9FF;
+  --c2:#00B08A; --c2s:#D8F5EE;
+  --c3:#FF8A2B; --c3s:#FFEBD9;
+  --c4:#EE4B8B; --c4s:#FFE2EE;
+  --c5:#8B5CF6; --c5s:#EEE5FF;
+  --ok:#16A34A; --oks:#DCFCE7; --bad:#E11D48; --bads:#FFE4EA;
+  --hero:linear-gradient(135deg,#5B6BF6 0%,#8B5CF6 48%,#F0569B 100%);
+  --sh:0 2px 4px rgba(22,24,60,.05), 0 12px 28px -18px rgba(22,24,60,.35);
+  --shx:0 10px 30px -12px rgba(91,107,246,.45);
+  --kr:"Noto Sans KR","Malgun Gothic",sans-serif;
+  --vi:"Be Vietnam Pro",system-ui,"Segoe UI",sans-serif;
+  --dp:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --hp-display:none;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#0F1024; --surface:#1A1B35; --surface2:#222446; --surface3:#2C2F58;
+  --ink:#ECEEFC; --ink2:#A7ABD2; --ink3:#8186B0;
+  --line:#2B2D52; --line2:#3A3D6B;
+  --c1:#8696FF; --c1s:#262C5E;
+  --c2:#2FD6AE; --c2s:#123E35;
+  --c3:#FFA95C; --c3s:#45290F;
+  --c4:#FF76AC; --c4s:#4A1730;
+  --c5:#B18AFF; --c5s:#2F1F58;
+  --ok:#4ADE80; --oks:#14341F; --bad:#FB7185; --bads:#43131F;
+  --sh:0 2px 4px rgba(0,0,0,.4), 0 14px 32px -20px rgba(0,0,0,.9);
+  --shx:0 10px 30px -12px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --bg:#0F1024; --surface:#1A1B35; --surface2:#222446; --surface3:#2C2F58;
+  --ink:#ECEEFC; --ink2:#A7ABD2; --ink3:#8186B0;
+  --line:#2B2D52; --line2:#3A3D6B;
+  --c1:#8696FF; --c1s:#262C5E; --c2:#2FD6AE; --c2s:#123E35;
+  --c3:#FFA95C; --c3s:#45290F; --c4:#FF76AC; --c4s:#4A1730;
+  --c5:#B18AFF; --c5s:#2F1F58;
+  --ok:#4ADE80; --oks:#14341F; --bad:#FB7185; --bads:#43131F;
+  --sh:0 2px 4px rgba(0,0,0,.4), 0 14px 32px -20px rgba(0,0,0,.9);
+  --shx:0 10px 30px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--vi);font-size:15px;line-height:1.55;
+  padding-bottom:104px;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--c1);outline-offset:2px;border-radius:8px}
+.kr,.ko{font-family:var(--kr)}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ===== app bar ===== */
+header.appbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--hero);color:#fff;
+  border-radius:0 0 22px 22px;box-shadow:var(--shx)}
+.barin{display:flex;align-items:center;gap:11px;max-width:760px;margin:0 auto;padding:11px 16px 12px}
+.mini{width:40px;height:40px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.barin h1{margin:0;font-family:var(--dp);font-weight:800;font-size:19px;letter-spacing:.2px;line-height:1.15}
+.barin p{margin:0;font-size:11.5px;opacity:.88;font-family:var(--kr)}
+.barin .t{flex:1;min-width:0}
+.bk{flex:none;border:0;background:rgba(255,255,255,.18);color:#fff;border-radius:999px;
+  width:36px;height:36px;display:grid;place-items:center;line-height:0}
+.levelbar{max-width:760px;margin:0 auto;padding:10px 16px 0}
+.seg{display:flex;gap:4px;background:var(--surface3);border-radius:13px;padding:4px}
+.seg button{flex:1;border:0;background:none;border-radius:10px;padding:8px 6px;font-size:12.5px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.seg button[aria-selected="true"]{background:var(--surface);color:var(--c1);box-shadow:var(--sh)}
+
+/* ===== home ===== */
+.hero{margin-top:14px;background:var(--hero);border-radius:24px;padding:18px 18px 20px;color:#fff;
+  box-shadow:var(--shx);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-50px;top:-60px;width:180px;height:180px;border-radius:50%;
+  background:rgba(255,255,255,.12)}
+.herotitle{position:relative;margin:0 0 2px;font-family:var(--kr);font-weight:900;font-size:26px;letter-spacing:-.5px;line-height:1.2}
+.herosub{position:relative;margin:0 0 14px;font-size:12.5px;opacity:.92;max-width:34ch}
+.herotop{display:flex;gap:14px;align-items:flex-start;position:relative}
+.mascot{width:86px;height:86px;flex:none;animation:bob 3.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+.bubble{background:rgba(255,255,255,.96);color:var(--ink);border-radius:16px 16px 16px 5px;padding:11px 13px;
+  font-size:13.5px;flex:1;box-shadow:0 6px 18px -8px rgba(0,0,0,.4)}
+.bubble b{font-family:var(--kr);color:var(--c1)}
+.ring{display:flex;gap:14px;align-items:center;margin-top:16px;position:relative}
+.ring svg{width:66px;height:66px;flex:none;transform:rotate(-90deg)}
+.ring .pt{font-family:var(--dp);font-weight:800;font-size:19px;line-height:1.1}
+.ring .ps{font-size:12.5px;opacity:.9}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:16px}
+.tile{border:0;text-align:left;background:var(--surface);border-radius:20px;padding:15px 14px;box-shadow:var(--sh);
+  display:flex;flex-direction:column;gap:3px;border-bottom:4px solid var(--tc)}
+.tile .bg{width:40px;height:40px;border-radius:13px;background:var(--tcs);color:var(--tc);display:grid;place-items:center;
+  font-family:var(--kr);font-weight:900;font-size:19px;margin-bottom:7px}
+.tile .tn{font-family:var(--dp);font-weight:700;font-size:16.5px}
+.tile .td{font-size:12px;color:var(--ink2)}
+.tile .tc{font-size:11.5px;font-weight:700;color:var(--tc);font-variant-numeric:tabular-nums}
+.wide{grid-column:1 / -1;flex-direction:row;align-items:center;gap:13px}
+.wide .bg{margin:0}
+.wide .tn{font-size:16px}
+.card-soft{margin-top:12px;background:var(--surface);border-radius:20px;padding:15px;box-shadow:var(--sh)}
+.lab{font-size:10.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.wod{display:flex;align-items:center;gap:12px;margin-top:8px}
+.wod .k{font-family:var(--kr);font-size:26px;font-weight:700;line-height:1.2}
+.wod .r{font-size:11.5px;color:var(--ink3)}
+.wod .v{font-size:14px;color:var(--ink2)}
+.playbig{flex:none;width:48px;height:48px;border-radius:16px;border:0;background:var(--c5s);color:var(--c5);
+  display:grid;place-items:center;line-height:0}
+.playbig:active{transform:scale(.94)}
+.note{display:flex;gap:9px;align-items:flex-start;background:var(--c3s);color:var(--ink);border-radius:16px;
+  padding:11px 13px;margin-top:12px;font-size:12.5px;line-height:1.5}
+.note svg{flex:none;color:var(--c3);margin-top:2px}
+
+/* ===== toolbars ===== */
+main{padding-block:0 10px}
+.ptitle{display:flex;align-items:center;gap:10px;margin:16px 0 2px}
+.ptitle .bg{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-family:var(--kr);
+  font-weight:900;font-size:16px;background:var(--tcs);color:var(--tc)}
+.ptitle h2{margin:0;font-family:var(--dp);font-weight:800;font-size:20px}
+.ptitle span{font-size:12px;color:var(--ink3);font-family:var(--kr)}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:11px}
+.search{flex:1 1 100%;display:flex;align-items:center;gap:9px;background:var(--surface);border:1.5px solid var(--line);
+  border-radius:15px;padding:0 13px;box-shadow:var(--sh)}
+.search:focus-within{border-color:var(--c1)}
+.search input{flex:1;min-width:0;border:0;background:none;padding:11px 0;font-family:inherit;font-size:14.5px;color:var(--ink)}
+.search input:focus{outline:none}
+.search svg{flex:none;color:var(--ink3)}
+select.sel{flex:1 1 140px;background:var(--surface);border:1.5px solid var(--line);border-radius:13px;padding:10px 11px;
+  font-family:inherit;font-size:13px;font-weight:500;color:var(--ink);box-shadow:var(--sh)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;width:100%}
+.chip{background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;
+  font-weight:500;color:var(--ink2);display:flex;gap:6px;align-items:center}
+.chip .n{font-size:10.5px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--tc,var(--c1));border-color:var(--tc,var(--c1));color:#fff;font-weight:600}
+.chip[aria-pressed="true"] .n{color:rgba(255,255,255,.8)}
+.modes{display:flex;gap:4px;background:var(--surface3);border-radius:14px;padding:4px;width:100%;overflow-x:auto;scrollbar-width:none}
+.modes::-webkit-scrollbar{display:none}
+.modes button{flex:1;border:0;background:none;padding:9px 10px;border-radius:11px;font-size:13px;font-weight:600;
+  color:var(--ink2);white-space:nowrap}
+.modes button[aria-selected="true"]{background:var(--surface);color:var(--tc,var(--c1));box-shadow:var(--sh)}
+.meta{font-size:12.5px;color:var(--ink3);margin:12px 0 10px}
+.meta b{color:var(--ink2);font-variant-numeric:tabular-nums}
+
+/* ===== word cards ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:10px}
+.card{background:var(--surface);border:0;border-radius:18px;padding:13px 13px 11px;box-shadow:var(--sh);
+  display:flex;flex-direction:column;gap:2px;position:relative;border-left:4px solid transparent}
+.card .ko{font-family:var(--kr);font-size:18.5px;font-weight:700;line-height:1.3;padding-right:46px}
+.card .ro{font-size:11px;color:var(--ink3);letter-spacing:.2px}
+.card .vi{font-size:13.5px;color:var(--ink);margin-top:5px;font-weight:500}
+.card .tag{margin-top:9px;align-self:flex-start;font-size:10px;letter-spacing:.3px;font-weight:700;
+  color:var(--tc);background:var(--tcs);border-radius:7px;padding:3px 7px}
+.card.known{border-left-color:var(--ok)}
+.card.known::before{content:"✓";position:absolute;left:8px;bottom:9px;color:var(--ok);font-weight:800;font-size:12px}
+.lvdot{position:absolute;left:-4px;top:-4px}
+.acts{position:absolute;top:8px;right:8px;display:flex;gap:1px}
+.icb{border:0;background:none;padding:6px;border-radius:9px;color:var(--ink3);line-height:0}
+.icb:active{background:var(--surface2)}
+.icb[aria-pressed="true"]{color:var(--c3)}
+.icb[aria-pressed="true"] svg{fill:var(--c3)}
+.badge2{font-size:9.5px;font-weight:800;letter-spacing:.3px;color:var(--c4);background:var(--c4s);
+  border-radius:6px;padding:2px 5px;align-self:flex-start;margin-top:7px}
+
+/* ===== rows ===== */
+.rows{display:flex;flex-direction:column;gap:9px}
+.row{background:var(--surface);border-radius:18px;padding:14px 15px;box-shadow:var(--sh);position:relative}
+.row .ko{font-family:var(--kr);font-size:16.5px;font-weight:600;line-height:1.5;padding-right:42px}
+.row .ro{font-size:11.5px;color:var(--ink3);margin-top:3px}
+.row .vi{font-size:14px;color:var(--ink2);margin-top:7px;padding-left:11px;border-left:3px solid var(--tcs)}
+.row .tag{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;color:var(--tc);background:var(--tcs);
+  border-radius:7px;padding:3px 8px}
+.rows.hide .ko,.rows.hide .ro,.rows.hide .vi{filter:blur(6px);user-select:none;transition:filter .2s}
+.rows.hide .row.open .ko,.rows.hide .row.open .ro,.rows.hide .row.open .vi{filter:none}
+.rows.hide .row::after{content:"듣고 맞혀 보세요 · Nghe rồi đoán nghĩa";position:absolute;inset:auto 0 8px 15px;
+  font-size:10.5px;color:var(--tc);font-weight:700}
+.rows.hide .row.open::after{content:""}
+.rows.hide .row{padding-bottom:28px}
+
+/* ===== grammar ===== */
+.gram{display:flex;flex-direction:column;gap:10px}
+.g{background:var(--surface);border-radius:18px;box-shadow:var(--sh);overflow:hidden}
+.g>summary{list-style:none;cursor:pointer;padding:14px 15px;display:flex;gap:11px;align-items:flex-start}
+.g>summary::-webkit-details-marker{display:none}
+.g .lv{flex:none;font-size:10px;font-weight:800;padding:3px 8px;border-radius:7px;background:var(--c4s);color:var(--c4);margin-top:3px}
+.g .ghead{flex:1;min-width:0}
+.g .gpat{font-family:var(--kr);font-size:16.5px;font-weight:700;color:var(--c4);display:block}
+.g .gsum{font-size:13px;color:var(--ink2);margin-top:2px;display:block}
+.caret{flex:none;color:var(--ink3);transition:transform .2s;margin-top:4px}
+.g[open] .caret{transform:rotate(180deg)}
+.gbody{padding:0 15px 16px}
+.gbody .form{font-family:var(--kr);font-size:13.5px;background:var(--surface2);border-radius:13px;padding:11px 13px;
+  color:var(--ink);overflow-x:auto;line-height:1.7}
+.gbody p{margin:11px 0 0;font-size:13.8px;color:var(--ink2)}
+.gbody .lab{margin:14px 0 7px}
+.ex{display:flex;flex-direction:column;gap:9px}
+.ex>div{background:var(--c4s);border-radius:13px;padding:10px 12px;cursor:pointer}
+.ex .ko{font-family:var(--kr);font-size:14.5px;font-weight:600}
+.ex .vi{font-size:12.8px;color:var(--ink2);margin-top:2px}
+
+/* ===== study ===== */
+.study{max-width:520px;margin:0 auto}
+.fc{background:var(--surface);border-radius:26px;box-shadow:var(--sh);min-height:240px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:7px;padding:28px 22px;text-align:center;cursor:pointer;border:2px solid var(--line)}
+.fc:active{transform:scale(.995)}
+.fc .big{font-family:var(--kr);font-size:38px;font-weight:700;line-height:1.25;word-break:keep-all}
+.fc .ro{font-size:13px;color:var(--ink3)}
+.fc .ans{font-size:21px;color:var(--c1);font-weight:700}
+.fc .hint{font-size:12px;color:var(--ink3);margin-top:8px}
+.fc .tag{font-size:10px;font-weight:800;color:var(--tc);background:var(--tcs);border-radius:7px;padding:3px 9px}
+.bar{height:7px;background:var(--surface3);border-radius:99px;overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;background:var(--hero);border-radius:99px;transition:width .3s}
+.btns{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}
+.btn{flex:1 1 110px;border:0;background:var(--surface);border-radius:15px;padding:13px;font-weight:700;font-size:14px;
+  box-shadow:var(--sh);display:flex;align-items:center;justify-content:center;gap:7px}
+.btn:active{transform:scale(.97)}
+.btn.ok{background:var(--ok);color:#fff}
+.btn.no{background:var(--bads);color:var(--bad)}
+.btn.pr{background:var(--c5);color:#fff}
+.btn.gh{color:var(--ink2);font-weight:600}
+.q{background:var(--surface);border-radius:26px;box-shadow:var(--sh);padding:22px 18px}
+.score{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2);font-weight:600;
+  margin-bottom:14px;font-variant-numeric:tabular-nums}
+.qask{font-family:var(--kr);font-size:33px;font-weight:700;text-align:center;line-height:1.25}
+.qro{text-align:center;font-size:12.5px;color:var(--ink3);margin-top:4px}
+.opts{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--surface2);border-radius:15px;padding:13px 14px;
+  font-size:14px;font-weight:500}
+.opt:active:not(:disabled){transform:scale(.99)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--oks);border-color:var(--ok);color:var(--ok);font-weight:700}
+.opt.wrong{background:var(--bads);border-color:var(--bad);color:var(--bad)}
+.listenbox{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 2px}
+.listenbox .mascot{width:76px;height:76px;animation:none}
+.wavebtn{width:96px;height:96px;border-radius:50%;border:0;background:var(--c5);color:#fff;display:grid;place-items:center;
+  box-shadow:0 10px 26px -10px var(--c5);margin:6px 0}
+.wavebtn:active{transform:scale(.95)}
+.wavebtn.on{animation:pulse 1.1s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--c5s),0 10px 26px -10px var(--c5)}100%{box-shadow:0 0 0 22px transparent,0 10px 26px -10px var(--c5)}}
+.reveal{font-family:var(--kr);font-size:26px;font-weight:700;text-align:center;margin-top:6px}
+.secret{font-size:13px;color:var(--ink3);text-align:center}
+.empty{text-align:center;color:var(--ink3);padding:40px 16px;font-size:14px}
+.empty .mascot{width:84px;height:84px;margin-bottom:6px}
+
+/* ===== bottom nav ===== */
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:0 12px;
+  padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));pointer-events:none}
+nav.bottom .navin{pointer-events:auto;max-width:520px;margin:0 auto;background:var(--surface);
+  border:1px solid var(--line);border-radius:22px;box-shadow:0 -2px 30px -10px rgba(22,24,60,.3);
+  display:grid;grid-template-columns:repeat(5,1fr);padding:7px 6px}
+nav.bottom button{border:0;background:none;padding:6px 2px 5px;border-radius:14px;display:flex;flex-direction:column;
+  align-items:center;gap:3px;color:var(--ink3);font-size:10.5px;font-weight:600;line-height:1.1}
+nav.bottom button .nb{width:30px;height:30px;border-radius:11px;display:grid;place-items:center;
+  font-family:var(--kr);font-weight:900;font-size:14px;background:var(--surface2);transition:background .15s}
+nav.bottom button[aria-selected="true"]{color:var(--nc)}
+nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc)}
+@media (min-width:600px){.tiles{grid-template-columns:1fr 1fr 1fr}.wide{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<svg class="sprite" aria-hidden="true" focusable="false"><symbol id="tiger" viewBox="0 0 120 120">
+  <g><ellipse cx="24" cy="30" rx="15" ry="15" fill="#F59A3C"/><ellipse cx="24" cy="31" rx="7" ry="7" fill="#F06A6A"/>
+  <ellipse cx="96" cy="30" rx="15" ry="15" fill="#F59A3C"/><ellipse cx="96" cy="31" rx="7" ry="7" fill="#F06A6A"/>
+  <ellipse cx="60" cy="64" rx="45" ry="42" fill="#FBB24B"/>
+  <path d="M60 24c0 8 0 12 0 16" stroke="#8C4A14" stroke-width="5" stroke-linecap="round"/>
+  <path d="M44 28c2 7 3 10 5 14" stroke="#8C4A14" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M76 28c-2 7-3 10-5 14" stroke="#8C4A14" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M15 58c6 1 9 2 13 3" stroke="#8C4A14" stroke-width="4" stroke-linecap="round"/>
+  <path d="M105 58c-6 1-9 2-13 3" stroke="#8C4A14" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="60" cy="78" rx="27" ry="21" fill="#FFF3DC"/>
+  <ellipse cx="30" cy="76" rx="9" ry="6.5" fill="#F58BA0" opacity=".75"/>
+  <ellipse cx="90" cy="76" rx="9" ry="6.5" fill="#F58BA0" opacity=".75"/>
+  <ellipse cx="44" cy="61" rx="7" ry="8" fill="#2A2342"/><ellipse cx="46.5" cy="58" rx="2.4" ry="2.6" fill="#fff"/>
+  <ellipse cx="76" cy="61" rx="7" ry="8" fill="#2A2342"/><ellipse cx="78.5" cy="58" rx="2.4" ry="2.6" fill="#fff"/>
+  <path d="M53 74h14l-7 7z" fill="#E0603F"/>
+  <path d="M60 81v4M60 85c-4 5-11 4-13-1M60 85c4 5 11 4 13-1" stroke="#9A4A2E" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+  <g style="display:var(--hp-display,none)">
+    <path d="M14 56a46 46 0 0 1 92 0" stroke="#6D5BF6" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <rect x="2" y="52" width="20" height="30" rx="9" fill="#6D5BF6"/>
+    <rect x="98" y="52" width="20" height="30" rx="9" fill="#6D5BF6"/>
+  </g></g>
+</symbol></svg>
+
+<header class="appbar">
+  <div class="barin">
+    <button class="bk" id="homeBtn" title="Về trang chủ" aria-label="Về trang chủ">
+      <svg class="mini" style="width:26px;height:26px" aria-hidden="true"><use href="#tiger"/></svg>
+    </button>
+    <div class="t">
+      <h1>Duy의 한국어 발차기</h1>
+      <p>베트남인을 위한 한국어 · TOPIK 1~3급</p>
+    </div>
+  </div>
+</header>
+<div class="levelbar">
+  <div class="seg" id="levelSeg" role="tablist" aria-label="Trình độ">
+    <button role="tab" data-lv="" aria-selected="true">Tất cả</button>
+    <button role="tab" data-lv="1">TOPIK 1급</button>
+    <button role="tab" data-lv="2">TOPIK 2급</button>
+    <button role="tab" data-lv="3">3급+</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <!-- ============ TRANG CHỦ ============ -->
+  <section id="page-home">
+    <div class="hero">
+      <h2 class="herotitle">Duy의 한국어 발차기</h2>
+      <p class="herosub">Học tiếng Hàn cho người Việt — từ vựng, cụm từ, câu, ngữ pháp &amp; luyện nghe</p>
+      <div class="herotop">
+        <svg class="mascot" aria-hidden="true"><use href="#tiger"/></svg>
+        <div class="bubble" id="bubble"><b>안녕하세요!</b> Mình là Hoban, bạn học tiếng Hàn của bạn. Hôm nay mình luyện gì nhé?</div>
+      </div>
+      <div class="ring">
+        <svg viewBox="0 0 80 80" aria-hidden="true">
+          <circle cx="40" cy="40" r="33" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="9"/>
+          <circle id="ringArc" cx="40" cy="40" r="33" fill="none" stroke="#fff" stroke-width="9"
+                  stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="207"/>
+        </svg>
+        <div><div class="pt" id="ringTxt">0 / 0 từ</div><div class="ps">Tiến độ từ vựng đã thuộc của bạn</div></div>
+      </div>
+    </div>
+
+    <div class="tiles">
+      <button class="tile" data-go="words" style="--tc:var(--c1);--tcs:var(--c1s)">
+        <span class="bg">단</span><span class="tn">Từ vựng</span>
+        <span class="td">Danh từ · động từ · tính từ · trạng từ</span><span class="tc" id="cntW"></span>
+      </button>
+      <button class="tile" data-go="phrases" style="--tc:var(--c2);--tcs:var(--c2s)">
+        <span class="bg">구</span><span class="tn">Cụm từ</span>
+        <span class="td">Mẫu nói sẵn dùng ngay</span><span class="tc" id="cntP"></span>
+      </button>
+      <button class="tile" data-go="sentences" style="--tc:var(--c3);--tcs:var(--c3s)">
+        <span class="bg">문</span><span class="tn">Câu</span>
+        <span class="td">Câu thực tế theo tình huống</span><span class="tc" id="cntS"></span>
+      </button>
+      <button class="tile" data-go="grammar" style="--tc:var(--c4);--tcs:var(--c4s)">
+        <span class="bg">법</span><span class="tn">Ngữ pháp</span>
+        <span class="td">Mẫu câu TOPIK 1·2급</span><span class="tc" id="cntG"></span>
+      </button>
+      <button class="tile wide" id="goListen" style="--tc:var(--c5);--tcs:var(--c5s)">
+        <span class="bg">듣</span>
+        <span style="flex:1"><span class="tn">Luyện nghe</span>
+        <span class="td" style="display:block">Nghe giọng Hàn rồi chọn nghĩa — không xem chữ trước</span></span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="color:var(--c5)"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <div class="card-soft">
+      <span class="lab">Từ của hôm nay · 오늘의 단어</span>
+      <div class="wod" id="wod"></div>
+    </div>
+
+    <div class="note" id="voiceNote" hidden>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <span id="voiceNoteTxt"></span>
+    </div>
+  </section>
+
+  <!-- ============ TỪ VỰNG ============ -->
+  <section id="page-words" hidden style="--tc:var(--c1);--tcs:var(--c1s)">
+    <div class="ptitle"><span class="bg">단</span><div><h2>Từ vựng</h2><span>단어</span></div></div>
+    <div class="toolbar">
+      <label class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="wq" type="search" placeholder="Tìm từ Hàn, phiên âm hoặc nghĩa Việt…" autocomplete="off">
+      </label>
+      <div class="modes" id="wmodes" role="tablist">
+        <button role="tab" data-m="list" aria-selected="true">Danh sách</button>
+        <button role="tab" data-m="card" aria-selected="false">Thẻ nhớ</button>
+        <button role="tab" data-m="quiz" aria-selected="false">Trắc nghiệm</button>
+        <button role="tab" data-m="listen" aria-selected="false">Luyện nghe</button>
+      </div>
+      <div class="chips" id="wpos"></div>
+      <select class="sel" id="wtopic"><option value="">Mọi chủ đề</option></select>
+      <select class="sel" id="wfilter">
+        <option value="all">Tất cả từ</option>
+        <option value="star">Từ đã lưu ★</option>
+        <option value="unknown">Chưa thuộc</option>
+        <option value="known">Đã thuộc</option>
+      </select>
+    </div>
+    <p class="meta" id="wmeta"></p>
+    <div id="wlist" class="grid"></div>
+    <div id="wcard" class="study" hidden></div>
+    <div id="wquiz" class="study" hidden></div>
+    <div id="wlisten" class="study" hidden></div>
+  </section>
+
+  <!-- ============ CỤM TỪ ============ -->
+  <section id="page-phrases" hidden style="--tc:var(--c2);--tcs:var(--c2s)">
+    <div class="ptitle"><span class="bg">구</span><div><h2>Cụm từ</h2><span>구 · 표현</span></div></div>
+    <div class="toolbar">
+      <label class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="pq" type="search" placeholder="Tìm cụm từ…" autocomplete="off">
+      </label>
+      <select class="sel" id="ptopic"><option value="">Mọi tình huống</option></select>
+      <button class="btn gh" id="plisten" style="flex:1 1 150px" aria-pressed="false">🎧 Chế độ nghe</button>
+    </div>
+    <p class="meta" id="pmeta"></p>
+    <div id="plist" class="rows"></div>
+  </section>
+
+  <!-- ============ CÂU ============ -->
+  <section id="page-sentences" hidden style="--tc:var(--c3);--tcs:var(--c3s)">
+    <div class="ptitle"><span class="bg">문</span><div><h2>Câu</h2><span>문장</span></div></div>
+    <div class="toolbar">
+      <label class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="sq" type="search" placeholder="Tìm câu…" autocomplete="off">
+      </label>
+      <select class="sel" id="stopic"><option value="">Mọi tình huống</option></select>
+      <button class="btn gh" id="slisten" style="flex:1 1 150px" aria-pressed="false">🎧 Chế độ nghe</button>
+    </div>
+    <p class="meta" id="smeta"></p>
+    <div id="slist" class="rows"></div>
+  </section>
+
+  <!-- ============ NGỮ PHÁP ============ -->
+  <section id="page-grammar" hidden style="--tc:var(--c4);--tcs:var(--c4s)">
+    <div class="ptitle"><span class="bg">법</span><div><h2>Ngữ pháp</h2><span>문법</span></div></div>
+    <div class="toolbar">
+      <label class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="gq" type="search" placeholder="Tìm ngữ pháp (vd: 으면, quá khứ, muốn)…" autocomplete="off">
+      </label>
+    </div>
+    <p class="meta" id="gmeta"></p>
+    <div id="glist" class="gram"></div>
+  </section>
+</main>
+
+<nav class="bottom" aria-label="Điều hướng chính"><div class="navin" id="nav" role="tablist">
+  <button role="tab" data-go="home" aria-selected="true" style="--nc:var(--c5);--ncs:var(--c5s)"><span class="nb">홈</span>Trang chủ</button>
+  <button role="tab" data-go="words" aria-selected="false" style="--nc:var(--c1);--ncs:var(--c1s)"><span class="nb">단</span>Từ vựng</button>
+  <button role="tab" data-go="phrases" aria-selected="false" style="--nc:var(--c2);--ncs:var(--c2s)"><span class="nb">구</span>Cụm từ</button>
+  <button role="tab" data-go="sentences" aria-selected="false" style="--nc:var(--c3);--ncs:var(--c3s)"><span class="nb">문</span>Câu</button>
+  <button role="tab" data-go="grammar" aria-selected="false" style="--nc:var(--c4);--ncs:var(--c4s)"><span class="nb">법</span>Ngữ pháp</button>
+</div></nav>
+
+<script>
+const NOUNS = [
+"사람|saram|người|Con người",
+"남자|namja|đàn ông, con trai|Con người",
+"여자|yeoja|phụ nữ, con gái|Con người",
+"아이|ai|đứa trẻ|Con người",
+"어른|eoreun|người lớn|Con người",
+"친구|chingu|bạn bè|Con người",
+"손님|sonnim|khách|Con người",
+"이름|ireum|tên|Con người",
+"나이|nai|tuổi|Con người",
+"생일|saengil|sinh nhật|Con người",
+"가족|gajok|gia đình|Gia đình",
+"아버지|abeoji|bố (lịch sự)|Gia đình",
+"어머니|eomeoni|mẹ (lịch sự)|Gia đình",
+"아빠|appa|bố (thân mật)|Gia đình",
+"엄마|eomma|mẹ (thân mật)|Gia đình",
+"부모님|bumonim|bố mẹ|Gia đình",
+"형|hyeong|anh trai (nam gọi)|Gia đình",
+"오빠|oppa|anh trai (nữ gọi)|Gia đình",
+"누나|nuna|chị gái (nam gọi)|Gia đình",
+"언니|eonni|chị gái (nữ gọi)|Gia đình",
+"동생|dongsaeng|em (trai/gái)|Gia đình",
+"할아버지|harabeoji|ông|Gia đình",
+"할머니|halmeoni|bà|Gia đình",
+"아들|adeul|con trai|Gia đình",
+"딸|ttal|con gái|Gia đình",
+"남편|nampyeon|chồng|Gia đình",
+"아내|anae|vợ|Gia đình",
+"결혼|gyeolhon|sự kết hôn|Gia đình",
+"선생님|seonsaengnim|giáo viên, thầy/cô|Nghề nghiệp",
+"학생|haksaeng|học sinh, sinh viên|Nghề nghiệp",
+"의사|uisa|bác sĩ|Nghề nghiệp",
+"간호사|ganhosa|điều dưỡng|Nghề nghiệp",
+"회사원|hoesawon|nhân viên công ty|Nghề nghiệp",
+"경찰|gyeongchal|cảnh sát|Nghề nghiệp",
+"요리사|yorisa|đầu bếp|Nghề nghiệp",
+"운전사|unjeonsa|tài xế|Nghề nghiệp",
+"가수|gasu|ca sĩ|Nghề nghiệp",
+"배우|baeu|diễn viên|Nghề nghiệp",
+"기자|gija|phóng viên|Nghề nghiệp",
+"변호사|byeonhosa|luật sư|Nghề nghiệp",
+"직업|jigeop|nghề nghiệp|Nghề nghiệp",
+"사장님|sajangnim|giám đốc, chủ|Nghề nghiệp",
+"집|jip|nhà|Địa điểm",
+"학교|hakgyo|trường học|Địa điểm",
+"회사|hoesa|công ty|Địa điểm",
+"병원|byeongwon|bệnh viện|Địa điểm",
+"약국|yakguk|hiệu thuốc|Địa điểm",
+"은행|eunhaeng|ngân hàng|Địa điểm",
+"시장|sijang|chợ|Địa điểm",
+"백화점|baekhwajeom|trung tâm thương mại|Địa điểm",
+"가게|gage|cửa hàng|Địa điểm",
+"편의점|pyeonijeom|cửa hàng tiện lợi|Địa điểm",
+"식당|sikdang|nhà hàng, quán ăn|Địa điểm",
+"카페|kape|quán cà phê|Địa điểm",
+"공항|gonghang|sân bay|Địa điểm",
+"역|yeok|nhà ga|Địa điểm",
+"공원|gongwon|công viên|Địa điểm",
+"도서관|doseogwan|thư viện",
+"교실|gyosil|lớp học|Địa điểm",
+"화장실|hwajangsil|nhà vệ sinh|Địa điểm",
+"방|bang|phòng|Địa điểm",
+"부엌|bueok|nhà bếp|Địa điểm",
+"거실|geosil|phòng khách|Địa điểm",
+"우체국|ucheguk|bưu điện|Địa điểm",
+"마을|maeul|làng, khu phố|Địa điểm",
+"도시|dosi|thành phố|Địa điểm",
+"나라|nara|quốc gia|Địa điểm",
+"한국|Hanguk|Hàn Quốc|Địa điểm",
+"베트남|Beteunam|Việt Nam|Địa điểm",
+"서울|Seoul|Seoul|Địa điểm",
+"길|gil|con đường|Địa điểm",
+"층|cheung|tầng|Địa điểm",
+"밥|bap|cơm, bữa ăn|Ăn uống",
+"음식|eumsik|đồ ăn, thức ăn|Ăn uống",
+"물|mul|nước|Ăn uống",
+"고기|gogi|thịt|Ăn uống",
+"돼지고기|dwaejigogi|thịt lợn|Ăn uống",
+"소고기|sogogi|thịt bò|Ăn uống",
+"닭고기|dakgogi|thịt gà|Ăn uống",
+"생선|saengseon|cá (để ăn)|Ăn uống",
+"야채|yachae|rau|Ăn uống",
+"과일|gwail|trái cây|Ăn uống",
+"사과|sagwa|táo|Ăn uống",
+"바나나|banana|chuối|Ăn uống",
+"포도|podo|nho|Ăn uống",
+"수박|subak|dưa hấu|Ăn uống",
+"딸기|ttalgi|dâu tây|Ăn uống",
+"김치|kimchi|kim chi|Ăn uống",
+"라면|ramyeon|mì ăn liền|Ăn uống",
+"빵|ppang|bánh mì|Ăn uống",
+"우유|uyu|sữa|Ăn uống",
+"커피|keopi|cà phê|Ăn uống",
+"차|cha|trà|Ăn uống",
+"술|sul|rượu, đồ có cồn|Ăn uống",
+"맥주|maekju|bia|Ăn uống",
+"설탕|seoltang|đường|Ăn uống",
+"소금|sogeum|muối|Ăn uống",
+"달걀|dalgyal|trứng|Ăn uống",
+"쌀|ssal|gạo|Ăn uống",
+"국|guk|canh|Ăn uống",
+"찌개|jjigae|món lẩu/hầm Hàn|Ăn uống",
+"반찬|banchan|món ăn kèm|Ăn uống",
+"간장|ganjang|nước tương|Ăn uống",
+"고추장|gochujang|tương ớt Hàn|Ăn uống",
+"식사|siksa|bữa ăn|Ăn uống",
+"맛|mat|vị|Ăn uống",
+"책|chaek|sách|Đồ vật",
+"공책|gongchaek|vở|Đồ vật",
+"연필|yeonpil|bút chì|Đồ vật",
+"볼펜|bolpen|bút bi|Đồ vật",
+"가방|gabang|cặp, túi|Đồ vật",
+"지갑|jigap|ví|Đồ vật",
+"돈|don|tiền|Đồ vật",
+"휴대폰|hyudaepon|điện thoại di động|Đồ vật",
+"컴퓨터|keompyuteo|máy tính|Đồ vật",
+"텔레비전|tellebijeon|ti vi|Đồ vật",
+"시계|sigye|đồng hồ|Đồ vật",
+"안경|angyeong|mắt kính|Đồ vật",
+"옷|ot|quần áo|Đồ vật",
+"바지|baji|quần|Đồ vật",
+"치마|chima|váy|Đồ vật",
+"신발|sinbal|giày dép|Đồ vật",
+"모자|moja|mũ|Đồ vật",
+"양말|yangmal|tất, vớ|Đồ vật",
+"우산|usan|dù, ô|Đồ vật",
+"열쇠|yeolsoe|chìa khoá|Đồ vật",
+"문|mun|cửa|Đồ vật",
+"창문|changmun|cửa sổ|Đồ vật",
+"의자|uija|ghế|Đồ vật",
+"책상|chaeksang|bàn học|Đồ vật",
+"침대|chimdae|giường|Đồ vật",
+"거울|geoul|gương|Đồ vật",
+"수건|sugeon|khăn|Đồ vật",
+"비누|binu|xà phòng|Đồ vật",
+"종이|jongi|giấy|Đồ vật",
+"사진|sajin|ảnh|Đồ vật",
+"선물|seonmul|quà|Đồ vật",
+"표|pyo|vé|Đồ vật",
+"자동차|jadongcha|xe hơi|Giao thông",
+"자전거|jajeongeo|xe đạp|Giao thông",
+"오토바이|otobai|xe máy|Giao thông",
+"버스|beoseu|xe buýt|Giao thông",
+"지하철|jihacheol|tàu điện ngầm|Giao thông",
+"기차|gicha|tàu hoả|Giao thông",
+"비행기|bihaenggi|máy bay|Giao thông",
+"배|bae|thuyền, tàu|Giao thông",
+"택시|taeksi|taxi|Giao thông",
+"시간|sigan|thời gian, giờ|Thời gian",
+"오늘|oneul|hôm nay|Thời gian",
+"어제|eoje|hôm qua|Thời gian",
+"내일|naeil|ngày mai|Thời gian",
+"모레|more|ngày mốt|Thời gian",
+"아침|achim|buổi sáng|Thời gian",
+"점심|jeomsim|buổi trưa, bữa trưa|Thời gian",
+"저녁|jeonyeok|buổi tối, bữa tối|Thời gian",
+"밤|bam|đêm|Thời gian",
+"낮|nat|ban ngày|Thời gian",
+"주말|jumal|cuối tuần|Thời gian",
+"요일|yoil|thứ (trong tuần)|Thời gian",
+"월요일|woryoil|thứ Hai|Thời gian",
+"화요일|hwayoil|thứ Ba|Thời gian",
+"수요일|suyoil|thứ Tư|Thời gian",
+"목요일|mogyoil|thứ Năm|Thời gian",
+"금요일|geumyoil|thứ Sáu|Thời gian",
+"토요일|toyoil|thứ Bảy|Thời gian",
+"일요일|iryoil|Chủ nhật|Thời gian",
+"올해|olhae|năm nay|Thời gian",
+"작년|jangnyeon|năm ngoái|Thời gian",
+"내년|naennyeon|năm sau|Thời gian",
+"방학|banghak|kỳ nghỉ (học)|Thời gian",
+"휴가|hyuga|kỳ nghỉ phép|Thời gian",
+"몸|mom|cơ thể|Cơ thể & sức khoẻ",
+"머리|meori|đầu, tóc|Cơ thể & sức khoẻ",
+"얼굴|eolgul|mặt|Cơ thể & sức khoẻ",
+"눈|nun|mắt|Cơ thể & sức khoẻ",
+"코|ko|mũi|Cơ thể & sức khoẻ",
+"입|ip|miệng|Cơ thể & sức khoẻ",
+"귀|gwi|tai|Cơ thể & sức khoẻ",
+"이|i|răng|Cơ thể & sức khoẻ",
+"손|son|tay|Cơ thể & sức khoẻ",
+"발|bal|chân (bàn chân)|Cơ thể & sức khoẻ",
+"다리|dari|chân (cả chân)|Cơ thể & sức khoẻ",
+"팔|pal|cánh tay|Cơ thể & sức khoẻ",
+"허리|heori|lưng, hông|Cơ thể & sức khoẻ",
+"목|mok|cổ|Cơ thể & sức khoẻ",
+"병|byeong|bệnh|Cơ thể & sức khoẻ",
+"약|yak|thuốc|Cơ thể & sức khoẻ",
+"감기|gamgi|cảm lạnh|Cơ thể & sức khoẻ",
+"열|yeol|cơn sốt|Cơ thể & sức khoẻ",
+"날씨|nalssi|thời tiết|Thiên nhiên",
+"비|bi|mưa|Thiên nhiên",
+"눈(날씨)|nun|tuyết|Thiên nhiên",
+"바람|baram|gió|Thiên nhiên",
+"구름|gureum|mây|Thiên nhiên",
+"해|hae|mặt trời|Thiên nhiên",
+"달|dal|mặt trăng|Thiên nhiên",
+"별|byeol|ngôi sao|Thiên nhiên",
+"하늘|haneul|trời|Thiên nhiên",
+"바다|bada|biển|Thiên nhiên",
+"산|san|núi|Thiên nhiên",
+"강|gang|sông|Thiên nhiên",
+"나무|namu|cây|Thiên nhiên",
+"꽃|kkot|hoa|Thiên nhiên",
+"동물|dongmul|động vật|Thiên nhiên",
+"개|gae|con chó|Thiên nhiên",
+"고양이|goyangi|con mèo|Thiên nhiên",
+"새|sae|con chim|Thiên nhiên",
+"봄|bom|mùa xuân|Thiên nhiên",
+"여름|yeoreum|mùa hè|Thiên nhiên",
+"가을|gaeul|mùa thu|Thiên nhiên",
+"겨울|gyeoul|mùa đông|Thiên nhiên",
+"일|il|việc, công việc|Học tập & công việc",
+"공부|gongbu|việc học|Học tập & công việc",
+"숙제|sukje|bài tập về nhà|Học tập & công việc",
+"시험|siheom|kỳ thi|Học tập & công việc",
+"수업|sueop|tiết học, lớp học|Học tập & công việc",
+"질문|jilmun|câu hỏi|Học tập & công việc",
+"대답|daedap|câu trả lời|Học tập & công việc",
+"문제|munje|vấn đề, bài tập|Học tập & công việc",
+"회의|hoeui|cuộc họp|Học tập & công việc",
+"약속|yaksok|lời hứa, cuộc hẹn|Học tập & công việc",
+"계획|gyehwaek|kế hoạch|Học tập & công việc",
+"방법|bangbeop|phương pháp, cách|Học tập & công việc",
+"이유|iyu|lý do|Học tập & công việc",
+"결과|gyeolgwa|kết quả|Học tập & công việc",
+"소식|sosik|tin tức|Học tập & công việc",
+"말|mal|lời nói, tiếng|Trừu tượng",
+"생각|saenggak|suy nghĩ|Trừu tượng",
+"마음|maeum|tấm lòng, tâm trí|Trừu tượng",
+"사랑|sarang|tình yêu|Trừu tượng",
+"기분|gibun|tâm trạng|Trừu tượng",
+"꿈|kkum|giấc mơ, ước mơ|Trừu tượng",
+"취미|chwimi|sở thích|Trừu tượng",
+"운동|undong|việc tập thể thao|Trừu tượng",
+"여행|yeohaeng|chuyến du lịch|Trừu tượng",
+"노래|norae|bài hát|Trừu tượng",
+"영화|yeonghwa|bộ phim|Trừu tượng",
+"음악|eumak|âm nhạc|Trừu tượng",
+"그림|geurim|bức tranh|Trừu tượng",
+"소리|sori|âm thanh|Trừu tượng",
+"색|saek|màu sắc|Trừu tượng",
+"가격|gagyeok|giá cả|Trừu tượng",
+"번호|beonho|số (hiệu)|Trừu tượng",
+"전화번호|jeonhwabeonho|số điện thoại|Trừu tượng",
+"주소|juso|địa chỉ|Trừu tượng",
+"문화|munhwa|văn hoá|Trừu tượng",
+"왼쪽|wenjjok|bên trái|Vị trí & phương hướng|2",
+"오른쪽|oreunjjok|bên phải|Vị trí & phương hướng|2",
+"앞|ap|phía trước|Vị trí & phương hướng|2",
+"뒤|dwi|phía sau|Vị trí & phương hướng|2",
+"옆|yeop|bên cạnh|Vị trí & phương hướng|2",
+"안|an|bên trong|Vị trí & phương hướng|2",
+"밖|bak|bên ngoài|Vị trí & phương hướng|2",
+"위|wi|phía trên|Vị trí & phương hướng|2",
+"아래|arae|phía dưới|Vị trí & phương hướng|2",
+"사이|sai|khoảng giữa|Vị trí & phương hướng|2",
+"근처|geuncheo|gần đây, lân cận|Vị trí & phương hướng|2",
+"주변|jubyeon|xung quanh|Vị trí & phương hướng|2",
+"위치|wichi|vị trí|Vị trí & phương hướng|2",
+"방향|banghyang|phương hướng|Vị trí & phương hướng|2",
+"입구|ipgu|cửa vào|Vị trí & phương hướng|2",
+"출구|chulgu|cửa ra|Vị trí & phương hướng|2",
+"지하|jiha|tầng hầm, dưới đất|Vị trí & phương hướng|2",
+"경험|gyeongheom|kinh nghiệm|Đời sống xã hội|2",
+"기회|gihoe|cơ hội|Đời sống xã hội|2",
+"관심|gwansim|sự quan tâm|Đời sống xã hội|2",
+"성격|seonggyeok|tính cách|Đời sống xã hội|2",
+"능력|neungnyeok|năng lực|Đời sống xã hội|2",
+"노력|noryeok|sự nỗ lực|Đời sống xã hội|2",
+"실수|silsu|sai sót, lỗi|Đời sống xã hội|2",
+"실패|silpae|thất bại|Đời sống xã hội|2",
+"성공|seonggong|thành công|Đời sống xã hội|2",
+"조건|jogeon|điều kiện|Đời sống xã hội|2",
+"규칙|gyuchik|quy tắc|Đời sống xã hội|2",
+"목적|mokjeok|mục đích|Đời sống xã hội|2",
+"목표|mokpyo|mục tiêu|Đời sống xã hội|2",
+"내용|naeyong|nội dung|Đời sống xã hội|2",
+"차이|chai|sự khác biệt|Đời sống xã hội|2",
+"관계|gwangye|quan hệ|Đời sống xã hội|2",
+"사실|sasil|sự thật|Đời sống xã hội|2",
+"거짓말|geojinmal|lời nói dối|Đời sống xã hội|2",
+"비밀|bimil|bí mật|Đời sống xã hội|2",
+"습관|seupgwan|thói quen|Đời sống xã hội|2",
+"분위기|bunwigi|không khí, bầu không khí|Đời sống xã hội|2",
+"환경|hwangyeong|môi trường|Đời sống xã hội|2",
+"예정|yejeong|dự định, lịch trình|Đời sống xã hội|2",
+"표정|pyojeong|nét mặt|Đời sống xã hội|2",
+"목소리|moksori|giọng nói|Đời sống xã hội|2",
+"교통|gyotong|giao thông|Giao thông|2",
+"사고|sago|tai nạn|Giao thông|2",
+"교통사고|gyotongsago|tai nạn giao thông|Giao thông|2",
+"신호등|sinhodeung|đèn giao thông|Giao thông|2",
+"횡단보도|hoengdanbodo|vạch sang đường|Giao thông|2",
+"주차장|juchajang|bãi đỗ xe|Giao thông|2",
+"안내|annae|sự hướng dẫn, chỉ dẫn|Giao thông|2",
+"요금|yogeum|phí, giá vé|Giao thông|2",
+"신청|sincheong|việc đăng ký|Giấy tờ & dịch vụ|2",
+"신청서|sincheongseo|đơn đăng ký|Giấy tờ & dịch vụ|2",
+"서류|seoryu|hồ sơ, giấy tờ|Giấy tờ & dịch vụ|2",
+"신분증|sinbunjeung|giấy tờ tuỳ thân|Giấy tờ & dịch vụ|2",
+"여권|yeogwon|hộ chiếu|Giấy tờ & dịch vụ|2",
+"영수증|yeongsujeung|hoá đơn|Giấy tờ & dịch vụ|2",
+"회원|hoewon|hội viên, thành viên|Giấy tờ & dịch vụ|2",
+"통장|tongjang|sổ tài khoản|Giấy tờ & dịch vụ|2",
+"계좌|gyejwa|tài khoản (ngân hàng)|Giấy tờ & dịch vụ|2",
+"현금|hyeongeum|tiền mặt|Giấy tờ & dịch vụ|2",
+"비용|biyong|chi phí|Giấy tờ & dịch vụ|2",
+"우편|upyeon|bưu chính|Giấy tờ & dịch vụ|2",
+"소포|sopo|bưu kiện|Giấy tờ & dịch vụ|2",
+"택배|taekbae|chuyển phát nhanh|Giấy tờ & dịch vụ|2",
+"할인|harin|giảm giá|Mua bán|2",
+"교환|gyohwan|việc đổi hàng|Mua bán|2",
+"환불|hwanbul|việc hoàn tiền|Mua bán|2",
+"배달|baedal|giao hàng|Mua bán|2",
+"포장|pojang|đóng gói, mang về|Mua bán|2",
+"예약|yeyak|việc đặt trước|Mua bán|2",
+"취소|chwiso|việc huỷ|Mua bán|2",
+"출근|chulgeun|việc đi làm|Công việc|2",
+"퇴근|toegeun|việc tan làm|Công việc|2",
+"출장|chuljang|chuyến công tác|Công việc|2",
+"월급|wolgeup|lương tháng|Công việc|2",
+"아르바이트|areubaiteu|việc làm thêm|Công việc|2",
+"면접|myeonjeop|buổi phỏng vấn|Công việc|2",
+"이력서|iryeokseo|sơ yếu lý lịch|Công việc|2",
+"발음|bareum|phát âm|Học tập & công việc|2",
+"단어|daneo|từ vựng|Học tập & công việc|2",
+"문법|munbeop|ngữ pháp|Học tập & công việc|2",
+"문장|munjang|câu|Học tập & công việc|2",
+"글|geul|bài viết, chữ|Học tập & công việc|2",
+"편지|pyeonji|thư|Học tập & công việc|2",
+"메시지|mesiji|tin nhắn|Học tập & công việc|2",
+"이메일|imeil|email|Học tập & công việc|2",
+"인터넷|inteonet|internet|Học tập & công việc|2",
+"자료|jaryo|tài liệu|Học tập & công việc|2",
+"정보|jeongbo|thông tin|Học tập & công việc|2",
+"기계|gigye|máy móc|Đồ vật|2",
+"냉장고|naengjanggo|tủ lạnh|Đồ vật|2",
+"세탁기|setakgi|máy giặt|Đồ vật|2",
+"에어컨|eeokeon|máy điều hoà|Đồ vật|2",
+"선풍기|seonpunggi|quạt điện|Đồ vật|2",
+"청소기|cheongsogi|máy hút bụi|Đồ vật|2",
+"전자레인지|jeonjareinji|lò vi sóng|Đồ vật|2",
+"가구|gagu|nội thất|Đồ vật|2",
+"건물|geonmul|toà nhà|Nhà ở|2",
+"아파트|apateu|chung cư|Nhà ở|2",
+"원룸|wollum|phòng trọ một phòng|Nhà ở|2",
+"집세|jipse|tiền nhà|Nhà ở|2",
+"보증금|bojeunggeum|tiền đặt cọc|Nhà ở|2",
+"관리비|gwallibi|phí quản lý|Nhà ở|2",
+"이사|isa|việc chuyển nhà|Nhà ở|2",
+"벽|byeok|tường|Nhà ở|2",
+"바닥|badak|sàn nhà|Nhà ở|2",
+"계단|gyedan|cầu thang|Nhà ở|2",
+"엘리베이터|ellibeiteo|thang máy|Nhà ở|2"
+];
+
+const VERBS = [
+"가다|gada|đi|Di chuyển",
+"오다|oda|đến, tới|Di chuyển",
+"들어가다|deureogada|đi vào|Di chuyển",
+"나가다|nagada|đi ra|Di chuyển",
+"돌아오다|doraoda|trở về|Di chuyển",
+"올라가다|ollagada|đi lên|Di chuyển",
+"내려가다|naeryeogada|đi xuống|Di chuyển",
+"지나가다|jinagada|đi qua|Di chuyển",
+"건너다|geonneoda|băng qua|Di chuyển",
+"걷다|geotda|đi bộ|Di chuyển",
+"뛰다|ttwida|chạy|Di chuyển",
+"타다|tada|lên (xe), cưỡi|Di chuyển",
+"내리다|naerida|xuống (xe)|Di chuyển",
+"출발하다|chulbalhada|khởi hành|Di chuyển",
+"도착하다|dochakhada|đến nơi|Di chuyển",
+"멈추다|meomchuda|dừng lại|Di chuyển",
+"움직이다|umjigida|di chuyển, động|Di chuyển",
+"앉다|anda|ngồi|Động tác",
+"서다|seoda|đứng|Động tác",
+"눕다|nupda|nằm|Động tác",
+"일어나다|ireonada|thức dậy, đứng lên|Động tác",
+"자다|jada|ngủ|Động tác",
+"먹다|meokda|ăn|Sinh hoạt",
+"마시다|masida|uống|Sinh hoạt",
+"요리하다|yorihada|nấu ăn|Sinh hoạt",
+"씻다|ssitda|rửa|Sinh hoạt",
+"샤워하다|syawohada|tắm vòi sen|Sinh hoạt",
+"청소하다|cheongsohada|dọn dẹp|Sinh hoạt",
+"빨래하다|ppallaehada|giặt giũ|Sinh hoạt",
+"입다|ipda|mặc (áo)|Sinh hoạt",
+"벗다|beotda|cởi|Sinh hoạt",
+"신다|sinda|xỏ (giày, tất)|Sinh hoạt",
+"쉬다|swida|nghỉ ngơi|Sinh hoạt",
+"놀다|nolda|chơi|Sinh hoạt",
+"살다|salda|sống, sinh sống|Sinh hoạt",
+"보다|boda|xem, nhìn|Giao tiếp & nhận thức",
+"듣다|deutda|nghe|Giao tiếp & nhận thức",
+"말하다|malhada|nói|Giao tiếp & nhận thức",
+"읽다|ikda|đọc|Giao tiếp & nhận thức",
+"쓰다|sseuda|viết; dùng|Giao tiếp & nhận thức",
+"묻다|mutda|hỏi|Giao tiếp & nhận thức",
+"대답하다|daedaphada|trả lời|Giao tiếp & nhận thức",
+"전화하다|jeonhwahada|gọi điện thoại|Giao tiếp & nhận thức",
+"보내다|bonaeda|gửi|Giao tiếp & nhận thức",
+"부르다|bureuda|gọi; hát|Giao tiếp & nhận thức",
+"설명하다|seolmyeonghada|giải thích|Giao tiếp & nhận thức",
+"소개하다|sogaehada|giới thiệu|Giao tiếp & nhận thức",
+"알다|alda|biết|Giao tiếp & nhận thức",
+"모르다|moreuda|không biết|Giao tiếp & nhận thức",
+"생각하다|saenggakhada|suy nghĩ|Giao tiếp & nhận thức",
+"믿다|mitda|tin|Giao tiếp & nhận thức",
+"기억하다|gieokhada|ghi nhớ|Giao tiếp & nhận thức",
+"잊다|itda|quên|Giao tiếp & nhận thức",
+"배우다|baeuda|học|Học tập & công việc",
+"가르치다|gareuchida|dạy|Học tập & công việc",
+"공부하다|gongbuhada|học bài|Học tập & công việc",
+"일하다|ilhada|làm việc|Học tập & công việc",
+"연습하다|yeonseuphada|luyện tập|Học tập & công việc",
+"준비하다|junbihada|chuẩn bị|Học tập & công việc",
+"시작하다|sijakhada|bắt đầu|Học tập & công việc",
+"끝나다|kkeunnada|kết thúc|Học tập & công việc",
+"운동하다|undonghada|tập thể thao|Học tập & công việc",
+"여행하다|yeohaenghada|đi du lịch|Học tập & công việc",
+"만나다|mannada|gặp|Quan hệ",
+"사귀다|sagwida|kết bạn, hẹn hò|Quan hệ",
+"결혼하다|gyeolhonhada|kết hôn|Quan hệ",
+"도와주다|dowajuda|giúp đỡ|Quan hệ",
+"주다|juda|cho, đưa|Quan hệ",
+"받다|batda|nhận|Quan hệ",
+"빌리다|billida|mượn, thuê|Quan hệ",
+"갚다|gapda|trả (nợ)|Quan hệ",
+"좋아하다|joahada|thích|Cảm xúc",
+"싫어하다|sireohada|không thích|Cảm xúc",
+"사랑하다|saranghada|yêu|Cảm xúc",
+"웃다|utda|cười|Cảm xúc",
+"울다|ulda|khóc|Cảm xúc",
+"화내다|hwanaeda|nổi giận|Cảm xúc",
+"놀라다|nollada|ngạc nhiên|Cảm xúc",
+"걱정하다|geokjeonghada|lo lắng|Cảm xúc",
+"기다리다|gidarida|chờ, đợi|Cảm xúc",
+"사다|sada|mua|Mua bán",
+"팔다|palda|bán|Mua bán",
+"주문하다|jumunhada|gọi món, đặt hàng|Mua bán",
+"예약하다|yeyakhada|đặt trước|Mua bán",
+"계산하다|gyesanhada|thanh toán, tính|Mua bán",
+"바꾸다|bakkuda|đổi|Mua bán",
+"고르다|goreuda|chọn|Mua bán",
+"만들다|mandeulda|làm, chế tạo|Hành động khác",
+"고치다|gochida|sửa|Hành động khác",
+"찾다|chatda|tìm|Hành động khác",
+"열다|yeolda|mở|Hành động khác",
+"닫다|datda|đóng|Hành động khác",
+"들다|deulda|cầm, nhấc|Hành động khác",
+"놓다|nota|đặt xuống|Hành động khác",
+"넣다|neota|cho vào|Hành động khác",
+"꺼내다|kkeonaeda|lấy ra|Hành động khác",
+"버리다|beorida|bỏ, ném đi|Hành động khác",
+"자르다|jareuda|cắt|Hành động khác",
+"끓이다|kkeurida|đun, nấu sôi|Hành động khác",
+"굽다|gupda|nướng|Hành động khác",
+"볶다|bokda|xào|Hành động khác",
+"섞다|seokda|trộn|Hành động khác",
+"찍다|jjikda|chụp (ảnh)|Hành động khác",
+"그리다|geurida|vẽ|Hành động khác",
+"노래하다|noraehada|hát|Hành động khác",
+"춤추다|chumchuda|múa, nhảy|Hành động khác",
+"지키다|jikida|giữ, bảo vệ|Hành động khác",
+"정하다|jeonghada|quyết định|Hành động khác",
+"비교하다|bigyohada|so sánh|Hành động khác",
+"나누다|nanuda|chia|Hành động khác",
+"모으다|moeuda|thu thập, góp|Hành động khác",
+"이기다|igida|thắng|Hành động khác",
+"지다|jida|thua|Hành động khác",
+"떨어지다|tteoreojida|rơi; trượt (thi)|Hành động khác",
+"남다|namda|còn lại|Hành động khác",
+"되다|doeda|trở thành|Cơ bản",
+"있다|itda|có, ở|Cơ bản",
+"없다|eopda|không có|Cơ bản",
+"하다|hada|làm|Cơ bản",
+"태어나다|taeeonada|sinh ra|Cơ bản",
+"죽다|jukda|chết|Cơ bản",
+"확인하다|hwaginhada|xác nhận, kiểm tra|Thủ tục & dịch vụ|2",
+"신청하다|sincheonghada|đăng ký, nộp đơn|Thủ tục & dịch vụ|2",
+"취소하다|chwisohada|huỷ|Thủ tục & dịch vụ|2",
+"교환하다|gyohwanhada|đổi (hàng)|Thủ tục & dịch vụ|2",
+"환불하다|hwanbulhada|hoàn tiền|Thủ tục & dịch vụ|2",
+"배달하다|baedalhada|giao hàng|Thủ tục & dịch vụ|2",
+"포장하다|pojanghada|đóng gói, gói mang về|Thủ tục & dịch vụ|2",
+"지불하다|jibulhada|chi trả|Thủ tục & dịch vụ|2",
+"저축하다|jeochukhada|tiết kiệm (tiền)|Thủ tục & dịch vụ|2",
+"벌다|beolda|kiếm (tiền)|Thủ tục & dịch vụ|2",
+"아끼다|akkida|tiết kiệm, trân trọng|Thủ tục & dịch vụ|2",
+"빌려주다|billyeojuda|cho mượn|Thủ tục & dịch vụ|2",
+"돌려주다|dollyeojuda|trả lại|Thủ tục & dịch vụ|2",
+"출근하다|chulgeunhada|đi làm|Công việc|2",
+"퇴근하다|toegeunhada|tan làm|Công việc|2",
+"지각하다|jigakhada|đến muộn|Công việc|2",
+"결석하다|gyeolseokhada|nghỉ học, vắng mặt|Công việc|2",
+"참석하다|chamseokhada|tham dự|Công việc|2",
+"참가하다|chamgahada|tham gia|Công việc|2",
+"그만두다|geumanduda|bỏ, thôi (việc)|Công việc|2",
+"계속하다|gyesokhada|tiếp tục|Công việc|2",
+"맡다|matda|đảm nhận|Công việc|2",
+"맡기다|matgida|giao phó, gửi|Công việc|2",
+"정리하다|jeongnihada|sắp xếp, dọn gọn|Công việc|2",
+"치우다|chiuda|dọn đi|Công việc|2",
+"초대하다|chodaehada|mời|Quan hệ|2",
+"방문하다|bangmunhada|đến thăm|Quan hệ|2",
+"인사하다|insahada|chào hỏi|Quan hệ|2",
+"약속하다|yaksokhada|hẹn, hứa|Quan hệ|2",
+"거절하다|geojeolhada|từ chối|Quan hệ|2",
+"허락하다|heorakhada|cho phép|Quan hệ|2",
+"부탁하다|butakhada|nhờ vả|Quan hệ|2",
+"사과하다|sagwahada|xin lỗi|Quan hệ|2",
+"칭찬하다|chingchanhada|khen|Quan hệ|2",
+"싸우다|ssauda|cãi nhau, đánh nhau|Quan hệ|2",
+"화해하다|hwahaehada|hoà giải|Quan hệ|2",
+"헤어지다|heeojida|chia tay|Quan hệ|2",
+"돌보다|dolboda|chăm sóc|Quan hệ|2",
+"키우다|kiuda|nuôi, trồng|Quan hệ|2",
+"이해하다|ihaehada|hiểu|Nhận thức & cảm xúc|2",
+"오해하다|ohaehada|hiểu lầm|Nhận thức & cảm xúc|2",
+"깨닫다|kkaedatda|nhận ra|Nhận thức & cảm xúc|2",
+"느끼다|neukkida|cảm thấy|Nhận thức & cảm xúc|2",
+"기대하다|gidaehada|mong đợi|Nhận thức & cảm xúc|2",
+"긴장하다|ginjanghada|căng thẳng|Nhận thức & cảm xúc|2",
+"실수하다|silsuhada|mắc lỗi|Nhận thức & cảm xúc|2",
+"실패하다|silpaehada|thất bại|Nhận thức & cảm xúc|2",
+"성공하다|seonggonghada|thành công|Nhận thức & cảm xúc|2",
+"노력하다|noryeokhada|nỗ lực|Nhận thức & cảm xúc|2",
+"포기하다|pogihada|từ bỏ|Nhận thức & cảm xúc|2",
+"참다|chamda|chịu đựng, nhẫn nhịn|Nhận thức & cảm xúc|2",
+"바라다|barada|mong, ước|Nhận thức & cảm xúc|2",
+"원하다|wonhada|muốn, mong muốn|Nhận thức & cảm xúc|2",
+"그리워하다|geuriwohada|nhớ nhung|Nhận thức & cảm xúc|2",
+"알아보다|araboda|tìm hiểu, nhận ra|Nhận thức & cảm xúc|2",
+"변하다|byeonhada|biến đổi|Thay đổi & hiện tượng|2",
+"늘다|neulda|tăng lên|Thay đổi & hiện tượng|2",
+"줄다|julda|giảm xuống|Thay đổi & hiện tượng|2",
+"늘리다|neullida|làm tăng|Thay đổi & hiện tượng|2",
+"줄이다|jurida|giảm bớt|Thay đổi & hiện tượng|2",
+"자라다|jarada|lớn lên|Thay đổi & hiện tượng|2",
+"생기다|saenggida|phát sinh, xuất hiện|Thay đổi & hiện tượng|2",
+"걸리다|geollida|mất (thời gian), bị (bệnh)|Thay đổi & hiện tượng|2",
+"막히다|makhida|bị tắc|Thay đổi & hiện tượng|2",
+"고장나다|gojangnada|bị hỏng|Thay đổi & hiện tượng|2",
+"보이다|boida|trông thấy, hiện ra|Thay đổi & hiện tượng|2",
+"들리다|deullida|nghe thấy|Thay đổi & hiện tượng|2",
+"켜다|kyeoda|bật|Hành động khác|2",
+"끄다|kkeuda|tắt|Hành động khác|2",
+"누르다|nureuda|ấn, nhấn|Hành động khác|2",
+"접다|jeopda|gấp|Hành động khác|2",
+"펴다|pyeoda|mở ra, trải ra|Hành động khác|2",
+"쌓다|ssatda|xếp, chồng|Hành động khác|2",
+"지내다|jinaeda|sống, sinh hoạt|Hành động khác|2",
+"다니다|danida|lui tới, theo học/làm|Hành động khác|2",
+"머물다|meomulda|lưu lại|Hành động khác|2",
+"들르다|deulleuda|ghé qua|Hành động khác|2",
+"데려가다|deryeogada|dẫn đi|Hành động khác|2",
+"가져오다|gajyeooda|mang đến|Hành động khác|2",
+"잃다|ilta|mất, đánh mất|Hành động khác|2"
+];
+
+const ADJS = [
+"좋다|jotda|tốt, hay|Đánh giá",
+"나쁘다|nappeuda|xấu, tệ|Đánh giá",
+"중요하다|jungyohada|quan trọng|Đánh giá",
+"필요하다|piryohada|cần thiết|Đánh giá",
+"특별하다|teukbyeolhada|đặc biệt|Đánh giá",
+"유명하다|yumyeonghada|nổi tiếng|Đánh giá",
+"이상하다|isanghada|lạ, kỳ|Đánh giá",
+"비슷하다|biseuthada|giống giống|Đánh giá",
+"다르다|dareuda|khác|Đánh giá",
+"같다|gatda|giống, như|Đánh giá",
+"충분하다|chungbunhada|đủ|Đánh giá",
+"부족하다|bujokhada|thiếu|Đánh giá",
+"가능하다|ganeunghada|có thể|Đánh giá",
+"위험하다|wiheomhada|nguy hiểm|Đánh giá",
+"안전하다|anjeonhada|an toàn|Đánh giá",
+"크다|keuda|to, lớn|Kích thước & số lượng",
+"작다|jakda|nhỏ|Kích thước & số lượng",
+"많다|manta|nhiều|Kích thước & số lượng",
+"적다|jeokda|ít|Kích thước & số lượng",
+"높다|nopda|cao|Kích thước & số lượng",
+"낮다|natda|thấp|Kích thước & số lượng",
+"길다|gilda|dài|Kích thước & số lượng",
+"짧다|jjalda|ngắn|Kích thước & số lượng",
+"넓다|neolda|rộng|Kích thước & số lượng",
+"좁다|jopda|hẹp|Kích thước & số lượng",
+"두껍다|dukkeopda|dày|Kích thước & số lượng",
+"얇다|yalda|mỏng|Kích thước & số lượng",
+"무겁다|mugeopda|nặng|Kích thước & số lượng",
+"가볍다|gabyeopda|nhẹ|Kích thước & số lượng",
+"멀다|meolda|xa|Kích thước & số lượng",
+"가깝다|gakkapda|gần|Kích thước & số lượng",
+"빠르다|ppareuda|nhanh|Trạng thái",
+"느리다|neurida|chậm|Trạng thái",
+"새롭다|saeropda|mới|Trạng thái",
+"오래되다|oraedoeda|cũ, lâu năm|Trạng thái",
+"젊다|jeomda|trẻ|Trạng thái",
+"어리다|eorida|nhỏ tuổi|Trạng thái",
+"늙다|neukda|già|Trạng thái",
+"깨끗하다|kkaekkeuthada|sạch|Trạng thái",
+"더럽다|deoreopda|bẩn|Trạng thái",
+"조용하다|joyonghada|yên tĩnh|Trạng thái",
+"시끄럽다|sikkeureopda|ồn ào|Trạng thái",
+"밝다|bakda|sáng|Trạng thái",
+"어둡다|eodupda|tối|Trạng thái",
+"비싸다|bissada|đắt|Trạng thái",
+"싸다|ssada|rẻ|Trạng thái",
+"쉽다|swipda|dễ|Trạng thái",
+"어렵다|eoryeopda|khó|Trạng thái",
+"복잡하다|bokjaphada|phức tạp, đông đúc|Trạng thái",
+"간단하다|gandanhada|đơn giản|Trạng thái",
+"편하다|pyeonhada|thoải mái, tiện|Trạng thái",
+"불편하다|bulpyeonhada|bất tiện|Trạng thái",
+"강하다|ganghada|mạnh|Trạng thái",
+"약하다|yakhada|yếu|Trạng thái",
+"뜨겁다|tteugeopda|nóng (khi chạm)|Thời tiết & vị",
+"차갑다|chagapda|lạnh (khi chạm)|Thời tiết & vị",
+"덥다|deopda|nóng (trời)|Thời tiết & vị",
+"춥다|chupda|lạnh (trời)|Thời tiết & vị",
+"따뜻하다|ttatteuthada|ấm|Thời tiết & vị",
+"시원하다|siwonhada|mát|Thời tiết & vị",
+"맛있다|masitda|ngon|Thời tiết & vị",
+"맛없다|madeopda|không ngon|Thời tiết & vị",
+"맵다|maepda|cay|Thời tiết & vị",
+"짜다|jjada|mặn|Thời tiết & vị",
+"달다|dalda|ngọt|Thời tiết & vị",
+"쓰다(맛)|sseuda|đắng|Thời tiết & vị",
+"싱겁다|singgeopda|nhạt|Thời tiết & vị",
+"신선하다|sinseonhada|tươi|Thời tiết & vị",
+"기쁘다|gippeuda|vui|Cảm xúc & cơ thể",
+"슬프다|seulpeuda|buồn|Cảm xúc & cơ thể",
+"행복하다|haengbokhada|hạnh phúc|Cảm xúc & cơ thể",
+"화나다|hwanada|tức giận|Cảm xúc & cơ thể",
+"무섭다|museopda|đáng sợ|Cảm xúc & cơ thể",
+"재미있다|jaemiitda|thú vị, vui|Cảm xúc & cơ thể",
+"재미없다|jaemieopda|nhàm, không vui|Cảm xúc & cơ thể",
+"심심하다|simsimhada|chán|Cảm xúc & cơ thể",
+"바쁘다|bappeuda|bận|Cảm xúc & cơ thể",
+"한가하다|hangahada|rảnh rỗi|Cảm xúc & cơ thể",
+"피곤하다|pigonhada|mệt mỏi|Cảm xúc & cơ thể",
+"아프다|apeuda|đau, ốm|Cảm xúc & cơ thể",
+"건강하다|geonganghada|khoẻ mạnh|Cảm xúc & cơ thể",
+"배고프다|baegopeuda|đói|Cảm xúc & cơ thể",
+"배부르다|baebureuda|no|Cảm xúc & cơ thể",
+"목마르다|mongmareuda|khát|Cảm xúc & cơ thể",
+"부끄럽다|bukkeureopda|ngượng, e dè|Cảm xúc & cơ thể",
+"고맙다|gomapda|biết ơn|Cảm xúc & cơ thể",
+"미안하다|mianhada|xin lỗi, thấy lỗi|Cảm xúc & cơ thể",
+"반갑다|bangapda|vui khi gặp|Cảm xúc & cơ thể",
+"그립다|geuripda|nhớ nhung|Cảm xúc & cơ thể",
+"예쁘다|yeppeuda|xinh, đẹp|Con người",
+"귀엽다|gwiyeopda|đáng yêu|Con người",
+"멋있다|meositda|phong độ, ngầu|Con người",
+"잘생기다|jalsaenggida|đẹp trai|Con người",
+"친절하다|chinjeolhada|tử tế, thân thiện|Con người",
+"착하다|chakhada|ngoan, hiền|Con người",
+"똑똑하다|ttokttokhada|thông minh|Con người",
+"성실하다|seongsilhada|chăm chỉ, thật thà|Con người",
+"게으르다|geeureuda|lười|Con người",
+"조심하다|josimhada|cẩn thận|Con người",
+"부유하다|buyuhada|giàu có|Con người",
+"가난하다|gananhada|nghèo|Con người",
+"즐겁다|jeulgeopda|vui vẻ, dễ chịu|Cảm xúc & cơ thể|2",
+"지루하다|jiruhada|nhàm chán, dài dòng|Cảm xúc & cơ thể|2",
+"답답하다|dapdaphada|bí bách, ngột ngạt|Cảm xúc & cơ thể|2",
+"아쉽다|aswipda|tiếc, hụt hẫng|Cảm xúc & cơ thể|2",
+"억울하다|eogulhada|oan, bị oan ức|Cảm xúc & cơ thể|2",
+"창피하다|changpihada|bẽ mặt, mất mặt|Cảm xúc & cơ thể|2",
+"궁금하다|gunggeumhada|tò mò, thắc mắc|Cảm xúc & cơ thể|2",
+"어색하다|eosaekhada|ngượng, không tự nhiên|Cảm xúc & cơ thể|2",
+"긴장되다|ginjangdoeda|thấy căng thẳng|Cảm xúc & cơ thể|2",
+"심각하다|simgakhada|nghiêm trọng|Đánh giá|2",
+"당연하다|dangyeonhada|đương nhiên|Đánh giá|2",
+"분명하다|bunmyeonghada|rõ ràng|Đánh giá|2",
+"확실하다|hwaksilhada|chắc chắn|Đánh giá|2",
+"다양하다|dayanghada|đa dạng|Đánh giá|2",
+"신기하다|singihada|kỳ thú, thú vị|Đánh giá|2",
+"놀랍다|nollapda|đáng ngạc nhiên|Đánh giá|2",
+"대단하다|daedanhada|tuyệt, đáng nể|Đánh giá|2",
+"훌륭하다|hullyunghada|xuất sắc|Đánh giá|2",
+"완벽하다|wanbyeokhada|hoàn hảo|Đánh giá|2",
+"평범하다|pyeongbeomhada|bình thường|Đánh giá|2",
+"특이하다|teugihada|khác lạ, độc đáo|Đánh giá|2",
+"소중하다|sojunghada|quý giá|Đánh giá|2",
+"적당하다|jeokdanghada|vừa phải|Đánh giá|2",
+"알맞다|almatda|phù hợp|Đánh giá|2",
+"지나치다|jinachida|quá mức|Đánh giá|2",
+"똑같다|ttokgatda|y hệt|Đánh giá|2",
+"편리하다|pyeollihada|tiện lợi|Trạng thái|2",
+"자연스럽다|jayeonseureopda|tự nhiên|Trạng thái|2",
+"익숙하다|iksukhada|quen, thành thục|Trạng thái|2",
+"낯설다|natseolda|xa lạ|Trạng thái|2",
+"지저분하다|jijeobunhada|bừa bộn|Trạng thái|2",
+"급하다|geuphada|gấp, vội|Trạng thái|2",
+"심하다|simhada|nặng, dữ dội|Trạng thái|2",
+"솔직하다|soljikhada|thật thà, thẳng thắn|Con người|2",
+"부지런하다|bujireonhada|siêng năng|Con người|2",
+"활발하다|hwalbalhada|hoạt bát|Con người|2",
+"뚱뚱하다|ttungttunghada|mập|Con người|2",
+"날씬하다|nalssinhada|mảnh mai|Con người|2"
+];
+
+const ADVS = [
+"아주|aju|rất|Mức độ",
+"매우|maeu|rất (văn viết)|Mức độ",
+"너무|neomu|quá|Mức độ",
+"정말|jeongmal|thật sự|Mức độ",
+"진짜|jinjja|thật, thật đấy|Mức độ",
+"조금|jogeum|một chút|Mức độ",
+"많이|mani|nhiều|Mức độ",
+"더|deo|hơn|Mức độ",
+"덜|deol|kém hơn|Mức độ",
+"가장|gajang|nhất|Mức độ",
+"제일|jeil|nhất|Mức độ",
+"훨씬|hwolssin|hơn hẳn|Mức độ",
+"점점|jeomjeom|dần dần|Mức độ",
+"거의|geoui|gần như|Mức độ",
+"전혀|jeonhyeo|hoàn toàn không|Mức độ",
+"별로|byeollo|không mấy|Mức độ",
+"잘|jal|giỏi, tốt|Mức độ",
+"못|mot|không thể|Mức độ",
+"안|an|không|Mức độ",
+"지금|jigeum|bây giờ|Thời gian",
+"오래|orae|lâu|Thời gian",
+"잠깐|jamkkan|một lát|Thời gian",
+"빨리|ppalli|nhanh lên|Thời gian",
+"천천히|cheoncheonhi|từ từ|Thời gian",
+"일찍|iljjik|sớm|Thời gian",
+"늦게|neutge|muộn|Thời gian",
+"먼저|meonjeo|trước|Thời gian",
+"나중에|najunge|sau này|Thời gian",
+"이따가|ittaga|lát nữa|Thời gian",
+"아까|akka|lúc trước|Thời gian",
+"방금|banggeum|vừa mới|Thời gian",
+"곧|got|sắp, ngay|Thời gian",
+"바로|baro|ngay lập tức|Thời gian",
+"벌써|beolsseo|đã... rồi (sớm hơn nghĩ)|Thời gian",
+"이미|imi|đã (rồi)|Thời gian",
+"아직|ajik|vẫn, chưa|Thời gian",
+"계속|gyesok|liên tục|Thời gian",
+"다시|dasi|lại|Thời gian",
+"또|tto|lại nữa|Thời gian",
+"자주|jaju|thường xuyên|Tần suất",
+"가끔|gakkeum|thỉnh thoảng|Tần suất",
+"항상|hangsang|luôn luôn|Tần suất",
+"늘|neul|luôn|Tần suất",
+"보통|botong|thường thì|Tần suất",
+"거의 매일|geoui maeil|gần như mỗi ngày|Tần suất",
+"한 번|han beon|một lần|Tần suất",
+"같이|gachi|cùng nhau|Cách thức",
+"함께|hamkke|cùng với|Cách thức",
+"혼자|honja|một mình|Cách thức",
+"서로|seoro|lẫn nhau|Cách thức",
+"직접|jikjeop|trực tiếp|Cách thức",
+"열심히|yeolsimhi|chăm chỉ|Cách thức",
+"조용히|joyonghi|một cách yên lặng|Cách thức",
+"깨끗이|kkaekkeusi|sạch sẽ|Cách thức",
+"쉽게|swipge|một cách dễ dàng|Cách thức",
+"갑자기|gapjagi|bỗng nhiên|Cách thức",
+"일부러|ilbureo|cố ý|Cách thức",
+"그냥|geunyang|cứ thế, chỉ là|Cách thức",
+"대충|daechung|đại khái, sơ sài|Cách thức",
+"제대로|jedaero|cho đúng cách|Cách thức",
+"똑바로|ttokbaro|cho ngay ngắn|Cách thức",
+"거꾸로|geokkuro|ngược lại|Cách thức",
+"혹시|hoksi|không biết liệu, nhỡ đâu|Thái độ",
+"아마|ama|có lẽ|Thái độ",
+"꼭|kkok|nhất định|Thái độ",
+"반드시|bandeusi|chắc chắn phải|Thái độ",
+"절대|jeoldae|tuyệt đối (không)|Thái độ",
+"물론|mullon|tất nhiên|Thái độ",
+"역시|yeoksi|quả nhiên|Thái độ",
+"특히|teukhi|đặc biệt là|Thái độ",
+"분명히|bunmyeonghi|rõ ràng là|Thái độ",
+"확실히|hwaksilhi|chắc chắn là|Thái độ",
+"당연히|dangyeonhi|đương nhiên|Thái độ",
+"다행히|dahaenghi|may mà|Thái độ",
+"우연히|uyeonhi|tình cờ|Thái độ",
+"무조건|mujogeon|vô điều kiện|Thái độ",
+"왜|wae|tại sao|Nghi vấn",
+"어떻게|eotteoke|thế nào|Nghi vấn",
+"언제|eonje|khi nào|Nghi vấn",
+"어디|eodi|ở đâu|Nghi vấn",
+"얼마나|eolmana|bao nhiêu, đến mức nào|Nghi vấn",
+"몇|myeot|mấy|Nghi vấn",
+"그래서|geuraeseo|vì vậy|Liên kết",
+"하지만|hajiman|nhưng|Liên kết",
+"그리고|geurigo|và|Liên kết",
+"그런데|geureonde|nhưng mà, à mà|Liên kết",
+"그러면|geureomyeon|vậy thì|Liên kết",
+"그러니까|geureonikka|vì thế, ý là|Liên kết",
+"예를 들면|yereul deulmyeon|ví dụ như|Liên kết",
+"드디어|deudieo|cuối cùng thì (mong chờ)|Thời gian|2",
+"결국|gyeolguk|kết cục, cuối cùng|Thời gian|2",
+"마침내|machimnae|rốt cuộc, sau cùng|Thời gian|2",
+"요즘|yojeum|dạo này|Thời gian|2",
+"예전에|yejeone|ngày trước|Thời gian|2",
+"그동안|geudongan|trong thời gian qua|Thời gian|2",
+"하루 종일|haru jongil|cả ngày|Thời gian|2",
+"당장|dangjang|ngay lập tức|Thời gian|2",
+"미리|miri|trước, từ trước|Thời gian|2",
+"이제|ije|giờ thì, từ giờ|Thời gian|2",
+"갈수록|galsurok|càng ngày càng|Thời gian|2",
+"우선|useon|trước tiên|Cách thức|2",
+"일단|ildan|trước hết|Cách thức|2",
+"따로|ttaro|riêng ra|Cách thức|2",
+"각각|gakgak|mỗi cái, từng cái|Cách thức|2",
+"전부|jeonbu|toàn bộ|Cách thức|2",
+"모두|modu|tất cả|Cách thức|2",
+"마음대로|maeumdaero|tuỳ ý|Cách thức|2",
+"간신히|gansinhi|chật vật mới|Cách thức|2",
+"겨우|gyeou|chỉ vừa, vất vả mới|Cách thức|2",
+"자꾸|jakku|cứ, liên tục|Cách thức|2",
+"억지로|eokjiro|một cách cưỡng ép|Cách thức|2",
+"되도록|doedorok|càng… càng tốt|Cách thức|2",
+"적어도|jeogeodo|ít nhất|Mức độ|2",
+"최대한|choedaehan|tối đa|Mức độ|2",
+"아무리|amuri|dù có… bao nhiêu|Thái độ|2",
+"얼마든지|eolmadeunji|bao nhiêu cũng được|Thái độ|2",
+"아무래도|amuraedo|kiểu gì thì cũng|Thái độ|2",
+"어쩌면|eojjeomyeon|có khi, biết đâu|Thái độ|2",
+"설마|seolma|chẳng lẽ|Thái độ|2",
+"차라리|charari|thà rằng|Thái độ|2",
+"오히려|ohiryeo|ngược lại, trái lại|Thái độ|2",
+"제발|jebal|xin hãy (nài nỉ)|Thái độ|2",
+"사실|sasil|thật ra|Thái độ|2",
+"게다가|gedaga|hơn nữa|Liên kết|2",
+"또한|ttohan|ngoài ra, cũng|Liên kết|2",
+"그래도|geuraedo|dù vậy|Liên kết|2",
+"그러나|geureona|tuy nhiên|Liên kết|2",
+"그렇지만|geureochiman|thế nhưng|Liên kết|2",
+"따라서|ttaraseo|do đó|Liên kết|2",
+"즉|jeuk|tức là|Liên kết|2",
+"반대로|bandaero|ngược lại|Liên kết|2"
+];
+
+const PHRASES = [
+"안녕하세요|annyeonghaseyo|Xin chào|Chào hỏi",
+"안녕히 가세요|annyeonghi gaseyo|Chào tạm biệt (nói với người đi)|Chào hỏi",
+"안녕히 계세요|annyeonghi gyeseyo|Chào tạm biệt (nói với người ở lại)|Chào hỏi",
+"반갑습니다|bangapseumnida|Rất vui được gặp|Chào hỏi",
+"처음 뵙겠습니다|cheoeum boepgetseumnida|Lần đầu gặp mặt|Chào hỏi",
+"잘 부탁드립니다|jal butakdeurimnida|Mong anh/chị giúp đỡ|Chào hỏi",
+"오랜만이에요|oraenmanieyo|Lâu rồi không gặp|Chào hỏi",
+"잘 지냈어요?|jal jinaesseoyo|Dạo này anh/chị ổn không?|Chào hỏi",
+"좋은 아침이에요|joeun achimieyo|Buổi sáng tốt lành|Chào hỏi",
+"잘 자요|jal jayo|Ngủ ngon|Chào hỏi",
+"다음에 봐요|daeume bwayo|Hẹn gặp lần sau|Chào hỏi",
+"수고하셨습니다|sugohasyeotseumnida|Anh/chị đã làm việc vất vả|Chào hỏi",
+"감사합니다|gamsahamnida|Cảm ơn (lịch sự)|Lịch sự",
+"고맙습니다|gomapseumnida|Xin cảm ơn|Lịch sự",
+"천만에요|cheonmaneyo|Không có gì|Lịch sự",
+"죄송합니다|joesonghamnida|Tôi xin lỗi (rất lịch sự)|Lịch sự",
+"미안해요|mianhaeyo|Xin lỗi nhé|Lịch sự",
+"괜찮아요|gwaenchanayo|Không sao đâu / Ổn mà|Lịch sự",
+"실례합니다|sillyehamnida|Xin phép, cho tôi hỏi|Lịch sự",
+"잠시만요|jamsimanyo|Chờ một chút|Lịch sự",
+"저기요|jeogiyo|Này anh/chị ơi (gọi người)|Lịch sự",
+"여기요|yeogiyo|Ở đây ạ (gọi phục vụ)|Lịch sự",
+"어서 오세요|eoseo oseyo|Mời vào, hoan nghênh|Lịch sự",
+"축하합니다|chukhahamnida|Chúc mừng|Lịch sự",
+"생일 축하해요|saengil chukhahaeyo|Chúc mừng sinh nhật|Lịch sự",
+"화이팅|hwaiting|Cố lên!|Lịch sự",
+"얼마예요?|eolmayeyo|Bao nhiêu tiền?|Mua sắm",
+"이거 주세요|igeo juseyo|Cho tôi cái này|Mua sắm",
+"조금 깎아 주세요|jogeum kkakka juseyo|Giảm giá một chút đi|Mua sắm",
+"카드로 할게요|kadeuro halgeyo|Tôi trả bằng thẻ|Mua sắm",
+"현금으로 할게요|hyeongeumeuro halgeyo|Tôi trả bằng tiền mặt|Mua sắm",
+"영수증 주세요|yeongsujeung juseyo|Cho tôi hoá đơn|Mua sắm",
+"다른 색 있어요?|dareun saek isseoyo|Có màu khác không?|Mua sắm",
+"입어 봐도 돼요?|ibeo bwado dwaeyo|Tôi thử mặc được không?|Mua sắm",
+"메뉴 좀 보여 주세요|menyu jom boyeo juseyo|Cho tôi xem thực đơn|Nhà hàng",
+"주문할게요|jumunhalgeyo|Tôi gọi món nhé|Nhà hàng",
+"물 좀 주세요|mul jom juseyo|Cho tôi chút nước|Nhà hàng",
+"안 매운 걸로 주세요|an maeun geollo juseyo|Cho tôi món không cay|Nhà hàng",
+"포장해 주세요|pojanghae juseyo|Cho tôi mang về|Nhà hàng",
+"여기서 먹을게요|yeogiseo meogeulgeyo|Tôi ăn ở đây|Nhà hàng",
+"계산해 주세요|gyesanhae juseyo|Cho tôi thanh toán|Nhà hàng",
+"맛있게 드세요|masitge deuseyo|Chúc ăn ngon|Nhà hàng",
+"잘 먹었습니다|jal meogeotseumnida|Cảm ơn vì bữa ăn|Nhà hàng",
+"화장실이 어디예요?|hwajangsiri eodiyeyo|Nhà vệ sinh ở đâu?|Hỏi đường",
+"여기가 어디예요?|yeogiga eodiyeyo|Đây là đâu?|Hỏi đường",
+"어떻게 가요?|eotteoke gayo|Đi thế nào ạ?|Hỏi đường",
+"여기서 멀어요?|yeogiseo meoreoyo|Có xa đây không?|Hỏi đường",
+"걸어서 갈 수 있어요?|georeoseo gal su isseoyo|Đi bộ được không?|Hỏi đường",
+"지하철역이 어디에 있어요?|jihacheollyeogi eodie isseoyo|Ga tàu điện ở đâu?|Hỏi đường",
+"이 버스 서울역에 가요?|i beoseu seoullyeoge gayo|Xe buýt này có đến ga Seoul không?|Hỏi đường",
+"여기서 내려 주세요|yeogiseo naeryeo juseyo|Cho tôi xuống ở đây|Hỏi đường",
+"도와주세요|dowajuseyo|Giúp tôi với|Lớp học",
+"다시 말해 주세요|dasi malhae juseyo|Nói lại giúp tôi|Lớp học",
+"천천히 말해 주세요|cheoncheonhi malhae juseyo|Nói chậm hơn giúp tôi|Lớp học",
+"잘 모르겠어요|jal moreugesseoyo|Tôi không hiểu rõ|Lớp học",
+"알겠습니다|algetseumnida|Tôi hiểu rồi|Lớp học",
+"한국말 조금 할 수 있어요|hangungmal jogeum hal su isseoyo|Tôi nói được tiếng Hàn một chút|Lớp học",
+"이게 무슨 뜻이에요?|ige museun tteusieyo|Cái này nghĩa là gì?|Lớp học",
+"한국어로 뭐라고 해요?|hangugeoro mworago haeyo|Tiếng Hàn gọi là gì?|Lớp học",
+"써 주세요|sseo juseyo|Viết ra giúp tôi|Lớp học",
+"이름이 뭐예요?|ireumi mwoyeyo|Tên bạn là gì?|Làm quen",
+"어디에서 왔어요?|eodieseo wasseoyo|Bạn đến từ đâu?|Làm quen",
+"몇 살이에요?|myeot sarieyo|Bạn bao nhiêu tuổi?|Làm quen",
+"무슨 일을 하세요?|museun ireul haseyo|Bạn làm nghề gì?|Làm quen",
+"취미가 뭐예요?|chwimiga mwoyeyo|Sở thích của bạn là gì?|Làm quen",
+"전화번호 좀 주세요|jeonhwabeonho jom juseyo|Cho tôi số điện thoại nhé|Làm quen",
+"연락할게요|yeollakhalgeyo|Tôi sẽ liên lạc|Làm quen",
+"같이 가요|gachi gayo|Cùng đi nhé|Làm quen",
+"조심하세요|josimhaseyo|Hãy cẩn thận|Quan tâm",
+"몸조리 잘하세요|momjori jalhaseyo|Giữ gìn sức khoẻ nhé|Quan tâm",
+"빨리 나으세요|ppalli naeuseyo|Chóng khỏi nhé|Quan tâm",
+"걱정하지 마세요|geokjeonghaji maseyo|Đừng lo|Quan tâm",
+"서두르지 마세요|seodureuji maseyo|Đừng gấp|Quan tâm",
+"신경 쓰지 마세요|singyeong sseuji maseyo|Đừng để tâm|Quan tâm",
+"힘내세요|himnaeseyo|Mạnh mẽ lên|Quan tâm",
+"진짜요?|jinjjayo|Thật sao?|Phản ứng",
+"말도 안 돼요|maldo an dwaeyo|Vô lý quá|Phản ứng",
+"어쩔 수 없어요|eojjeol su eopseoyo|Không thể làm gì được|Phản ứng",
+"그럴 수도 있죠|geureol sudo itjyo|Cũng có thể đấy|Phản ứng",
+"한번 해 보세요|hanbeon hae boseyo|Thử một lần xem|Phản ứng",
+"물론이죠|mullonijyo|Tất nhiên rồi|Phản ứng",
+"그럼요|geureomyo|Đương nhiên|Phản ứng",
+"좋은 생각이에요|joeun saenggagieyo|Ý hay đấy|Phản ứng",
+"저도 그래요|jeodo geuraeyo|Tôi cũng vậy|Phản ứng",
+"시간이 없어요|sigani eopseoyo|Tôi không có thời gian|Phản ứng",
+"혹시 시간 괜찮으세요?|hoksi sigan gwaenchaneuseyo|Anh/chị có rảnh chút không?|Lịch sự 2급|2",
+"제가 도와드릴까요?|jega dowadeurilkkayo|Để tôi giúp anh/chị nhé?|Lịch sự 2급|2",
+"말씀 좀 묻겠습니다|malsseum jom mutgetseumnida|Cho tôi hỏi một chút|Lịch sự 2급|2",
+"성함이 어떻게 되세요?|seonghami eotteoke doeseyo|Xin cho biết quý danh?|Lịch sự 2급|2",
+"어떻게 오셨어요?|eotteoke osyeosseoyo|Anh/chị đến có việc gì ạ?|Lịch sự 2급|2",
+"잠시 기다려 주시겠어요?|jamsi gidaryeo jusigesseoyo|Anh/chị đợi một lát được không?|Lịch sự 2급|2",
+"확인해 보겠습니다|hwaginhae bogetseumnida|Tôi sẽ kiểm tra lại|Lịch sự 2급|2",
+"그렇게 하겠습니다|geureoke hagetseumnida|Tôi sẽ làm như vậy|Lịch sự 2급|2",
+"그건 좀 어려울 것 같아요|geugeon jom eoryeoul geot gatayo|Việc đó có lẽ hơi khó|Lịch sự 2급|2",
+"생각해 보고 연락드릴게요|saenggakhae bogo yeollakdeurilgeyo|Tôi suy nghĩ rồi liên lạc lại|Lịch sự 2급|2",
+"덕분에 잘됐어요|deokbune jaldwaesseoyo|Nhờ anh/chị mà mọi việc suôn sẻ|Lịch sự 2급|2",
+"신세 많이 졌어요|sinse mani jyeosseoyo|Tôi chịu ơn anh/chị nhiều|Lịch sự 2급|2",
+"별말씀을요|byeolmalsseumeuryo|Anh/chị nói vậy chứ (không có gì)|Lịch sự 2급|2",
+"연락처를 남겨 주세요|yeollakcheoreul namgyeo juseyo|Xin để lại thông tin liên lạc|Lịch sự 2급|2",
+"예약을 변경하고 싶은데요|yeyageul byeongyeonghago sipeundeyo|Tôi muốn đổi lịch đã đặt|Dịch vụ 2급|2",
+"환불이 가능한가요?|hwanburi ganeunghangayo|Có thể hoàn tiền không ạ?|Dịch vụ 2급|2",
+"영수증이 필요한데요|yeongsujeungi piryohandeyo|Tôi cần hoá đơn|Dịch vụ 2급|2",
+"좀 더 생각해 볼게요|jom deo saenggakhae bolgeyo|Tôi sẽ cân nhắc thêm|Dịch vụ 2급|2",
+"와이파이 비밀번호가 뭐예요?|waipai bimilbeonhoga mwoyeyo|Mật khẩu wifi là gì ạ?|Dịch vụ 2급|2",
+"충전할 데가 있을까요?|chungjeonhal dega isseulkkayo|Có chỗ sạc pin không ạ?|Dịch vụ 2급|2",
+"자리 있어요?|jari isseoyo|Còn chỗ không ạ?|Dịch vụ 2급|2",
+"몇 분이세요?|myeot bunieseyo|Quý khách mấy người ạ?|Dịch vụ 2급|2",
+"계산은 따로 해 주세요|gyesaneun ttaro hae juseyo|Xin tính tiền riêng|Dịch vụ 2급|2",
+"길을 잃었어요|gireul ireosseoyo|Tôi bị lạc đường|Đi lại 2급|2",
+"여기 세워 주세요|yeogi sewo juseyo|Cho tôi dừng ở đây|Đi lại 2급|2",
+"거의 다 왔어요|geoui da wasseoyo|Gần đến rồi|Đi lại 2급|2",
+"갈아타야 해요|garataya haeyo|Phải đổi tuyến/chuyển xe|Đi lại 2급|2",
+"막차가 몇 시예요?|makchaga myeot siyeyo|Chuyến cuối lúc mấy giờ?|Đi lại 2급|2"
+];
+
+const SENTENCES = [
+"저는 베트남 사람이에요.|jeoneun beteunam saramieyo|Tôi là người Việt Nam.|Giới thiệu",
+"제 이름은 흐엉이에요.|je ireumeun Hueongieyo|Tên tôi là Hương.|Giới thiệu",
+"저는 하노이에서 왔어요.|jeoneun hanoieseo wasseoyo|Tôi đến từ Hà Nội.|Giới thiệu",
+"저는 한국어를 배우고 있어요.|jeoneun hangugeoreul baeugo isseoyo|Tôi đang học tiếng Hàn.|Giới thiệu",
+"저는 회사원이에요.|jeoneun hoesawonieyo|Tôi là nhân viên công ty.|Giới thiệu",
+"한국에 온 지 삼 개월 됐어요.|hanguge on ji sam gaewol dwaesseoyo|Tôi đến Hàn Quốc được ba tháng rồi.|Giới thiệu",
+"가족이 네 명이에요.|gajogi ne myeongieyo|Gia đình tôi có bốn người.|Giới thiệu",
+"저는 매일 아침 여섯 시에 일어나요.|jeoneun maeil achim yeoseot sie ireonayo|Tôi thức dậy lúc sáu giờ mỗi sáng.|Sinh hoạt hằng ngày",
+"아침을 먹고 회사에 가요.|achimeul meokgo hoesae gayo|Tôi ăn sáng rồi đi làm.|Sinh hoạt hằng ngày",
+"지하철로 회사에 가요.|jihacheollo hoesae gayo|Tôi đi làm bằng tàu điện ngầm.|Sinh hoạt hằng ngày",
+"점심은 보통 회사 식당에서 먹어요.|jeomsimeun botong hoesa sikdangeseo meogeoyo|Bữa trưa tôi thường ăn ở căng tin công ty.|Sinh hoạt hằng ngày",
+"저녁에는 운동을 해요.|jeonyeogeneun undongeul haeyo|Buổi tối tôi tập thể dục.|Sinh hoạt hằng ngày",
+"주말에는 집에서 쉬어요.|jumareneun jibeseo swieoyo|Cuối tuần tôi nghỉ ở nhà.|Sinh hoạt hằng ngày",
+"밤 열한 시에 자요.|bam yeolhan sie jayo|Tôi đi ngủ lúc mười một giờ đêm.|Sinh hoạt hằng ngày",
+"오늘은 할 일이 많아요.|oneureun hal iri manayo|Hôm nay tôi có nhiều việc phải làm.|Sinh hoạt hằng ngày",
+"어제는 아무것도 안 했어요.|eojeneun amugeotdo an haesseoyo|Hôm qua tôi chẳng làm gì cả.|Sinh hoạt hằng ngày",
+"이 음식은 정말 맛있어요.|i eumsigeun jeongmal masisseoyo|Món này thật sự rất ngon.|Nhà hàng",
+"저는 매운 음식을 잘 못 먹어요.|jeoneun maeun eumsigeul jal mot meogeoyo|Tôi không ăn được đồ cay.|Nhà hàng",
+"불고기 이 인분 주세요.|bulgogi i inbun juseyo|Cho tôi hai phần thịt nướng.|Nhà hàng",
+"반찬 좀 더 주실 수 있어요?|banchan jom deo jusil su isseoyo|Cho tôi thêm chút món ăn kèm được không?|Nhà hàng",
+"저는 고기를 안 먹어요.|jeoneun gogireul an meogeoyo|Tôi không ăn thịt.|Nhà hàng",
+"배가 너무 불러요.|baega neomu bulleoyo|Tôi no quá rồi.|Nhà hàng",
+"제가 살게요.|jega salgeyo|Để tôi mời.|Nhà hàng",
+"이거 얼마예요?|igeo eolmayeyo|Cái này bao nhiêu tiền?|Mua sắm",
+"너무 비싸요. 좀 깎아 주세요.|neomu bissayo. jom kkakka juseyo|Đắt quá. Giảm giá chút đi.|Mua sắm",
+"더 큰 사이즈 있어요?|deo keun saijeu isseoyo|Có cỡ lớn hơn không?|Mua sắm",
+"그냥 구경만 할게요.|geunyang gyeongman halgeyo|Tôi chỉ xem thôi.|Mua sắm",
+"이걸로 할게요.|igeollo halgeyo|Tôi lấy cái này.|Mua sắm",
+"환불할 수 있어요?|hwanbulhal su isseoyo|Tôi có thể hoàn tiền không?|Mua sắm",
+"실례지만, 서울역이 어디예요?|sillyejiman, seoullyeogi eodiyeyo|Xin lỗi, ga Seoul ở đâu ạ?|Đi lại",
+"여기에서 가까워요?|yeogieseo gakkawoyo|Có gần đây không?|Đi lại",
+"저 길로 쭉 가세요.|jeo gillo jjuk gaseyo|Anh/chị đi thẳng đường kia.|Đi lại",
+"몇 번 버스를 타야 해요?|myeot beon beoseureul taya haeyo|Tôi phải đi xe buýt số mấy?|Đi lại",
+"지하철이 버스보다 더 빨라요.|jihacheori beoseubodan deo ppallayo|Tàu điện nhanh hơn xe buýt.|Đi lại",
+"길이 많이 막혀요.|giri mani makhyeoyo|Đường tắc lắm.|Đi lại",
+"택시를 타는 게 좋겠어요.|taeksireul taneun ge joketseoyo|Đi taxi thì tốt hơn.|Đi lại",
+"공항까지 얼마나 걸려요?|gonghangkkaji eolmana geollyeoyo|Đến sân bay mất bao lâu?|Đi lại",
+"머리가 아파요.|meoriga apayo|Tôi bị đau đầu.|Sức khoẻ",
+"감기에 걸린 것 같아요.|gamgie geollin geot gatayo|Tôi nghĩ mình bị cảm.|Sức khoẻ",
+"어제부터 열이 나요.|eojebuteo yeori nayo|Tôi sốt từ hôm qua.|Sức khoẻ",
+"병원에 가 보세요.|byeongwone ga boseyo|Anh/chị thử đi bệnh viện xem.|Sức khoẻ",
+"약을 하루에 세 번 드세요.|yageul harue se beon deuseyo|Hãy uống thuốc ba lần một ngày.|Sức khoẻ",
+"푹 쉬면 괜찮아질 거예요.|puk swimyeon gwaenchanajil geoyeyo|Nghỉ ngơi cho kỹ là sẽ ổn thôi.|Sức khoẻ",
+"오늘 날씨가 어때요?|oneul nalssiga eottaeyo|Hôm nay thời tiết thế nào?|Thời tiết",
+"오늘은 날씨가 아주 좋아요.|oneureun nalssiga aju joayo|Hôm nay thời tiết rất đẹp.|Thời tiết",
+"비가 올 것 같아요.|biga ol geot gatayo|Trời có lẽ sẽ mưa.|Thời tiết",
+"한국의 겨울은 너무 추워요.|hangugui gyeoureun neomu chuwoyo|Mùa đông Hàn Quốc lạnh quá.|Thời tiết",
+"베트남은 사계절이 없어요.|beteunameun sagyejeori eopseoyo|Việt Nam không có bốn mùa.|Thời tiết",
+"우산을 가져가세요.|usaneul gajyeogaseyo|Hãy mang theo dù.|Thời tiết",
+"한국어 공부가 어렵지만 재미있어요.|hangugeo gongbuga eoryeopjiman jaemiisseoyo|Học tiếng Hàn khó nhưng vui.|Học tập",
+"매일 새 단어를 열 개씩 외워요.|maeil sae daneoreul yeol gaessik oewoyo|Mỗi ngày tôi học mười từ mới.|Học tập",
+"발음이 아직 어려워요.|bareumi ajik eoryeowoyo|Phát âm vẫn còn khó với tôi.|Học tập",
+"내일 시험이 있어서 공부해야 해요.|naeil siheomi isseoseo gongbuhaeya haeyo|Mai có bài thi nên tôi phải học.|Học tập",
+"선생님, 질문이 있어요.|seonsaengnim, jilmuni isseoyo|Thầy/cô ơi, em có câu hỏi.|Học tập",
+"조금 더 천천히 설명해 주세요.|jogeum deo cheoncheonhi seolmyeonghae juseyo|Thầy/cô giải thích chậm hơn chút nhé.|Học tập",
+"한국 드라마를 보면서 한국어를 배워요.|hanguk deuramareul bomyeonseo hangugeoreul baewoyo|Tôi học tiếng Hàn qua phim Hàn.|Học tập",
+"열심히 하면 꼭 잘할 수 있어요.|yeolsimhi hamyeon kkok jalhal su isseoyo|Cố gắng thì nhất định sẽ giỏi.|Học tập",
+"주말에 뭐 할 거예요?|jumare mwo hal geoyeyo|Cuối tuần bạn sẽ làm gì?|Hẹn hò & rủ rê",
+"같이 영화 볼래요?|gachi yeonghwa bollaeyo|Cùng xem phim nhé?|Hẹn hò & rủ rê",
+"저녁에 시간 있어요?|jeonyeoge sigan isseoyo|Buổi tối bạn có thời gian không?|Hẹn hò & rủ rê",
+"몇 시에 만날까요?|myeot sie mannalkkayo|Mình gặp lúc mấy giờ nhỉ?|Hẹn hò & rủ rê",
+"지하철역 앞에서 만나요.|jihacheollyeok apeseo mannayo|Gặp nhau trước ga tàu điện nhé.|Hẹn hò & rủ rê",
+"미안해요, 오늘은 좀 바빠요.|mianhaeyo, oneureun jom bappayo|Xin lỗi, hôm nay tôi hơi bận.|Hẹn hò & rủ rê",
+"다음에 꼭 같이 가요.|daeume kkok gachi gayo|Lần sau nhất định cùng đi nhé.|Hẹn hò & rủ rê",
+"조금 늦을 것 같아요.|jogeum neujeul geot gatayo|Có lẽ tôi sẽ đến muộn một chút.|Hẹn hò & rủ rê",
+"회의가 몇 시에 시작해요?|hoeuiga myeot sie sijakhaeyo|Cuộc họp bắt đầu lúc mấy giờ?|Công việc",
+"이 서류를 확인해 주세요.|i seoryureul hwaginhae juseyo|Nhờ anh/chị kiểm tra hồ sơ này.|Công việc",
+"오늘까지 끝내야 해요.|oneulkkaji kkeunnaeya haeyo|Phải xong trong hôm nay.|Công việc",
+"조금 도와주실 수 있어요?|jogeum dowajusil su isseoyo|Anh/chị giúp tôi một chút được không?|Công việc",
+"내일 휴가를 쓰고 싶습니다.|naeil hyugareul sseugo sipseumnida|Mai tôi muốn xin nghỉ phép.|Công việc",
+"먼저 퇴근하겠습니다.|meonjeo toegeunhagetseumnida|Tôi xin về trước ạ.|Công việc",
+"지금 통장을 만들고 싶어요.|jigeum tongjangeul mandeulgo sipeoyo|Tôi muốn mở sổ tài khoản.|Giấy tờ & dịch vụ",
+"여권을 보여 주세요.|yeogwoneul boyeo juseyo|Xin cho xem hộ chiếu.|Giấy tờ & dịch vụ",
+"외국인 등록증이 있어요.|oegugin deungnokjeungi isseoyo|Tôi có thẻ đăng ký người nước ngoài.|Giấy tờ & dịch vụ",
+"여기에 서명해 주세요.|yeogie seomyeonghae juseyo|Xin ký vào đây.|Giấy tờ & dịch vụ",
+"인터넷을 신청하고 싶어요.|inteoneseul sincheonghago sipeoyo|Tôi muốn đăng ký internet.|Giấy tờ & dịch vụ",
+"방을 구하고 있어요.|bangeul guhago isseoyo|Tôi đang tìm phòng trọ.|Giấy tờ & dịch vụ",
+"한국에 오기 전에 베트남에서 한국어를 배웠어요.|hanguge ogi jeone beteunameseo hangugeoreul baewosseoyo|Trước khi sang Hàn, tôi đã học tiếng Hàn ở Việt Nam.|TOPIK 2급|2",
+"일이 끝나자마자 집으로 갔어요.|iri kkeunnajamaja jibeuro gasseoyo|Vừa xong việc là tôi về nhà ngay.|TOPIK 2급|2",
+"밥을 먹는 동안 전화를 세 번 받았어요.|babeul meongneun dongan jeonhwareul se beon badasseoyo|Trong lúc ăn cơm tôi đã nhận ba cuộc gọi.|TOPIK 2급|2",
+"저는 매운 음식을 잘 먹는 편이에요.|jeoneun maeun eumsigeul jal meongneun pyeonieyo|Tôi thuộc kiểu ăn cay khá được.|TOPIK 2급|2",
+"한국 생활에 많이 익숙해졌어요.|hanguk saenghware mani iksukhaejyeosseoyo|Tôi đã quen nhiều với cuộc sống ở Hàn.|TOPIK 2급|2",
+"처음에는 발음이 어려웠는데 지금은 괜찮아요.|cheoeumeneun bareumi eoryeowonneunde jigeumeun gwaenchanayo|Ban đầu phát âm khó nhưng giờ thì ổn.|TOPIK 2급|2",
+"시간이 없으니까 택시를 타는 게 좋겠어요.|sigani eopseunikka taeksireul taneun ge joketseoyo|Vì không có thời gian nên đi taxi thì tốt hơn.|TOPIK 2급|2",
+"친구가 도와줘서 일을 빨리 끝낼 수 있었어요.|chinguga dowajwoseo ireul ppalli kkeunnael su isseosseoyo|Nhờ bạn giúp mà tôi đã xong việc nhanh.|TOPIK 2급|2",
+"내일까지 이 서류를 제출해야 합니다.|naeilkkaji i seoryureul jechulhaeya hamnida|Phải nộp hồ sơ này trước ngày mai.|TOPIK 2급|2",
+"여기에서 사진을 찍으면 안 됩니다.|yeogieseo sajineul jjigeumyeon an doemnida|Không được chụp ảnh ở đây.|TOPIK 2급|2",
+"다음 주부터 아르바이트를 시작하기로 했어요.|daeum jubuteo areubaiteureul sijakhagiro haesseoyo|Tôi đã quyết định bắt đầu làm thêm từ tuần sau.|TOPIK 2급|2",
+"회사 때문에 서울로 이사하게 됐어요.|hoesa ttaemune seoullo isahage dwaesseoyo|Vì công việc nên tôi phải chuyển đến Seoul.|TOPIK 2급|2",
+"그 영화는 생각보다 훨씬 재미있었어요.|geu yeonghwaneun saenggakboda hwolssin jaemiisseosseoyo|Phim đó hay hơn tôi tưởng rất nhiều.|TOPIK 2급|2",
+"요즘 한국어 공부에 관심이 많아졌어요.|yojeum hangugeo gongbue gwansimi manajyeosseoyo|Dạo này tôi quan tâm nhiều hơn đến việc học tiếng Hàn.|TOPIK 2급|2",
+"제 동생은 저보다 성격이 활발해요.|je dongsaengeun jeoboda seonggyeogi hwalbalhaeyo|Em tôi tính cách hoạt bát hơn tôi.|TOPIK 2급|2",
+"한국 음식 중에서 삼계탕을 가장 좋아해요.|hanguk eumsik jungeseo samgyetangeul gajang joahaeyo|Trong các món Hàn tôi thích gà hầm sâm nhất.|TOPIK 2급|2",
+"비가 오는 날에는 집에서 쉬는 게 좋아요.|biga oneun nareneun jibeseo swineun ge joayo|Ngày mưa thì nghỉ ở nhà là tốt nhất.|TOPIK 2급|2",
+"아무리 바빠도 아침은 꼭 먹어요.|amuri bappado achimeun kkok meogeoyo|Dù bận đến đâu tôi cũng ăn sáng.|TOPIK 2급|2",
+"혹시 이 근처에 약국이 있는지 아세요?|hoksi i geuncheoe yakgugi inneunji aseyo|Anh/chị có biết gần đây có hiệu thuốc không?|TOPIK 2급|2",
+"언제 오실지 미리 알려 주세요.|eonje osilji miri allyeo juseyo|Hãy cho tôi biết trước là anh/chị đến khi nào.|TOPIK 2급|2",
+"어제 본 드라마가 너무 슬퍼서 울었어요.|eoje bon deuramaga neomu seulpeoseo ureosseoyo|Bộ phim xem hôm qua buồn quá nên tôi đã khóc.|TOPIK 2급|2",
+"친구를 기다리면서 책을 읽었어요.|chingureul gidarimyeonseo chaegeul ilgeosseoyo|Tôi vừa chờ bạn vừa đọc sách.|TOPIK 2급|2",
+"이 가방은 가볍고 튼튼해서 아주 편해요.|i gabangeun gabyeopgo teunteunhaeseo aju pyeonhaeyo|Chiếc túi này nhẹ và bền nên rất tiện.|TOPIK 2급|2",
+"월급을 받으면 가족에게 보낼 거예요.|wolgeubeul badeumyeon gajogege bonael geoyeyo|Nhận lương là tôi sẽ gửi cho gia đình.|TOPIK 2급|2",
+"면접 때문에 어제부터 긴장하고 있어요.|myeonjeop ttaemune eojebuteo ginjanghago isseoyo|Vì buổi phỏng vấn mà tôi căng thẳng từ hôm qua.|TOPIK 2급|2",
+"한국에서 일한 적이 있어서 한국어를 조금 할 수 있어요.|hangugeseo ilhan jeogi isseoseo hangugeoreul jogeum hal su isseoyo|Tôi từng làm việc ở Hàn nên nói được một chút.|TOPIK 2급|2",
+"약을 먹었는데도 열이 안 내려요.|yageul meogeonneundedo yeori an naeryeoyo|Uống thuốc rồi mà vẫn không hạ sốt.|TOPIK 2급|2",
+"길이 막힐까 봐 일찍 나왔어요.|giri makhilkka bwa iljjik nawasseoyo|Tôi ra sớm vì sợ đường tắc.|TOPIK 2급|2",
+"이 식당은 값도 싸고 맛도 좋아요.|i sikdangeun gapdo ssago matdo joayo|Quán này vừa rẻ vừa ngon.|TOPIK 2급|2",
+"주말마다 한국어 수업에 다녀요.|jumalmada hangugeo sueobe danyeoyo|Cuối tuần nào tôi cũng đi học tiếng Hàn.|TOPIK 2급|2",
+"하루에 세 시간씩 공부해요.|harue se siganssik gongbuhaeyo|Mỗi ngày tôi học ba tiếng.|TOPIK 2급|2",
+"그 사람은 가수처럼 노래를 잘해요.|geu sarameun gasucheoreom noraereul jalhaeyo|Người đó hát hay như ca sĩ.|TOPIK 2급|2",
+"제가 아는 사람 중에 한국 사람도 있어요.|jega aneun saram junge hanguk saramdo isseoyo|Trong số người tôi biết cũng có người Hàn.|TOPIK 2급|2",
+"냉장고가 고장나서 수리를 신청했어요.|naengjanggoga gojangnaseo surireul sincheonghaesseoyo|Tủ lạnh hỏng nên tôi đã gọi sửa.|TOPIK 2급|2",
+"관리비는 집세에 포함되어 있어요.|gwallibineun jipsee pohamdoeeo isseoyo|Phí quản lý đã bao gồm trong tiền nhà.|TOPIK 2급|2",
+"계약하기 전에 내용을 꼼꼼히 확인하세요.|gyeyakhagi jeone naeyongeul kkomkkomhi hwaginhaseyo|Trước khi ký hợp đồng hãy kiểm tra kỹ nội dung.|TOPIK 2급|2",
+"실수해도 괜찮으니까 많이 말해 보세요.|silsuhaedo gwaenchaneunikka mani malhae boseyo|Sai cũng không sao, cứ nói nhiều lên.|TOPIK 2급|2",
+"한국어로 일기를 쓰는 습관을 만들었어요.|hangugeoro ilgireul sseuneun seupgwaneul mandeureosseoyo|Tôi đã tạo thói quen viết nhật ký bằng tiếng Hàn.|TOPIK 2급|2",
+"노력하면 누구나 잘할 수 있다고 생각해요.|noryeokhamyeon nuguna jalhal su itdago saenggakhaeyo|Tôi nghĩ ai nỗ lực thì cũng làm tốt được.|TOPIK 2급|2",
+"시험이 생각보다 어려워서 걱정이에요.|siheomi saenggakboda eoryeowoseo geokjeongieyo|Bài thi khó hơn tôi tưởng nên tôi lo.|TOPIK 2급|2",
+"다음 달에 토픽 시험을 보려고 해요.|daeum dare topik siheomeul boryeogo haeyo|Tháng sau tôi định thi TOPIK.|TOPIK 2급|2"
+];
+
+const GRAMMAR = [
+{p:"N + 은/는", lv:"Sơ cấp 1", s:"Trợ từ chủ đề: nêu cái mình muốn nói đến",
+ f:"Phụ âm cuối → 은 ・ Nguyên âm cuối → 는",
+ d:"Đánh dấu chủ đề của câu, tương ứng với kiểu nói “còn tôi thì…”, “về chuyện này thì…”. Thường dùng khi giới thiệu, so sánh hoặc nhấn mạnh chủ đề.",
+ e:[["저는 학생이에요.","Tôi là học sinh."],["동생은 집에 있어요.","Còn em tôi thì ở nhà."]]},
+{p:"N + 이/가", lv:"Sơ cấp 1", s:"Trợ từ chủ ngữ: nêu ai/cái gì thực hiện hành động",
+ f:"Phụ âm cuối → 이 ・ Nguyên âm cuối → 가",
+ d:"Chỉ chủ ngữ. Khi muốn trả lời đúng câu hỏi “ai?”, “cái gì?” thì dùng 이/가, còn khi nói về một chủ đề chung thì dùng 은/는.",
+ e:[["날씨가 좋아요.","Thời tiết đẹp."],["친구가 왔어요.","Bạn tôi đã đến."]]},
+{p:"N + 을/를", lv:"Sơ cấp 1", s:"Trợ từ tân ngữ: chịu tác động của hành động",
+ f:"Phụ âm cuối → 을 ・ Nguyên âm cuối → 를",
+ d:"Đứng sau tân ngữ trực tiếp. Trong hội thoại thân mật người Hàn hay bỏ 을/를.",
+ e:[["밥을 먹어요.","Tôi ăn cơm."],["한국어를 배워요.","Tôi học tiếng Hàn."]]},
+{p:"N + 에 / 에서", lv:"Sơ cấp 1", s:"Nơi đến (에) và nơi diễn ra hành động / xuất phát (에서)",
+ f:"장소 + 에 가다/오다 ・ 장소 + 에서 + 동사",
+ d:"에 dùng với động từ di chuyển (가다, 오다, 도착하다) và với thời gian. 에서 chỉ nơi hành động xảy ra hoặc điểm bắt đầu.",
+ e:[["학교에 가요.","Tôi đi đến trường."],["집에서 공부해요.","Tôi học ở nhà."],["베트남에서 왔어요.","Tôi đến từ Việt Nam."]]},
+{p:"N + 하고 / 와·과", lv:"Sơ cấp 1", s:"“và”, “với”",
+ f:"하고 (nói) ・ Phụ âm cuối → 과 ・ Nguyên âm cuối → 와 (viết)",
+ d:"Nối hai danh từ hoặc diễn tả “cùng với ai”. Khi nói “cùng với” thường thêm 같이/함께.",
+ e:[["빵하고 우유를 샀어요.","Tôi đã mua bánh mì và sữa."],["친구와 같이 갔어요.","Tôi đã đi cùng bạn."]]},
+{p:"N + 도 / 만 / 부터~까지", lv:"Sơ cấp 1", s:"“cũng”, “chỉ”, “từ… đến…”",
+ f:"N도 ・ N만 ・ N부터 N까지",
+ d:"도 thay thế 은/는, 이/가, 을/를 khi muốn nói “cũng”. 만 nghĩa “chỉ”. 부터~까지 chỉ khoảng thời gian; với địa điểm dùng 에서~까지.",
+ e:[["저도 가고 싶어요.","Tôi cũng muốn đi."],["물만 주세요.","Chỉ cho tôi nước thôi."],["아홉 시부터 여섯 시까지 일해요.","Tôi làm việc từ chín giờ đến sáu giờ."]]},
+{p:"V/A + 아요/어요/해요", lv:"Sơ cấp 1", s:"Thể hiện tại lịch sự thân mật (đuôi 요)",
+ f:"ㅏ,ㅗ → 아요 ・ nguyên âm khác → 어요 ・ 하다 → 해요",
+ d:"Đuôi câu phổ biến nhất trong hội thoại hằng ngày. Dùng được cho cả câu kể, câu hỏi, câu đề nghị — chỉ khác ngữ điệu.",
+ e:[["저는 매일 운동해요.","Tôi tập thể dục mỗi ngày."],["어디에 가요?","Bạn đi đâu?"]]},
+{p:"V/A + 습니다/ㅂ니다", lv:"Sơ cấp 1", s:"Thể trang trọng (dùng trong công việc, phát biểu)",
+ f:"Phụ âm cuối → 습니다 ・ Nguyên âm cuối → ㅂ니다 ・ Câu hỏi: 습니까?/ㅂ니까?",
+ d:"Lịch sự và trang trọng hơn đuôi 요. Dùng ở công ty, quân đội, bản tin, khi gặp khách hàng.",
+ e:[["감사합니다.","Xin cảm ơn."],["저는 베트남에서 왔습니다.","Tôi đến từ Việt Nam."]]},
+{p:"N + 이에요/예요", lv:"Sơ cấp 1", s:"“là…” (câu định nghĩa)",
+ f:"Phụ âm cuối → 이에요 ・ Nguyên âm cuối → 예요 ・ Phủ định: 이/가 아니에요",
+ d:"Tương đương động từ “là”. Dạng trang trọng là 입니다, phủ định là 아니에요 / 아닙니다.",
+ e:[["제 친구예요.","Đây là bạn tôi."],["학생이 아니에요.","Tôi không phải học sinh."]]},
+{p:"V/A + 았/었어요", lv:"Sơ cấp 1", s:"Thì quá khứ",
+ f:"ㅏ,ㅗ → 았어요 ・ nguyên âm khác → 었어요 ・ 하다 → 했어요",
+ d:"Diễn tả việc đã xảy ra hoặc trạng thái đã kết thúc. Dạng trang trọng: 았/었습니다.",
+ e:[["어제 영화를 봤어요.","Hôm qua tôi đã xem phim."],["아주 맛있었어요.","Rất ngon."]]},
+{p:"V + 을/ㄹ 거예요", lv:"Sơ cấp 1", s:"Thì tương lai, dự định",
+ f:"Phụ âm cuối → 을 거예요 ・ Nguyên âm cuối → ㄹ 거예요",
+ d:"Nói về kế hoạch hoặc phỏng đoán. Khi chủ ngữ là người khác thì mang nghĩa “chắc là sẽ…”.",
+ e:[["주말에 쉴 거예요.","Cuối tuần tôi sẽ nghỉ."],["비가 올 거예요.","Chắc trời sẽ mưa."]]},
+{p:"안 / V·A + 지 않다", lv:"Sơ cấp 1", s:"Phủ định “không”",
+ f:"안 + V/A ・ V/A + 지 않아요",
+ d:"Hai cách phủ định nghĩa như nhau; 안 dùng nhiều khi nói, 지 않다 trang trọng hơn. Với động từ dạng 명사+하다 thì chen 안 vào giữa: 공부 안 해요.",
+ e:[["저는 술을 안 마셔요.","Tôi không uống rượu."],["오늘은 춥지 않아요.","Hôm nay không lạnh."]]},
+{p:"못 / V + 지 못하다", lv:"Sơ cấp 1", s:"Phủ định “không thể” (do năng lực, hoàn cảnh)",
+ f:"못 + V ・ V + 지 못해요",
+ d:"Khác với 안 (không muốn/không làm), 못 nghĩa là muốn nhưng không làm được.",
+ e:[["저는 수영을 못 해요.","Tôi không biết bơi."],["시간이 없어서 가지 못했어요.","Vì không có thời gian nên tôi đã không đi được."]]},
+{p:"V + 고 싶다", lv:"Sơ cấp 1", s:"“muốn làm gì”",
+ f:"V + 고 싶어요 ・ Ngôi thứ ba: V + 고 싶어하다",
+ d:"Chỉ dùng với động từ. Khi nói về mong muốn của người khác phải dùng 고 싶어하다.",
+ e:[["한국에 가고 싶어요.","Tôi muốn đi Hàn Quốc."],["동생은 쉬고 싶어해요.","Em tôi muốn nghỉ."]]},
+{p:"V + 고 있다", lv:"Sơ cấp 1", s:"“đang làm” (hiện tại tiếp diễn)",
+ f:"V + 고 있어요 ・ Lịch sự: 고 계세요",
+ d:"Nhấn mạnh hành động đang diễn ra ngay lúc nói. Với tính từ không dùng cấu trúc này.",
+ e:[["지금 밥을 먹고 있어요.","Tôi đang ăn cơm."],["선생님이 전화하고 계세요.","Thầy/cô đang gọi điện."]]},
+{p:"V + 을/ㄹ 수 있다·없다", lv:"Sơ cấp 1", s:"“có thể / không thể làm”",
+ f:"Phụ âm cuối → 을 수 있어요 ・ Nguyên âm cuối → ㄹ 수 있어요",
+ d:"Diễn tả khả năng hoặc sự cho phép. Dùng nhiều khi hỏi xin phép.",
+ e:[["한국어를 읽을 수 있어요.","Tôi có thể đọc tiếng Hàn."],["오늘은 갈 수 없어요.","Hôm nay tôi không đi được."]]},
+{p:"V + 아/어 주세요", lv:"Sơ cấp 1", s:"Nhờ vả lịch sự “làm giúp tôi…”",
+ f:"V + 아/어 주세요 ・ Rất lịch sự: 아/어 주시겠어요?",
+ d:"Cấu trúc nhờ vả quan trọng nhất khi sống ở Hàn Quốc. Thêm 좀 phía trước cho mềm: 좀 도와주세요.",
+ e:[["천천히 말해 주세요.","Xin nói chậm giúp tôi."],["사진 좀 찍어 주시겠어요?","Anh/chị chụp ảnh giúp tôi được không?"]]},
+{p:"V + 으세요/세요", lv:"Sơ cấp 1", s:"Câu mệnh lệnh lịch sự & kính ngữ",
+ f:"Phụ âm cuối → 으세요 ・ Nguyên âm cuối → 세요 ・ Phủ định: 지 마세요",
+ d:"Vừa là lời mời/đề nghị lịch sự (“mời anh…”), vừa là kính ngữ khi nói về người trên.",
+ e:[["여기 앉으세요.","Mời ngồi đây."],["담배를 피우지 마세요.","Xin đừng hút thuốc."]]},
+{p:"V/A + 아서/어서", lv:"Sơ cấp 2", s:"Nguyên nhân “vì… nên…”",
+ f:"ㅏ,ㅗ → 아서 ・ nguyên âm khác → 어서 ・ 하다 → 해서",
+ d:"Không chia thì ở vế trước. Không dùng được với câu mệnh lệnh hay câu đề nghị — khi đó phải dùng 으니까.",
+ e:[["배가 아파서 병원에 갔어요.","Vì đau bụng nên tôi đã đến bệnh viện."],["날씨가 좋아서 기분이 좋아요.","Trời đẹp nên tâm trạng tôi vui."]]},
+{p:"V/A + 으니까/니까", lv:"Sơ cấp 2", s:"Nguyên nhân (dùng được với mệnh lệnh, đề nghị)",
+ f:"Phụ âm cuối → 으니까 ・ Nguyên âm cuối → 니까",
+ d:"Nhấn vào lý do mà người nói đưa ra làm căn cứ. Thường đi với 세요, 읍시다, 을까요.",
+ e:[["비가 오니까 우산을 가져가세요.","Trời mưa nên hãy mang dù."],["시간이 없으니까 택시를 탑시다.","Vì không có thời gian nên mình đi taxi nhé."]]},
+{p:"V/A + 지만", lv:"Sơ cấp 2", s:"“nhưng”",
+ f:"V/A + 지만 ・ Quá khứ: 았/었지만",
+ d:"Nối hai vế trái ngược nhau trong một câu.",
+ e:[["한국어는 어렵지만 재미있어요.","Tiếng Hàn khó nhưng vui."],["먹었지만 또 배고파요.","Ăn rồi nhưng vẫn đói."]]},
+{p:"V/A + 는데/은데", lv:"Trung cấp", s:"Nêu bối cảnh, đối lập nhẹ, mở đầu câu nhờ vả",
+ f:"Động từ → 는데 ・ Tính từ có phụ âm cuối → 은데 ・ không phụ âm cuối → ㄴ데",
+ d:"Một trong những đuôi được dùng nhiều nhất khi nói. Vế trước đưa ra tình huống, vế sau là nhận xét, yêu cầu hoặc câu hỏi.",
+ e:[["지금 밖인데 조금 늦을 것 같아요.","Tôi đang ở ngoài, có lẽ sẽ hơi muộn."],["이 옷 예쁜데 좀 비싸요.","Áo này đẹp mà hơi đắt."]]},
+{p:"V/A + 으면/면", lv:"Sơ cấp 2", s:"Điều kiện “nếu…”",
+ f:"Phụ âm cuối → 으면 ・ Nguyên âm cuối → 면",
+ d:"Diễn tả điều kiện hoặc giả định. Kết hợp với 아/어야 하다, 을 거예요 rất tự nhiên.",
+ e:[["시간이 있으면 같이 가요.","Nếu có thời gian thì cùng đi nhé."],["열심히 하면 잘할 수 있어요.","Nếu cố gắng thì sẽ làm tốt."]]},
+{p:"V + 아야/어야 하다(되다)", lv:"Sơ cấp 2", s:"“phải làm gì”",
+ f:"ㅏ,ㅗ → 아야 해요 ・ nguyên âm khác → 어야 해요 ・ 하다 → 해야 해요",
+ d:"Diễn tả nghĩa vụ, điều bắt buộc. 되다 nghe tự nhiên hơn trong hội thoại.",
+ e:[["내일 일찍 일어나야 해요.","Mai tôi phải thức dậy sớm."],["약을 먹어야 돼요.","Bạn phải uống thuốc."]]},
+{p:"V + 아도/어도 되다", lv:"Sơ cấp 2", s:"Xin phép “…cũng được chứ?”",
+ f:"V + 아도/어도 돼요? ・ Cấm: V + 으면 안 돼요",
+ d:"Dùng để xin phép và để cho phép. Câu cấm tương ứng là 으면 안 돼요.",
+ e:[["여기 앉아도 돼요?","Tôi ngồi đây được không?"],["여기서 사진을 찍으면 안 돼요.","Không được chụp ảnh ở đây."]]},
+{p:"V + 기 전에 / 은 후에", lv:"Sơ cấp 2", s:"“trước khi…” / “sau khi…”",
+ f:"V + 기 전에 ・ Phụ âm cuối → 은 후에 ・ Nguyên âm cuối → ㄴ 후에",
+ d:"Diễn tả trình tự thời gian. 후에 còn có thể thay bằng 다음에, 뒤에.",
+ e:[["밥을 먹기 전에 손을 씻어요.","Trước khi ăn tôi rửa tay."],["수업이 끝난 후에 만나요.","Gặp nhau sau khi tan học nhé."]]},
+{p:"V + 고 나서 / V + 고", lv:"Sơ cấp 2", s:"Nối hành động theo thứ tự “…rồi…”",
+ f:"V + 고 ・ Nhấn mạnh hoàn tất: V + 고 나서",
+ d:"Hai hành động nối tiếp của cùng một người. Khác với 아서/어서 nối nguyên nhân.",
+ e:[["샤워하고 잤어요.","Tôi tắm rồi đi ngủ."],["숙제를 하고 나서 놀아요.","Làm bài xong rồi mới chơi."]]},
+{p:"V + 으려고 하다", lv:"Sơ cấp 2", s:"Ý định “định làm gì”",
+ f:"Phụ âm cuối → 으려고 해요 ・ Nguyên âm cuối → 려고 해요",
+ d:"Diễn tả ý định của bản thân, chưa chắc chắn như 을 거예요.",
+ e:[["다음 달에 고향에 가려고 해요.","Tháng sau tôi định về quê."],["한국에서 일하려고 해요.","Tôi định làm việc ở Hàn Quốc."]]},
+{p:"V + 으러 가다/오다", lv:"Sơ cấp 2", s:"Mục đích di chuyển “đi để làm gì”",
+ f:"Phụ âm cuối → 으러 ・ Nguyên âm cuối → 러 + 가다/오다",
+ d:"Chỉ dùng với động từ di chuyển (가다, 오다, 다니다).",
+ e:[["친구를 만나러 가요.","Tôi đi gặp bạn."],["책을 빌리러 도서관에 왔어요.","Tôi đến thư viện để mượn sách."]]},
+{p:"V + 아/어 보다", lv:"Sơ cấp 2", s:"“thử làm”, kinh nghiệm",
+ f:"V + 아/어 봤어요 (đã từng) ・ V + 아/어 보세요 (thử đi)",
+ d:"Rủ ai thử một việc, hoặc kể về kinh nghiệm đã từng làm.",
+ e:[["김치를 먹어 봤어요.","Tôi đã thử ăn kim chi."],["이 옷을 입어 보세요.","Anh/chị thử mặc áo này xem."]]},
+{p:"V + 을까요? / 읍시다", lv:"Sơ cấp 2", s:"Rủ rê, đề nghị “…nhé?”, “…đi”",
+ f:"V + 을까요?/ㄹ까요? ・ V + 읍시다/ㅂ시다",
+ d:"을까요 là câu hỏi ý kiến, 읍시다 là lời đề nghị dứt khoát (hơi trang trọng; với người lớn tuổi nên dùng 으세요 hoặc 아요/어요).",
+ e:[["같이 점심 먹을까요?","Mình cùng ăn trưa nhé?"],["이제 시작합시다.","Giờ chúng ta bắt đầu đi."]]},
+{p:"A + 은/ㄴ N ・ V + 는 N", lv:"Sơ cấp 2", s:"Định ngữ: biến động từ/tính từ thành phần bổ nghĩa cho danh từ",
+ f:"Tính từ: 은/ㄴ ・ Động từ hiện tại: 는 ・ quá khứ: 은/ㄴ ・ tương lai: 을/ㄹ",
+ d:"Tương ứng cách nói “cái áo đẹp”, “người đang ăn”, “việc sẽ làm”. Nắm vững phần này là bước ngoặt lên trung cấp.",
+ e:[["예쁜 꽃을 샀어요.","Tôi đã mua bông hoa đẹp."],["저기 가는 사람이 제 친구예요.","Người đang đi kia là bạn tôi."],["어제 본 영화가 좋았어요.","Bộ phim hôm qua tôi xem rất hay."]]},
+{p:"V + 는 것 / 기", lv:"Trung cấp", s:"Danh từ hoá: “việc làm gì”",
+ f:"V + 는 것(거) ・ V + 기 ・ 는 것이 → 는 게",
+ d:"Biến cả cụm động từ thành danh từ để làm chủ ngữ hay tân ngữ. 기 hay đi với 좋다, 쉽다, 어렵다, 시작하다.",
+ e:[["운동하는 것이 건강에 좋아요.","Việc tập thể dục tốt cho sức khoẻ."],["한국어로 말하기가 어려워요.","Việc nói bằng tiếng Hàn thì khó."]]},
+{p:"V + 을/ㄹ 때", lv:"Sơ cấp 2", s:"“khi…”",
+ f:"Phụ âm cuối → 을 때 ・ Nguyên âm cuối → ㄹ 때 ・ Quá khứ: 았/었을 때",
+ d:"Chỉ thời điểm hoặc giai đoạn một việc diễn ra.",
+ e:[["밥을 먹을 때 전화가 왔어요.","Khi tôi đang ăn thì có điện thoại."],["어릴 때 시골에 살았어요.","Khi còn nhỏ tôi sống ở quê."]]},
+{p:"V + 으면서/면서", lv:"Trung cấp", s:"“vừa… vừa…” (hai việc cùng lúc)",
+ f:"Phụ âm cuối → 으면서 ・ Nguyên âm cuối → 면서",
+ d:"Chủ ngữ của hai vế phải giống nhau.",
+ e:[["음악을 들으면서 공부해요.","Tôi vừa nghe nhạc vừa học."],["드라마를 보면서 한국어를 배워요.","Tôi học tiếng Hàn trong lúc xem phim."]]},
+{p:"N + 보다 (더)", lv:"Sơ cấp 2", s:"So sánh “hơn”",
+ f:"A가 B보다 더 + A/V ・ Nhất: 제일/가장",
+ d:"보다 gắn vào đối tượng bị so sánh. 더 có thể lược bỏ.",
+ e:[["서울이 하노이보다 더 추워요.","Seoul lạnh hơn Hà Nội."],["저는 커피를 제일 좋아해요.","Tôi thích cà phê nhất."]]},
+{p:"N 때문에 / V·A + 기 때문에", lv:"Trung cấp", s:"Nguyên nhân (trang trọng, rõ ràng)",
+ f:"N 때문에 ・ V/A + 기 때문에 ・ Vì vậy: 그래서",
+ d:"Dùng nhiều trong văn viết và khi giải thích lý do một cách chính thức.",
+ e:[["비 때문에 늦었어요.","Tôi muộn vì mưa."],["길이 막히기 때문에 지하철을 타요.","Vì đường tắc nên tôi đi tàu điện."]]},
+{p:"V/A + 네요 / 지요?", lv:"Trung cấp", s:"Cảm thán (네요) và xác nhận (지요/죠)",
+ f:"V/A + 네요 ・ V/A + 지요? (nói: 죠?)",
+ d:"네요 thể hiện sự ngạc nhiên hoặc cảm nhận ngay lúc đó; 지요 dùng khi đã biết và muốn người kia đồng ý.",
+ e:[["한국어를 잘하시네요!","Anh/chị giỏi tiếng Hàn quá!"],["오늘 날씨가 춥죠?","Hôm nay lạnh nhỉ?"]]},
+{p:"V/A + 것 같다", lv:"Trung cấp", s:"Phỏng đoán “có lẽ, hình như”",
+ f:"Động từ hiện tại: 는 것 같다 ・ Tính từ: 은/ㄴ 것 같다 ・ Tương lai·phỏng đoán: 을/ㄹ 것 같다",
+ d:"Cách nói giảm nhẹ rất quan trọng: người Hàn thường dùng nó để tránh nói quá chắc chắn.",
+ e:[["비가 올 것 같아요.","Có lẽ trời sẽ mưa."],["이 식당이 맛있는 것 같아요.","Hình như quán này ngon."]]},
+{p:"V + 은 적이 있다/없다", lv:"Trung cấp", s:"Kinh nghiệm “từng / chưa từng”",
+ f:"Phụ âm cuối → 은 적이 있어요 ・ Nguyên âm cuối → ㄴ 적이 있어요",
+ d:"Nói về việc đã từng trải qua ít nhất một lần trong quá khứ.",
+ e:[["제주도에 간 적이 있어요.","Tôi đã từng đến đảo Jeju."],["한복을 입어 본 적이 없어요.","Tôi chưa từng mặc hanbok."]]},
+{p:"V + 기로 하다 / 게 되다", lv:"Trung cấp", s:"Quyết định (기로 하다) và “trở nên, hoá ra” (게 되다)",
+ f:"V + 기로 했어요 ・ V + 게 됐어요",
+ d:"기로 하다 là quyết định chủ động; 게 되다 nhấn vào việc xảy ra do hoàn cảnh, ngoài ý muốn ban đầu.",
+ e:[["담배를 끊기로 했어요.","Tôi đã quyết định bỏ thuốc."],["한국에서 일하게 됐어요.","Tôi trở thành người làm việc ở Hàn Quốc (hoàn cảnh đưa đến)."]]},
+{p:"Số đếm & đơn vị", lv:"Sơ cấp 1", s:"Hai hệ số: thuần Hàn và Hán–Hàn",
+ f:"Thuần Hàn: 하나 둘 셋 넷 다섯… + 개·명·시·살 ・ Hán–Hàn: 일 이 삼 사 오… + 분·원·월·일·번",
+ d:"Đếm đồ vật, người, giờ, tuổi dùng số thuần Hàn; nói phút, tiền, tháng, ngày, số hiệu dùng số Hán–Hàn. Trước đơn vị, 하나·둘·셋·넷 đổi thành 한·두·세·네.",
+ e:[["커피 두 잔 주세요.","Cho tôi hai ly cà phê."],["세 시 삼십 분에 만나요.","Gặp nhau lúc ba giờ ba mươi."],["저는 스물다섯 살이에요.","Tôi hai mươi lăm tuổi."]]},
+{p:"Kính ngữ: 시/으시, 께서, 드리다", lv:"Trung cấp", s:"Cách nói tôn kính người trên",
+ f:"V + (으)시 + 어요 → 세요 ・ N이/가 → 께서 ・ 주다 → 드리다 ・ 먹다 → 드시다 ・ 있다 → 계시다",
+ d:"Tiếng Hàn phân biệt rõ vai vế. Khi nói về người lớn tuổi, cấp trên, khách hàng thì phải thêm 시 và dùng từ kính ngữ riêng.",
+ e:[["할머니께서 주무세요.","Bà đang ngủ."],["선생님께 선물을 드렸어요.","Tôi đã tặng quà cho thầy/cô."]]},
+{p:"Phản ngữ (반말)", lv:"Trung cấp", s:"Cách nói thân mật với bạn bè, người nhỏ hơn",
+ f:"Bỏ 요 khỏi đuôi 아요/어요 ・ 이에요 → 이야/야 ・ Tương lai: 을 거야",
+ d:"Chỉ dùng với bạn thân, người nhỏ tuổi hơn hoặc trong gia đình. Dùng sai với người lớn là mất lịch sự, nên đợi họ nói “말 놓으세요” trước.",
+ e:[["어디 가?","Đi đâu đó?"],["내가 할게.","Để tớ làm."]]},
+{p:"Động từ bất quy tắc", lv:"Trung cấp", s:"Những gốc từ biến đổi khi chia đuôi",
+ f:"ㅂ: 춥다 → 추워요 ・ ㄷ: 듣다 → 들어요 ・ ㅡ: 바쁘다 → 바빠요 ・ 르: 모르다 → 몰라요 ・ ㄹ rụng: 살다 → 살아요/삽니다 ・ ㅅ: 낫다 → 나아요",
+ d:"Đây là phần người học Việt Nam hay sai nhất. Hãy học thuộc theo từng nhóm thay vì học rời từng từ.",
+ e:[["날씨가 추워요.","Thời tiết lạnh."],["노래를 들어요.","Tôi nghe nhạc."],["요즘 너무 바빠요.","Dạo này tôi bận quá."]]},
+{p:"V + 자마자", lv:"Sơ cấp 2", s:"“vừa… là…” (ngay sau khi)",
+ f:"V + 자마자 (không chia thì ở vế trước)",
+ d:"Hai việc xảy ra sát nhau. Thường gặp trong đề đọc TOPIK 2급.",
+ e:[["집에 도착하자마자 잤어요.","Vừa về đến nhà là tôi ngủ ngay."],["졸업하자마자 취직했어요.","Vừa tốt nghiệp là tôi đi làm."]]},
+{p:"V + 는 동안 / N 동안", lv:"Sơ cấp 2", s:"“trong lúc…”, “trong khoảng…”",
+ f:"V + 는 동안 ・ N 동안 (một 시간/năm…)",
+ d:"Chỉ khoảng thời gian một việc kéo dài. Với danh từ thời gian thì dùng trực tiếp: 삼 년 동안.",
+ e:[["제가 없는 동안 전화가 왔어요.","Trong lúc tôi không có mặt thì có điện thoại."],["두 시간 동안 기다렸어요.","Tôi đã đợi suốt hai tiếng."]]},
+{p:"V + 는 중이다 / N 중", lv:"Sơ cấp 2", s:"“đang trong quá trình…”",
+ f:"V + 는 중이에요 ・ N 중이에요 (회의 중, 공사 중)",
+ d:"Gần nghĩa 고 있다 nhưng nhấn vào “đang giữa quá trình”, hay thấy trên biển báo: 수업 중, 통화 중.",
+ e:[["지금 회의 중이에요.","Bây giờ tôi đang họp."],["밥을 먹는 중이었어요.","Lúc đó tôi đang ăn cơm."]]},
+{p:"V + 기 쉽다 / 기 어렵다", lv:"Sơ cấp 2", s:"“dễ làm / khó làm”",
+ f:"V + 기 쉬워요 ・ V + 기 어려워요 ・ 기 좋다, 기 힘들다",
+ d:"Đánh giá mức độ dễ hay khó của một hành động.",
+ e:[["이 단어는 발음하기 어려워요.","Từ này khó phát âm."],["이 앱은 쓰기 쉬워요.","Ứng dụng này dễ dùng."]]},
+{p:"V/A + 은/는 편이다", lv:"Trung cấp", s:"“thuộc dạng, khá là…”",
+ f:"Động từ → 는 편이다 ・ Tính từ có phụ âm cuối → 은 편이다 ・ không có → ㄴ 편이다",
+ d:"Cách nói giảm nhẹ, tránh khẳng định tuyệt đối — rất tự nhiên khi tự nhận xét.",
+ e:[["저는 조용한 편이에요.","Tôi thuộc kiểu khá trầm."],["이 식당은 비싼 편이에요.","Quán này hơi thuộc loại đắt."]]},
+{p:"N + 밖에 + phủ định", lv:"Sơ cấp 2", s:"“chỉ có… thôi”",
+ f:"N밖에 + 없다/안 하다/못 하다",
+ d:"Luôn đi với vế phủ định, mang sắc thái “ít hơn mong đợi”.",
+ e:[["돈이 천 원밖에 없어요.","Tôi chỉ còn có một nghìn won."],["한 명밖에 안 왔어요.","Chỉ có một người đến."]]},
+{p:"N + 처럼 / 같이", lv:"Sơ cấp 2", s:"So sánh “như, giống như”",
+ f:"N처럼 ・ N같이 ・ N 같다 (giống như…)",
+ d:"Diễn tả sự tương tự. 같다 dùng ở cuối câu: 아이 같아요.",
+ e:[["한국 사람처럼 말해요.","Bạn nói như người Hàn."],["얼음같이 차가워요.","Lạnh như băng."]]},
+{p:"N + 마다 / 씩 / 쯤·정도", lv:"Sơ cấp 2", s:"“mỗi…”, “mỗi lần… đơn vị”, “khoảng”",
+ f:"N마다 ・ số + 단위 + 씩 ・ N쯤 / N 정도",
+ d:"Nhóm trợ từ xuất hiện rất nhiều trong phần nghe TOPIK về thời gian, số lượng.",
+ e:[["일요일마다 교회에 가요.","Chủ nhật nào tôi cũng đi nhà thờ."],["하루에 두 번씩 먹어요.","Mỗi ngày uống hai lần."],["한 시간쯤 걸려요.","Mất khoảng một tiếng."]]},
+{p:"V + 을게요 / 을래요", lv:"Sơ cấp 2", s:"Hứa sẽ làm (을게요) ・ Ý muốn, hỏi ý (을래요)",
+ f:"V + 을게요/ㄹ게요 ・ V + 을래요?/ㄹ래요?",
+ d:"을게요 chỉ dùng cho chủ ngữ “tôi” và có sắc thái hứa với người nghe. 을래요 dùng để hỏi ý người khác hoặc nói ý muốn của mình.",
+ e:[["제가 전화할게요.","Tôi sẽ gọi điện (cho anh/chị)."],["뭐 드실래요?","Anh/chị muốn ăn gì?"]]},
+{p:"V/A + 거든요 / 잖아요", lv:"Trung cấp", s:"Nêu lý do mới (거든요) ・ Nhắc điều cả hai đã biết (잖아요)",
+ f:"V/A + 거든요 ・ V/A + 잖아요",
+ d:"거든요 dùng khi cung cấp thông tin người nghe chưa biết; 잖아요 khi nhắc lại điều hiển nhiên — dùng sai với người lớn có thể nghe hơi vô phép.",
+ e:[["오늘은 못 가요. 약속이 있거든요.","Hôm nay tôi không đi được. Là vì tôi có hẹn."],["어제 말했잖아요.","Thì hôm qua tôi đã nói rồi mà."]]},
+{p:"V/A + 는군요 / 군요", lv:"Trung cấp", s:"Cảm thán khi mới nhận ra",
+ f:"Động từ → 는군요 ・ Tính từ → 군요 ・ Thân mật: 는구나",
+ d:"Giống 네요 nhưng hơi trang trọng và mang nghĩa “à, hoá ra là…”.",
+ e:[["여기가 그 유명한 식당이군요.","À, đây chính là quán nổi tiếng đó."],["생각보다 비싸군요.","Hoá ra đắt hơn tôi tưởng."]]},
+{p:"V/A + 아도/어도", lv:"Sơ cấp 2", s:"“dù… thì cũng…”",
+ f:"ㅏ,ㅗ → 아도 ・ nguyên âm khác → 어도 ・ 하다 → 해도 ・ 아무리 ~ 아도/어도",
+ d:"Nhượng bộ. Đi kèm 아무리 để nhấn mạnh “dù có… đến mấy”.",
+ e:[["비가 와도 갈 거예요.","Dù mưa tôi cũng sẽ đi."],["아무리 피곤해도 운동해요.","Dù mệt đến đâu tôi cũng tập."]]},
+{p:"V/A + 는지 알다/모르다", lv:"Trung cấp", s:"“có biết… không” (câu hỏi lồng)",
+ f:"Động từ → 는지 ・ Tính từ → 은지/ㄴ지 ・ Quá khứ → 았는지/었는지",
+ d:"Dùng để lồng câu hỏi vào trong câu. Rất hay gặp khi hỏi đường hoặc hỏi thông tin lịch sự.",
+ e:[["어디에 있는지 아세요?","Anh/chị có biết nó ở đâu không?"],["왜 안 왔는지 모르겠어요.","Tôi không biết vì sao bạn ấy không đến."]]},
+{p:"A + 게 (trạng từ hoá) / V + 게 하다", lv:"Trung cấp", s:"Biến tính từ thành trạng từ ・ “làm cho…”",
+ f:"A + 게 ・ V + 게 하다 (사동)",
+ d:"게 biến tính từ thành cách thức: 예쁘게, 맛있게, 조용하게. Với động từ, 게 하다 nghĩa “khiến ai làm gì”.",
+ e:[["맛있게 드세요.","Chúc anh/chị ăn ngon."],["동생을 울게 했어요.","Tôi đã làm em tôi khóc."]]},
+{p:"V + 던 / 았던", lv:"Trung cấp", s:"Hồi tưởng “…đã từng, hồi đó”",
+ f:"V + 던 N (việc dở dang, hồi tưởng) ・ V + 았/었던 N (đã kết thúc)",
+ d:"Bổ nghĩa cho danh từ bằng ký ức quá khứ. 던 nhấn vào trải nghiệm quen thuộc hoặc chưa hoàn tất.",
+ e:[["제가 자주 가던 카페예요.","Đây là quán tôi từng hay đến."],["어릴 때 살았던 집이에요.","Đây là nhà tôi từng sống hồi nhỏ."]]},
+{p:"V + 을까 봐(요)", lv:"Trung cấp", s:"“sợ rằng sẽ…” (lo lắng)",
+ f:"V/A + 을까 봐요 ・ 을까 봐 + vế hành động",
+ d:"Nêu điều mình lo sẽ xảy ra, nên đã làm gì đó để phòng.",
+ e:[["늦을까 봐 택시를 탔어요.","Tôi đi taxi vì sợ muộn."],["비가 올까 봐 우산을 가져왔어요.","Tôi mang dù vì sợ mưa."]]},
+{p:"V + 아/어 있다", lv:"Trung cấp", s:"Trạng thái kéo dài sau hành động",
+ f:"V + 아/어 있어요 (문이 열려 있다, 앉아 있다)",
+ d:"Khác 고 있다 (đang làm): 아/어 있다 nói về trạng thái còn giữ sau khi hành động kết thúc.",
+ e:[["창문이 열려 있어요.","Cửa sổ đang mở."],["친구가 의자에 앉아 있어요.","Bạn tôi đang ngồi trên ghế."]]},
+{p:"Bị động & sai động cơ bản", lv:"Trung cấp", s:"이/히/리/기 — câu bị động và câu sai động",
+ f:"보다→보이다 ・ 듣다→들리다 ・ 열다→열리다 ・ 닫다→닫히다 ・ 먹다→먹이다 ・ 읽다→읽히다",
+ d:"Tiếng Hàn tạo bị động bằng cách gắn 이/히/리/기 vào gốc động từ. Đây là nội dung chốt của TOPIK 2급 phần ngữ pháp.",
+ e:[["글씨가 잘 안 보여요.","Tôi không thấy rõ chữ."],["문이 닫혔어요.","Cửa đã bị đóng."]]}
+];
+
+
+/* ========== GÓI TỪ VỰNG MỞ RỘNG 2 ========== */
+const NOUNS2 = [
+"비빔밥|bibimbap|cơm trộn|Món ăn Hàn|2",
+"불고기|bulgogi|thịt nướng tẩm|Món ăn Hàn|2",
+"삼겹살|samgyeopsal|ba chỉ nướng|Món ăn Hàn|2",
+"갈비|galbi|sườn nướng|Món ăn Hàn|2",
+"삼계탕|samgyetang|gà hầm sâm|Món ăn Hàn|2",
+"김밥|gimbap|cơm cuộn rong biển|Món ăn Hàn|2",
+"떡볶이|tteokbokki|bánh gạo cay|Món ăn Hàn|2",
+"순대|sundae|dồi Hàn Quốc|Món ăn Hàn|2",
+"만두|mandu|bánh bao, há cảo|Món ăn Hàn|2",
+"잡채|japchae|miến trộn|Món ăn Hàn|2",
+"된장찌개|doenjangjjigae|canh tương đậu|Món ăn Hàn|2",
+"김치찌개|kimchijjigae|canh kim chi|Món ăn Hàn|2",
+"부대찌개|budaejjigae|lẩu quân đội|Món ăn Hàn|2",
+"냉면|naengmyeon|mì lạnh|Món ăn Hàn|2",
+"칼국수|kalguksu|mì bột cắt|Món ăn Hàn|2",
+"국수|guksu|mì, bún|Món ăn Hàn|2",
+"짜장면|jjajangmyeon|mì tương đen|Món ăn Hàn|2",
+"짬뽕|jjamppong|mì hải sản cay|Món ăn Hàn|2",
+"탕수육|tangsuyuk|thịt chiên sốt chua ngọt|Món ăn Hàn|2",
+"치킨|chikin|gà rán|Món ăn Hàn|2",
+"죽|juk|cháo|Món ăn Hàn|2",
+"전|jeon|bánh áp chảo|Món ăn Hàn|2",
+"파전|pajeon|bánh hành áp chảo|Món ăn Hàn|2",
+"떡|tteok|bánh gạo|Món ăn Hàn|2",
+"송편|songpyeon|bánh gạo nhân vừng (Tết Trung thu)|Món ăn Hàn|3",
+"호떡|hotteok|bánh rán nhân mật|Món ăn Hàn|3",
+"붕어빵|bungeoppang|bánh cá nhân đậu|Món ăn Hàn|3",
+"막걸리|makgeolli|rượu gạo đục|Món ăn Hàn|2",
+"소주|soju|rượu soju|Món ăn Hàn|2",
+"안주|anju|đồ nhắm|Món ăn Hàn|3",
+"피자|pija|pizza|Đồ ăn & thức uống|2",
+"햄버거|haembeogeo|hamburger|Đồ ăn & thức uống|2",
+"샌드위치|saendeuwichi|bánh sandwich|Đồ ăn & thức uống|2",
+"토스트|toseuteu|bánh mì nướng|Đồ ăn & thức uống|2",
+"과자|gwaja|bánh snack|Đồ ăn & thức uống|2",
+"사탕|satang|kẹo|Đồ ăn & thức uống|2",
+"초콜릿|chokollit|sô cô la|Đồ ăn & thức uống|2",
+"아이스크림|aiseukeurim|kem|Đồ ăn & thức uống|2",
+"케이크|keikeu|bánh kem|Đồ ăn & thức uống|2",
+"요구르트|yogureuteu|sữa chua|Đồ ăn & thức uống|2",
+"주스|juseu|nước ép|Đồ ăn & thức uống|2",
+"생수|saengsu|nước suối|Đồ ăn & thức uống|2",
+"녹차|nokcha|trà xanh|Đồ ăn & thức uống|2",
+"홍차|hongcha|trà đen|Đồ ăn & thức uống|3",
+"보리차|boricha|trà lúa mạch|Đồ ăn & thức uống|3",
+"와인|wain|rượu vang|Đồ ăn & thức uống|2",
+"밀가루|milgaru|bột mì|Nguyên liệu nấu ăn|2",
+"기름|gireum|dầu|Nguyên liệu nấu ăn|2",
+"참기름|chamgireum|dầu mè|Nguyên liệu nấu ăn|3",
+"식초|sikcho|giấm|Nguyên liệu nấu ăn|3",
+"후추|huchu|hạt tiêu|Nguyên liệu nấu ăn|2",
+"마늘|maneul|tỏi|Nguyên liệu nấu ăn|2",
+"양파|yangpa|hành tây|Nguyên liệu nấu ăn|2",
+"파|pa|hành lá|Nguyên liệu nấu ăn|2",
+"생강|saenggang|gừng|Nguyên liệu nấu ăn|3",
+"고추|gochu|ớt|Nguyên liệu nấu ăn|2",
+"고춧가루|gochutgaru|ớt bột|Nguyên liệu nấu ăn|3",
+"깨|kkae|hạt vừng|Nguyên liệu nấu ăn|3",
+"콩|kong|đậu|Nguyên liệu nấu ăn|2",
+"두부|dubu|đậu phụ|Nguyên liệu nấu ăn|2",
+"콩나물|kongnamul|giá đỗ|Nguyên liệu nấu ăn|2",
+"시금치|sigeumchi|rau chân vịt|Nguyên liệu nấu ăn|3",
+"배추|baechu|cải thảo|Nguyên liệu nấu ăn|2",
+"무|mu|củ cải|Nguyên liệu nấu ăn|2",
+"당근|danggeun|cà rốt|Nguyên liệu nấu ăn|2",
+"감자|gamja|khoai tây|Nguyên liệu nấu ăn|2",
+"고구마|goguma|khoai lang|Nguyên liệu nấu ăn|2",
+"호박|hobak|bí|Nguyên liệu nấu ăn|2",
+"오이|oi|dưa chuột|Nguyên liệu nấu ăn|2",
+"토마토|tomato|cà chua|Nguyên liệu nấu ăn|2",
+"가지|gaji|cà tím|Nguyên liệu nấu ăn|3",
+"버섯|beoseot|nấm|Nguyên liệu nấu ăn|2",
+"옥수수|oksusu|ngô|Nguyên liệu nấu ăn|2",
+"상추|sangchu|rau xà lách|Nguyên liệu nấu ăn|2",
+"깻잎|kkaennip|lá vừng|Nguyên liệu nấu ăn|3",
+"미역|miyeok|rong biển (nấu canh)|Nguyên liệu nấu ăn|3",
+"김|gim|lá rong biển khô|Nguyên liệu nấu ăn|2",
+"멸치|myeolchi|cá cơm khô|Nguyên liệu nấu ăn|3",
+"새우|saeu|tôm|Nguyên liệu nấu ăn|2",
+"오징어|ojingeo|mực|Nguyên liệu nấu ăn|2",
+"조개|jogae|nghêu, sò|Nguyên liệu nấu ăn|3",
+"게|ge|cua|Nguyên liệu nấu ăn|2",
+"문어|muneo|bạch tuộc|Nguyên liệu nấu ăn|3",
+"참치|chamchi|cá ngừ|Nguyên liệu nấu ăn|2",
+"연어|yeoneo|cá hồi|Nguyên liệu nấu ăn|2",
+"고등어|godeungeo|cá thu|Nguyên liệu nấu ăn|3",
+"치즈|chijeu|phô mai|Nguyên liệu nấu ăn|2",
+"버터|beoteo|bơ|Nguyên liệu nấu ăn|2",
+"잼|jaem|mứt|Nguyên liệu nấu ăn|2",
+"꿀|kkul|mật ong|Nguyên liệu nấu ăn|2",
+"배(과일)|bae|quả lê|Trái cây|2",
+"복숭아|boksunga|quả đào|Trái cây|2",
+"감|gam|quả hồng|Trái cây|2",
+"귤|gyul|quýt|Trái cây|2",
+"오렌지|orenji|cam|Trái cây|2",
+"레몬|remon|chanh vàng|Trái cây|2",
+"키위|kiwi|kiwi|Trái cây|2",
+"망고|manggo|xoài|Trái cây|2",
+"파인애플|painaepeul|dứa|Trái cây|2",
+"멜론|mellon|dưa lưới|Trái cây|2",
+"체리|cheri|cherry|Trái cây|3",
+"밤|bam(밤)|hạt dẻ|Trái cây|2",
+"호두|hodu|quả óc chó|Trái cây|3",
+"땅콩|ttangkong|đậu phộng|Trái cây|2",
+"그릇|geureut|cái bát|Đồ dùng nhà bếp|2",
+"접시|jeopsi|cái đĩa|Đồ dùng nhà bếp|2",
+"컵|keop|cái cốc|Đồ dùng nhà bếp|2",
+"잔|jan|cái ly, chén|Đồ dùng nhà bếp|2",
+"숟가락|sutgarak|cái thìa|Đồ dùng nhà bếp|2",
+"젓가락|jeotgarak|đôi đũa|Đồ dùng nhà bếp|2",
+"포크|pokeu|cái nĩa|Đồ dùng nhà bếp|2",
+"칼|kal|con dao|Đồ dùng nhà bếp|2",
+"가위|gawi|cái kéo|Đồ dùng nhà bếp|2",
+"냄비|naembi|cái nồi|Đồ dùng nhà bếp|2",
+"프라이팬|peuraipaen|chảo|Đồ dùng nhà bếp|2",
+"도마|doma|thớt|Đồ dùng nhà bếp|3",
+"주전자|jujeonja|ấm nước|Đồ dùng nhà bếp|3",
+"쟁반|jaengban|cái khay|Đồ dùng nhà bếp|3",
+"가스레인지|gaseureinji|bếp gas|Đồ dùng nhà bếp|2",
+"전기밥솥|jeongibapsot|nồi cơm điện|Đồ dùng nhà bếp|2",
+"식탁|siktak|bàn ăn|Đồ dùng nhà bếp|2",
+"냉동실|naengdongsil|khoang đông lạnh|Đồ dùng nhà bếp|3",
+"영양|yeongyang|dinh dưỡng|Ăn uống & sức khoẻ|3",
+"칼로리|kallori|calo|Ăn uống & sức khoẻ|3",
+"다이어트|daieoteu|việc ăn kiêng|Ăn uống & sức khoẻ|2",
+"피부|pibu|da|Cơ thể|2",
+"뼈|ppyeo|xương|Cơ thể|3",
+"근육|geunyuk|cơ, bắp|Cơ thể|3",
+"피|pi|máu|Cơ thể|2",
+"심장|simjang|tim|Cơ thể|3",
+"위(신체)|wi|dạ dày|Cơ thể|3",
+"어깨|eokkae|vai|Cơ thể|2",
+"무릎|mureup|đầu gối|Cơ thể|2",
+"발목|balmok|mắt cá chân|Cơ thể|3",
+"손목|sonmok|cổ tay|Cơ thể|3",
+"손가락|songarak|ngón tay|Cơ thể|2",
+"발가락|balgarak|ngón chân|Cơ thể|3",
+"손톱|sontop|móng tay|Cơ thể|3",
+"눈썹|nunsseop|lông mày|Cơ thể|3",
+"수염|suyeom|râu|Cơ thể|3",
+"입술|ipsul|môi|Cơ thể|2",
+"혀|hyeo|lưỡi|Cơ thể|3",
+"턱|teok|hàm, cằm|Cơ thể|3",
+"이마|ima|trán|Cơ thể|3",
+"체온|cheon|nhiệt độ cơ thể|Sức khoẻ|3",
+"혈압|hyeorap|huyết áp|Sức khoẻ|3",
+"체중|chejung|cân nặng|Sức khoẻ|3",
+"키|ki|chiều cao|Sức khoẻ|2",
+"숨|sum|hơi thở|Sức khoẻ|3",
+"땀|ttam|mồ hôi|Sức khoẻ|2",
+"눈물|nunmul|nước mắt|Sức khoẻ|2",
+"기침|gichim|cơn ho|Sức khoẻ|2",
+"콧물|konmul|nước mũi|Sức khoẻ|3",
+"두통|dutong|đau đầu|Sức khoẻ|3",
+"치통|chitong|đau răng|Sức khoẻ|3",
+"복통|boktong|đau bụng|Sức khoẻ|3",
+"소화|sohwa|sự tiêu hoá|Sức khoẻ|3",
+"설사|seolsa|tiêu chảy|Sức khoẻ|3",
+"알레르기|allereugi|dị ứng|Sức khoẻ|3",
+"상처|sangcheo|vết thương|Sức khoẻ|2",
+"주사|jusa|mũi tiêm|Sức khoẻ|2",
+"수술|susul|ca mổ|Sức khoẻ|3",
+"입원|ibwon|việc nhập viện|Sức khoẻ|3",
+"퇴원|toewon|việc xuất viện|Sức khoẻ|3",
+"진찰|jinchal|việc khám bệnh|Sức khoẻ|3",
+"처방|cheobang|sự kê thuốc|Sức khoẻ|3",
+"처방전|cheobangjeon|đơn thuốc|Sức khoẻ|3",
+"보험|boheom|bảo hiểm|Sức khoẻ|2",
+"건강보험|geonganboheom|bảo hiểm y tế|Sức khoẻ|3",
+"응급실|eunggeupsil|phòng cấp cứu|Sức khoẻ|3",
+"구급차|gugeupcha|xe cấp cứu|Sức khoẻ|3",
+"치과|chigwa|khoa răng|Sức khoẻ|2",
+"안과|angwa|khoa mắt|Sức khoẻ|3",
+"내과|naegwa|khoa nội|Sức khoẻ|3",
+"외과|oegwa|khoa ngoại|Sức khoẻ|3",
+"한의원|hanuiwon|phòng khám đông y|Sức khoẻ|3",
+"셔츠|syeocheu|áo sơ mi|Quần áo|2",
+"티셔츠|tisyeocheu|áo phông|Quần áo|2",
+"블라우스|beullauseu|áo blouse|Quần áo|3",
+"스웨터|seuweteo|áo len|Quần áo|2",
+"코트|koteu|áo khoác dài|Quần áo|2",
+"재킷|jaekit|áo khoác|Quần áo|2",
+"정장|jeongjang|bộ đồ công sở|Quần áo|3",
+"청바지|cheongbaji|quần jean|Quần áo|2",
+"반바지|banbaji|quần ngắn|Quần áo|2",
+"원피스|wonpiseu|váy liền|Quần áo|2",
+"속옷|sogot|đồ lót|Quần áo|2",
+"장갑|janggap|găng tay|Quần áo|2",
+"목도리|mokdori|khăn quàng cổ|Quần áo|3",
+"벨트|belteu|dây lưng|Quần áo|3",
+"넥타이|nektai|cà vạt|Quần áo|2",
+"구두|gudu|giày da|Quần áo|2",
+"운동화|undonghwa|giày thể thao|Quần áo|2",
+"슬리퍼|seullipeo|dép|Quần áo|2",
+"부츠|bucheu|bốt|Quần áo|3",
+"반지|banji|nhẫn|Quần áo|2",
+"목걸이|mokgeori|dây cổ|Quần áo|2",
+"귀걸이|gwigeori|bông tai|Quần áo|2",
+"팔찌|paljji|vòng tay|Quần áo|3",
+"한복|hanbok|hanbok (áo truyền thống Hàn)|Quần áo|2",
+"화장품|hwajangpum|mỹ phẩm|Đồ dùng cá nhân|2",
+"화장|hwajang|việc trang điểm|Đồ dùng cá nhân|2",
+"향수|hyangsu|nước hoa|Đồ dùng cá nhân|3",
+"샴푸|syampu|dầu gội|Đồ dùng cá nhân|2",
+"치약|chiyak|kem đánh răng|Đồ dùng cá nhân|2",
+"칫솔|chitsol|bàn chải|Đồ dùng cá nhân|2",
+"빗|bit|cái lược|Đồ dùng cá nhân|3",
+"휴지|hyuji|giấy vệ sinh|Đồ dùng cá nhân|2",
+"비닐봉지|binilbongji|túi nilon|Đồ dùng cá nhân|3",
+"상자|sangja|cái hộp|Đồ dùng cá nhân|2",
+"쓰레기통|sseuregitong|thùng rác|Đồ dùng trong nhà|2",
+"서랍|seorap|ngăn kéo|Đồ dùng trong nhà|3",
+"옷장|otjang|tủ quần áo|Đồ dùng trong nhà|2",
+"소파|sopa|ghế sofa|Đồ dùng trong nhà|2",
+"커튼|keoteun|rèm cửa|Đồ dùng trong nhà|3",
+"이불|ibul|chăn|Đồ dùng trong nhà|2",
+"베개|begae|cái gối|Đồ dùng trong nhà|2",
+"전등|jeondeung|đèn|Đồ dùng trong nhà|3",
+"전기|jeongi|điện|Đồ dùng trong nhà|2",
+"수도|sudo|nước máy|Đồ dùng trong nhà|3",
+"가스|gaseu|gas|Đồ dùng trong nhà|2",
+"보일러|boilleo|lò sưởi, boiler|Đồ dùng trong nhà|3",
+"색깔|saekkkal|màu sắc|Màu sắc|2",
+"빨간색|ppalgansaek|màu đỏ|Màu sắc|2",
+"파란색|paransaek|màu xanh dương|Màu sắc|2",
+"노란색|noransaek|màu vàng|Màu sắc|2",
+"초록색|choroksaek|màu xanh lá|Màu sắc|2",
+"검은색|geomeunsaek|màu đen|Màu sắc|2",
+"흰색|hinsaek|màu trắng|Màu sắc|2",
+"갈색|galsaek|màu nâu|Màu sắc|2",
+"회색|hoesaek|màu xám|Màu sắc|2",
+"분홍색|bunhongsaek|màu hồng|Màu sắc|2",
+"보라색|borasaek|màu tím|Màu sắc|2",
+"주황색|juhwangsaek|màu cam|Màu sắc|2",
+"하늘색|haneulsaek|màu xanh da trời|Màu sắc|2"
+];
+const NOUNS3 = [
+"공무원|gongmuwon|công chức|Nghề nghiệp|2",
+"교수|gyosu|giáo sư|Nghề nghiệp|2",
+"연구원|yeonguwon|nghiên cứu viên|Nghề nghiệp|3",
+"엔지니어|enjinieo|kỹ sư|Nghề nghiệp|3",
+"프로그래머|peurogeuraemeo|lập trình viên|Nghề nghiệp|3",
+"디자이너|dijaineo|nhà thiết kế|Nghề nghiệp|2",
+"작가|jakga|nhà văn, tác giả|Nghề nghiệp|2",
+"화가|hwaga|hoạ sĩ|Nghề nghiệp|2",
+"음악가|eumakga|nhạc sĩ|Nghề nghiệp|3",
+"운동선수|undongseonsu|vận động viên|Nghề nghiệp|2",
+"감독|gamdok|giám đốc, huấn luyện viên|Nghề nghiệp|3",
+"군인|gunin|quân nhân|Nghề nghiệp|2",
+"소방관|sobanggwan|lính cứu hoả|Nghề nghiệp|3",
+"농부|nongbu|nông dân|Nghề nghiệp|2",
+"어부|eobu|ngư dân|Nghề nghiệp|3",
+"미용사|miyongsa|thợ làm đầu|Nghề nghiệp|3",
+"택배기사|taekbaegisa|nhân viên giao hàng|Nghề nghiệp|3",
+"비서|biseo|thư ký|Nghề nghiệp|3",
+"통역사|tongyeoksa|phiên dịch viên|Nghề nghiệp|2",
+"번역가|beonyeokga|dịch giả|Nghề nghiệp|3",
+"승무원|seungmuwon|tiếp viên|Nghề nghiệp|2",
+"조종사|jojongsa|phi công|Nghề nghiệp|3",
+"판사|pansa|thẩm phán|Nghề nghiệp|3",
+"사원|sawon|nhân viên|Công việc|2",
+"과장|gwajang|trưởng phòng|Công việc|3",
+"부장|bujang|trưởng ban|Công việc|3",
+"팀장|timjang|trưởng nhóm|Công việc|2",
+"동료|dongnyo|đồng nghiệp|Công việc|2",
+"상사|sangsa|cấp trên|Công việc|3",
+"선배|seonbae|tiền bối, người vào trước|Công việc|2",
+"후배|hubae|hậu bối, người vào sau|Công việc|2",
+"부서|buseo|bộ phận, ban|Công việc|3",
+"업무|eommu|công vụ, nhiệm vụ|Công việc|3",
+"고객|gogaek|khách hàng|Công việc|2",
+"계약|gyeyak|hợp đồng|Công việc|2",
+"계약서|gyeyakseo|bản hợp đồng|Công việc|3",
+"서명|seomyeong|chữ ký|Công việc|3",
+"도장|dojang|con dấu|Công việc|3",
+"명함|myeongham|danh thiếp|Công việc|2",
+"회식|hoesik|tiệc công ty|Công việc|2",
+"야근|yageun|làm thêm giờ|Công việc|3",
+"연봉|yeonbong|lương năm|Công việc|3",
+"보너스|boneoseu|tiền thưởng|Công việc|3",
+"승진|seungjin|việc thăng chức|Công việc|3",
+"퇴직|toejik|việc nghỉ việc|Công việc|3",
+"취업|chwieop|việc xin được việc làm|Công việc|2",
+"실업|sireop|sự thất nghiệp|Công việc|3",
+"노동|nodong|lao động|Công việc|3",
+"노동자|nodongja|người lao động|Công việc|3",
+"자격증|jagyeokjeung|chứng chỉ|Công việc|3",
+"경력|gyeongnyeok|kinh nghiệm làm việc|Công việc|3",
+"신입|sinip|người mới vào|Công việc|3",
+"대학교|daehakgyo|trường đại học|Học tập|2",
+"대학생|daehaksaeng|sinh viên|Học tập|2",
+"고등학교|godeunghakgyo|trường cấp ba|Học tập|2",
+"중학교|junghakgyo|trường cấp hai|Học tập|2",
+"초등학교|chodeunghakgyo|trường cấp một|Học tập|2",
+"유치원|yuchiwon|trường mầm non|Học tập|2",
+"학원|hagwon|trung tâm học thêm|Học tập|2",
+"전공|jeongong|chuyên ngành|Học tập|2",
+"학과|hakgwa|khoa, ngành|Học tập|3",
+"학기|hakgi|học kỳ|Học tập|2",
+"학년|hangnyeon|khối lớp, năm học|Học tập|2",
+"입학|iphak|việc nhập học|Học tập|2",
+"졸업|joreop|việc tốt nghiệp|Học tập|2",
+"등록금|deungnokgeum|học phí|Học tập|3",
+"장학금|janghakgeum|học bổng|Học tập|2",
+"성적|seongjeok|thành tích học tập|Học tập|2",
+"점수|jeomsu|điểm số|Học tập|2",
+"과목|gwamok|môn học|Học tập|2",
+"교과서|gyogwaseo|sách giáo khoa|Học tập|3",
+"사전|sajeon|từ điển|Học tập|2",
+"칠판|chilpan|bảng đen|Học tập|2",
+"지우개|jiugae|cục gôm|Học tập|2",
+"자(도구)|ja|cái thước|Học tập|2",
+"풀|pul(풀)|hồ dán|Học tập|2",
+"필통|piltong|hộp bút|Học tập|2",
+"발표|balpyo|việc thuyết trình|Học tập|2",
+"토론|toron|việc tranh luận|Học tập|3",
+"과제|gwaje|bài tập, đề tài|Học tập|3",
+"보고서|bogoseo|bản báo cáo|Học tập|3",
+"논문|nonmun|luận văn|Học tập|3",
+"정답|jeongdap|đáp án đúng|Học tập|2",
+"복습|bokseup|việc ôn lại|Học tập|2",
+"예습|yeseup|việc học trước|Học tập|3",
+"스마트폰|seumateupon|điện thoại thông minh|Công nghệ|2",
+"노트북|noteubuk|laptop|Công nghệ|2",
+"키보드|kibodeu|bàn phím|Công nghệ|2",
+"마우스|mauseu|chuột máy tính|Công nghệ|2",
+"화면|hwamyeon|màn hình|Công nghệ|2",
+"충전기|chungjeongi|cục sạc|Công nghệ|2",
+"배터리|baeteori|pin|Công nghệ|2",
+"이어폰|ieopon|tai nghe|Công nghệ|2",
+"스피커|seupikeo|loa|Công nghệ|2",
+"카메라|kamera|máy ảnh|Công nghệ|2",
+"앱|aep|ứng dụng|Công nghệ|2",
+"프로그램|peurogeuraem|chương trình|Công nghệ|2",
+"파일|pail|tệp tin|Công nghệ|2",
+"비밀번호|bimilbeonho|mật khẩu|Công nghệ|2",
+"아이디|aidi|tên đăng nhập|Công nghệ|2",
+"계정|gyejeong|tài khoản|Công nghệ|3",
+"검색|geomsaek|việc tìm kiếm|Công nghệ|2",
+"사이트|saiteu|trang web|Công nghệ|2",
+"댓글|daetgeul|bình luận|Công nghệ|3",
+"알림|allim|thông báo|Công nghệ|2",
+"영상|yeongsang|video, hình ảnh|Công nghệ|2",
+"데이터|deiteo|dữ liệu|Công nghệ|2",
+"와이파이|waipai|wifi|Công nghệ|2",
+"통화|tonghwa|cuộc gọi|Công nghệ|2",
+"녹음|nogeum|bản thu âm|Công nghệ|3",
+"속도|sokdo|tốc độ|Công nghệ|2",
+"용량|yongnyang|dung lượng|Công nghệ|3",
+"신문|sinmun|báo|Truyền thông & nghệ thuật|2",
+"잡지|japji|tạp chí|Truyền thông & nghệ thuật|2",
+"방송|bangsong|chương trình phát sóng|Truyền thông & nghệ thuật|2",
+"뉴스|nyuseu|tin tức|Truyền thông & nghệ thuật|2",
+"광고|gwanggo|quảng cáo|Truyền thông & nghệ thuật|2",
+"드라마|deurama|phim truyền hình|Truyền thông & nghệ thuật|2",
+"연극|yeongeuk|kịch|Truyền thông & nghệ thuật|3",
+"뮤지컬|myujikeol|nhạc kịch|Truyền thông & nghệ thuật|3",
+"콘서트|konseoteu|buổi hoà nhạc|Truyền thông & nghệ thuật|2",
+"공연|gongyeon|buổi biểu diễn|Truyền thông & nghệ thuật|2",
+"전시회|jeonsihoe|triển lãm|Truyền thông & nghệ thuật|3",
+"미술관|misulgwan|bảo tàng mỹ thuật|Truyền thông & nghệ thuật|2",
+"박물관|bangmulgwan|viện bảo tàng|Truyền thông & nghệ thuật|2",
+"극장|geukjang|nhà hát|Truyền thông & nghệ thuật|2",
+"영화관|yeonghwagwan|rạp chiếu phim|Truyền thông & nghệ thuật|2",
+"무대|mudae|sân khấu|Truyền thông & nghệ thuật|3",
+"관객|gwangaek|khán giả|Truyền thông & nghệ thuật|3",
+"소설|soseol|tiểu thuyết|Truyền thông & nghệ thuật|2",
+"시(문학)|si|bài thơ|Truyền thông & nghệ thuật|2",
+"동화|donghwa|truyện cổ tích|Truyền thông & nghệ thuật|3",
+"만화|manhwa|truyện tranh|Truyền thông & nghệ thuật|2",
+"웹툰|weptun|webtoon|Truyền thông & nghệ thuật|3",
+"작품|jakpum|tác phẩm|Truyền thông & nghệ thuật|2",
+"주인공|juingong|nhân vật chính|Truyền thông & nghệ thuật|3",
+"악기|akgi|nhạc cụ|Truyền thông & nghệ thuật|3",
+"피아노|piano|đàn piano|Truyền thông & nghệ thuật|2",
+"기타(악기)|gita|đàn guitar|Truyền thông & nghệ thuật|2",
+"바이올린|baiollin|đàn violin|Truyền thông & nghệ thuật|3",
+"노래방|noraebang|quán karaoke|Truyền thông & nghệ thuật|2",
+"게임|geim|trò chơi|Giải trí & du lịch|2",
+"여행사|yeohaengsa|công ty du lịch|Giải trí & du lịch|2",
+"관광|gwangwang|việc tham quan|Giải trí & du lịch|2",
+"관광객|gwangwanggaek|khách du lịch|Giải trí & du lịch|3",
+"숙소|sukso|nơi ở, chỗ nghỉ|Giải trí & du lịch|3",
+"호텔|hotel|khách sạn|Giải trí & du lịch|2",
+"캠핑|kaemping|cắm trại|Giải trí & du lịch|3",
+"등산|deungsan|việc leo núi|Giải trí & du lịch|2",
+"낚시|naksi|việc đi câu|Giải trí & du lịch|2",
+"수영|suyeong|việc bơi|Thể thao|2",
+"축구|chukgu|bóng đá|Thể thao|2",
+"야구|yagu|bóng chày|Thể thao|2",
+"농구|nonggu|bóng rổ|Thể thao|2",
+"배구|baegu|bóng chuyền|Thể thao|3",
+"탁구|takgu|bóng bàn|Thể thao|3",
+"테니스|teniseu|quần vợt|Thể thao|2",
+"골프|golpeu|golf|Thể thao|3",
+"태권도|taekwondo|taekwondo|Thể thao|2",
+"요가|yoga|yoga|Thể thao|3",
+"헬스장|helseujang|phòng gym|Thể thao|3",
+"경기|gyeonggi|trận đấu|Thể thao|2",
+"선수|seonsu|cầu thủ, tuyển thủ|Thể thao|2",
+"팀|tim|đội|Thể thao|2",
+"우승|useung|chức vô địch|Thể thao|3",
+"메달|medal|huy chương|Thể thao|3",
+"올림픽|ollimpik|Olympic|Thể thao|3",
+"지구|jigu|trái đất|Thiên nhiên|2",
+"우주|uju|vũ trụ|Thiên nhiên|3",
+"공기|gonggi|không khí|Thiên nhiên|2",
+"햇빛|haetbit|ánh nắng|Thiên nhiên|3",
+"그늘|geuneul|bóng mát|Thiên nhiên|3",
+"불|bul|lửa|Thiên nhiên|2",
+"얼음|eoreum|băng, đá|Thiên nhiên|2",
+"흙|heuk|đất|Thiên nhiên|3",
+"모래|morae|cát|Thiên nhiên|3",
+"돌|dol|hòn đá|Thiên nhiên|2",
+"바위|bawi|tảng đá|Thiên nhiên|3",
+"섬|seom|hòn đảo|Thiên nhiên|2",
+"호수|hosu|cái hồ|Thiên nhiên|2",
+"숲|sup|rừng|Thiên nhiên|2",
+"들|deul|cánh đồng|Thiên nhiên|3",
+"논|non|ruộng lúa|Thiên nhiên|3",
+"밭|bat|ruộng cạn|Thiên nhiên|3",
+"정원|jeongwon|vườn|Thiên nhiên|3",
+"쓰레기|sseuregi|rác|Môi trường|2",
+"재활용|jaehwaryong|tái chế|Môi trường|3",
+"태풍|taepung|bão|Thời tiết|2",
+"홍수|hongsu|lũ lụt|Thời tiết|3",
+"지진|jijin|địa chấn|Thời tiết|3",
+"안개|angae|sương mù|Thời tiết|3",
+"무지개|mujigae|cầu vồng|Thời tiết|3",
+"번개|beongae|tia chớp|Thời tiết|3",
+"천둥|cheondung|sấm|Thời tiết|3",
+"기온|gion|nhiệt độ|Thời tiết|2",
+"습도|seupdo|độ ẩm|Thời tiết|3",
+"계절|gyejeol|mùa|Thời tiết|2",
+"호랑이|horangi|con hổ|Động vật|2",
+"사자|saja|con sư tử|Động vật|2",
+"코끼리|kokkiri|con voi|Động vật|2",
+"원숭이|wonsungi|con khỉ|Động vật|2",
+"토끼|tokki|con thỏ|Động vật|2",
+"쥐|jwi|con chuột|Động vật|2",
+"말(동물)|mal|con ngựa|Động vật|2",
+"양|yang|con cừu|Động vật|2",
+"오리|ori|con vịt|Động vật|2",
+"곰|gom|con gấu|Động vật|2",
+"여우|yeou|con cáo|Động vật|3",
+"뱀|baem|con rắn|Động vật|2",
+"개구리|gaeguri|con ếch|Động vật|3",
+"물고기|mulgogi|con cá|Động vật|2",
+"벌레|beolle|con bọ|Động vật|3",
+"모기|mogi|con muỗi|Động vật|2",
+"파리|pari|con ruồi|Động vật|3",
+"벌|beol|con ong|Động vật|3",
+"나비|nabi|con bướm|Động vật|2",
+"거미|geomi|con nhện|Động vật|3",
+"잎|ip|cái lá|Thực vật|2",
+"뿌리|ppuri|cái rễ|Thực vật|3",
+"씨|ssi|hạt giống|Thực vật|3",
+"열매|yeolmae|quả, trái|Thực vật|3",
+"장미|jangmi|hoa hồng|Thực vật|2",
+"벚꽃|beotkkot|hoa anh đào|Thực vật|2",
+"무궁화|mugunghwa|hoa mugunghwa (quốc hoa Hàn)|Thực vật|3",
+"해바라기|haebaragi|hoa hướng dương|Thực vật|3",
+"정부|jeongbu|chính phủ|Xã hội & hành chính|3",
+"대통령|daetongnyeong|tổng thống|Xã hội & hành chính|2",
+"시청|sicheong|toà thị chính|Xã hội & hành chính|2",
+"구청|gucheong|văn phòng quận|Xã hội & hành chính|3",
+"경찰서|gyeongchalseo|đồn cảnh sát|Xã hội & hành chính|2",
+"소방서|sobangseo|trạm cứu hoả|Xã hội & hành chính|3",
+"대사관|daesagwan|đại sứ quán|Xã hội & hành chính|2",
+"법|beop|pháp luật|Xã hội & hành chính|2",
+"법원|beobwon|toà án|Xã hội & hành chính|3",
+"재판|jaepan|phiên xử|Xã hội & hành chính|3",
+"벌금|beolgeum|tiền phạt|Xã hội & hành chính|3",
+"세금|segeum|thuế|Xã hội & hành chính|2",
+"신고|singo|việc khai báo, trình báo|Xã hội & hành chính|3",
+"등록|deungnok|việc đăng ký|Xã hội & hành chính|2",
+"허가|heoga|sự cho phép|Xã hội & hành chính|3",
+"금지|geumji|sự cấm|Xã hội & hành chính|2",
+"규정|gyujeong|quy định|Xã hội & hành chính|3",
+"질서|jilseo|trật tự|Xã hội & hành chính|3",
+"사회|sahoe|xã hội|Xã hội & hành chính|2",
+"국민|gungmin|quốc dân, người dân|Xã hội & hành chính|3",
+"시민|simin|công dân, thị dân|Xã hội & hành chính|3",
+"인구|ingu|dân số|Xã hội & hành chính|3",
+"경제|gyeongje|kinh tế|Kinh tế|2",
+"사업|saeop|việc kinh doanh|Kinh tế|2",
+"공장|gongjang|nhà máy|Kinh tế|2",
+"생산|saengsan|sản xuất|Kinh tế|3",
+"판매|panmae|việc bán hàng|Kinh tế|3",
+"수출|suchul|xuất khẩu|Kinh tế|3",
+"수입|suip|nhập khẩu; thu nhập|Kinh tế|3",
+"손해|sonhae|thiệt hại|Kinh tế|3",
+"이익|iik|lợi nhuận|Kinh tế|3",
+"투자|tuja|đầu tư|Kinh tế|3",
+"대출|daechul|khoản vay|Kinh tế|3",
+"이자|ija|tiền lãi|Kinh tế|3",
+"물가|mulga|giá cả sinh hoạt|Kinh tế|3",
+"월세|wolse|tiền thuê tháng|Nhà ở|2",
+"전세|jeonse|tiền thuê đặt cọc (jeonse)|Nhà ở|3",
+"부동산|budongsan|bất động sản|Nhà ở|3",
+"주식|jusik|cổ phiếu|Kinh tế|3",
+"입금|ipgeum|việc nạp tiền|Kinh tế|3",
+"송금|songgeum|việc chuyển tiền|Kinh tế|3",
+"수수료|susuryo|phí dịch vụ|Kinh tế|3",
+"영업시간|yeongeopsigan|giờ mở cửa|Kinh tế|3",
+"공휴일|gonghyuil|ngày lễ|Lễ & truyền thống|3",
+"명절|myeongjeol|dịp lễ truyền thống|Lễ & truyền thống|2",
+"설날|seollal|Tết âm lịch|Lễ & truyền thống|2",
+"추석|chuseok|Tết Trung thu Hàn|Lễ & truyền thống|2",
+"크리스마스|keuriseumaseu|Giáng sinh|Lễ & truyền thống|2",
+"결혼식|gyeolhonsik|lễ cưới|Lễ & truyền thống|2",
+"장례식|jangnyesik|lễ tang|Lễ & truyền thống|3",
+"제사|jesa|lễ cúng tổ tiên|Lễ & truyền thống|3",
+"한글|hangeul|chữ Hangeul|Lễ & truyền thống|2",
+"역사|yeoksa|lịch sử|Lễ & truyền thống|2",
+"전통|jeontong|truyền thống|Lễ & truyền thống|2",
+"종교|jonggyo|tôn giáo|Lễ & truyền thống|3",
+"교회|gyohoe|nhà thờ (Tin lành)|Lễ & truyền thống|2",
+"절|jeol|chùa|Lễ & truyền thống|2",
+"성당|seongdang|nhà thờ (Công giáo)|Lễ & truyền thống|3",
+"기도|gido|việc cầu nguyện|Lễ & truyền thống|3",
+"감정|gamjeong|cảm xúc|Tâm lý & tính cách|3",
+"기쁨|gippeum|niềm vui|Tâm lý & tính cách|3",
+"슬픔|seulpeum|nỗi buồn|Tâm lý & tính cách|3",
+"스트레스|seuteureseu|căng thẳng, stress|Tâm lý & tính cách|2",
+"자신감|jasingam|sự tự tin|Tâm lý & tính cách|3",
+"용기|yonggi|sự dũng cảm|Tâm lý & tính cách|3",
+"참을성|chameulseong|tính nhẫn nại|Tâm lý & tính cách|3",
+"책임|chaegim|trách nhiệm|Tâm lý & tính cách|3",
+"의무|uimu|nghĩa vụ|Tâm lý & tính cách|3",
+"권리|gwolli|quyền lợi|Tâm lý & tính cách|3",
+"자유|jayu|tự do|Tâm lý & tính cách|3",
+"평화|pyeonghwa|hoà bình|Tâm lý & tính cách|3",
+"추억|chueok|hồi ức|Tâm lý & tính cách|3",
+"지식|jisik|kiến thức|Tư duy & học thuật|3",
+"상식|sangsik|kiến thức thường thức|Tư duy & học thuật|3",
+"의견|uigyeon|ý kiến|Tư duy & học thuật|2",
+"주장|jujang|luận điểm, chủ trương|Tư duy & học thuật|3",
+"찬성|chanseong|sự đồng ý, tán thành|Tư duy & học thuật|3",
+"반대|bandae|sự phản đối|Tư duy & học thuật|2",
+"결정|gyeoljeong|quyết định|Tư duy & học thuật|2",
+"선택|seontaek|sự lựa chọn|Tư duy & học thuật|2",
+"기준|gijun|tiêu chuẩn|Tư duy & học thuật|3",
+"원인|wonin|nguyên nhân|Tư duy & học thuật|3",
+"영향|yeonghyang|ảnh hưởng|Tư duy & học thuật|3",
+"효과|hyogwa|hiệu quả|Tư duy & học thuật|3",
+"변화|byeonhwa|sự thay đổi|Tư duy & học thuật|3",
+"발전|baljeon|sự phát triển|Tư duy & học thuật|3",
+"발명|balmyeong|phát minh|Tư duy & học thuật|3",
+"발견|balgyeon|phát hiện|Tư duy & học thuật|3",
+"기술|gisul|kỹ thuật|Tư duy & học thuật|2",
+"과학|gwahak|khoa học|Tư duy & học thuật|2",
+"수학|suhak|toán học|Tư duy & học thuật|2",
+"지리|jiri|địa lý|Tư duy & học thuật|3",
+"초|cho|giây|Thời gian & đơn vị|2",
+"분|bun|phút|Thời gian & đơn vị|2",
+"날짜|naljja|ngày tháng|Thời gian & đơn vị|2",
+"주일|juil|tuần|Thời gian & đơn vị|2",
+"개월|gaewol|tháng (số lượng)|Thời gian & đơn vị|2",
+"새벽|saebyeok|sáng sớm, rạng sáng|Thời gian & đơn vị|2",
+"오전|ojeon|buổi sáng (AM)|Thời gian & đơn vị|2",
+"오후|ohu|buổi chiều (PM)|Thời gian & đơn vị|2",
+"평일|pyeongil|ngày thường|Thời gian & đơn vị|2",
+"하루|haru|một ngày|Thời gian & đơn vị|2",
+"이틀|iteul|hai ngày|Thời gian & đơn vị|2",
+"사흘|saheul|ba ngày|Thời gian & đơn vị|3",
+"며칠|myeochil|mấy ngày|Thời gian & đơn vị|2",
+"지난주|jinanju|tuần trước|Thời gian & đơn vị|2",
+"다음 주|daeum ju|tuần sau|Thời gian & đơn vị|2",
+"지난달|jinandal|tháng trước|Thời gian & đơn vị|2",
+"다음 달|daeum dal|tháng sau|Thời gian & đơn vị|2",
+"매일|maeil|mỗi ngày|Thời gian & đơn vị|2",
+"매주|maeju|mỗi tuần|Thời gian & đơn vị|2",
+"매달|maedal|mỗi tháng|Thời gian & đơn vị|2",
+"매년|maenyeon|mỗi năm|Thời gian & đơn vị|2",
+"처음|cheoeum|lần đầu, ban đầu|Thời gian & đơn vị|2",
+"마지막|majimak|cuối cùng|Thời gian & đơn vị|2",
+"중간|junggan|giữa, trung gian|Thời gian & đơn vị|2",
+"순서|sunseo|thứ tự|Thời gian & đơn vị|2",
+"차례|charye|lượt, thứ tự|Thời gian & đơn vị|3",
+"마리|mari|con (đếm động vật)|Thời gian & đơn vị|2",
+"권|gwon|quyển (đếm sách)|Thời gian & đơn vị|2",
+"장|jang|tờ (đếm giấy)|Thời gian & đơn vị|2",
+"병(단위)|byeong|chai (đếm)|Thời gian & đơn vị|2",
+"대|dae|chiếc (đếm máy, xe)|Thời gian & đơn vị|2",
+"벌|beol(옷)|bộ (đếm quần áo)|Thời gian & đơn vị|3",
+"켤레|kyeolle|đôi (đếm giày, tất)|Thời gian & đơn vị|3",
+"인분|inbun|phần ăn|Thời gian & đơn vị|2",
+"미터|miteo|mét|Thời gian & đơn vị|2",
+"그램|geuraem|gam|Thời gian & đơn vị|3",
+"리터|riteo|lít|Thời gian & đơn vị|3",
+"원|won|won (tiền Hàn)|Thời gian & đơn vị|2",
+"달러|dalleo|đô la|Thời gian & đơn vị|2",
+"퍼센트|peosenteu|phần trăm|Thời gian & đơn vị|2",
+"도(온도)|do|độ (nhiệt độ)|Thời gian & đơn vị|2",
+"쪽|jjok|trang; phía|Thời gian & đơn vị|2",
+"반|ban|nửa; lớp|Thời gian & đơn vị|2",
+"전체|jeonche|toàn thể|Thời gian & đơn vị|3",
+"부분|bubun|bộ phận, phần|Thời gian & đơn vị|2",
+"종류|jongnyu|loại, chủng loại|Thời gian & đơn vị|2"
+];
+const VERBS2 = [
+"구하다|guhada|tìm kiếm (việc, phòng)|Sinh hoạt|2",
+"들어오다|deureooda|đi vào (phía người nói)|Di chuyển|2",
+"나오다|naoda|đi ra, ra ngoài|Di chuyển|2",
+"돌아가다|doragada|trở về (đi)|Di chuyển|2",
+"다녀오다|danyeooda|đi rồi về|Di chuyển|2",
+"들어서다|deureoseoda|bước vào|Di chuyển|3",
+"떠나다|tteonada|rời đi|Di chuyển|2",
+"향하다|hyanghada|hướng về|Di chuyển|3",
+"따라가다|ttaragada|đi theo|Di chuyển|2",
+"쫓아가다|jjochagada|chạy theo, đuổi theo|Di chuyển|3",
+"돌아다니다|doradanida|đi lòng vòng|Di chuyển|3",
+"길을 잃다|gireul ilta|bị lạc đường|Di chuyển|3",
+"갈아타다|garatada|đổi xe, chuyển tuyến|Di chuyển|2",
+"운전하다|unjeonhada|lái xe|Di chuyển|2",
+"주차하다|juchahada|đỗ xe|Di chuyển|3",
+"서두르다|seodureuda|gấp gáp, nhanh lên|Sinh hoạt|2",
+"일어서다|ireoseoda|đứng lên|Động tác|2",
+"넘어지다|neomeojida|bị ngã|Động tác|3",
+"일으키다|ireukida|dựng lên, gây ra|Động tác|3",
+"던지다|deonjida|ném|Động tác|2",
+"잡다|japda|nắm, bắt|Động tác|2",
+"놓치다|nochida|để trượt, đánh mất|Động tác|3",
+"밀다|milda|đẩy|Động tác|2",
+"당기다|danggida|kéo|Động tác|2",
+"들어올리다|deureoollida|nâng lên|Động tác|3",
+"흔들다|heundeulda|lắc, rung|Động tác|3",
+"돌리다|dollida|xoay, quay|Động tác|3",
+"묶다|mukda|buộc|Động tác|3",
+"풀다|pulda|cởi, tháo, giải|Động tác|2",
+"붙이다|buchida|dán|Động tác|2",
+"떼다|tteda|bóc, tách ra|Động tác|3",
+"깨다|kkaeda|làm vỡ; thức tỉnh|Động tác|2",
+"깨지다|kkaejida|bị vỡ|Động tác|3",
+"부수다|busuda|phá vỡ|Động tác|3",
+"찢다|jjitda|xé|Động tác|3",
+"쏟다|ssotda|làm đổ|Động tác|3",
+"흘리다|heullida|làm chảy, làm rơi|Động tác|3",
+"젖다|jeotda|bị ướt|Động tác|3",
+"마르다|mareuda|khô|Động tác|3",
+"끼다|kkida|đeo (nhẫn, găng)|Sinh hoạt|3",
+"차다|chada|đeo (đồng hồ); đạp|Sinh hoạt|3",
+"매다|maeda|thắt (cà vạt, dây)|Sinh hoạt|3",
+"갈아입다|garaipda|thay quần áo|Sinh hoạt|2",
+"빗다|bitda|chải (đầu)|Sinh hoạt|3",
+"면도하다|myeondohada|cạo râu|Sinh hoạt|3",
+"화장하다|hwajanghada|trang điểm|Sinh hoạt|2",
+"세수하다|sesuhada|rửa mặt|Sinh hoạt|2",
+"양치하다|yangchihada|đánh răng|Sinh hoạt|2",
+"잠이 들다|jami deulda|chìm vào giấc ngủ|Sinh hoạt|3",
+"깨우다|kkaeuda|đánh thức|Sinh hoạt|2",
+"졸다|jolda|ngủ gà ngủ gật|Sinh hoạt|3",
+"쉬어 가다|swieo gada|nghỉ giữa đường|Sinh hoạt|3",
+"굶다|gumda|bỏ bữa|Sinh hoạt|3",
+"차리다|charida|dọn (cơm), chuẩn bị|Sinh hoạt|3",
+"데우다|deuda|hâm nóng|Nấu ăn|3",
+"식히다|sikhida|làm nguội|Nấu ăn|3",
+"튀기다|twigida|chiên|Nấu ăn|3",
+"찌다|jjida|hấp|Nấu ăn|3",
+"삶다|samda|luộc|Nấu ăn|3",
+"무치다|muchida|trộn (rau)|Nấu ăn|3",
+"담다|damda|đựng vào|Nấu ăn|3",
+"붓다|butda|rót, đổ vào|Nấu ăn|3",
+"젓다|jeotda|khuấy|Nấu ăn|3",
+"맛보다|matboda|nếm thử|Nấu ăn|3",
+"주고받다|jugobatda|trao đổi|Giao tiếp|3",
+"전하다|jeonhada|truyền đạt|Giao tiếp|3",
+"알리다|allida|thông báo|Giao tiếp|2",
+"물어보다|mureoboda|thử hỏi|Giao tiếp|2",
+"대화하다|daehwahada|trò chuyện|Giao tiếp|2",
+"상담하다|sangdamhada|tư vấn, trao đổi|Giao tiếp|3",
+"의논하다|uinonhada|thảo luận|Giao tiếp|3",
+"토론하다|toronhada|tranh luận|Giao tiếp|3",
+"발표하다|balpyohada|thuyết trình, công bố|Giao tiếp|2",
+"주장하다|jujanghada|chủ trương, lập luận|Giao tiếp|3",
+"찬성하다|chanseonghada|tán thành|Giao tiếp|3",
+"반대하다|bandaehada|phản đối|Giao tiếp|2",
+"약속을 지키다|yaksogeul jikida|giữ lời hẹn|Giao tiếp|3",
+"약속을 어기다|yaksogeul eogida|phá vỡ lời hẹn|Giao tiếp|3",
+"속이다|sogida|lừa dối|Giao tiếp|3",
+"거짓말하다|geojinmalhada|nói dối|Giao tiếp|2",
+"고백하다|gobaekhada|tỏ tình, thú nhận|Giao tiếp|3",
+"욕하다|yokhada|mắng, nói xấu|Giao tiếp|3",
+"소리치다|sorichida|hét lên|Giao tiếp|3",
+"속삭이다|soksagida|thì thầm|Giao tiếp|3",
+"번역하다|beonyeokhada|dịch (viết)|Học tập|2",
+"통역하다|tongyeokhada|phiên dịch (nói)|Học tập|2",
+"외우다|oeuda|học thuộc|Học tập|2",
+"복습하다|bokseuphada|ôn lại|Học tập|2",
+"예습하다|yeseuphada|học trước|Học tập|3",
+"필기하다|pilgihada|ghi chép|Học tập|3",
+"제출하다|jechulhada|nộp|Học tập|2",
+"입학하다|iphakhada|nhập học|Học tập|2",
+"졸업하다|joreophada|tốt nghiệp|Học tập|2",
+"합격하다|hapgyeokhada|đỗ, đạt|Học tập|2",
+"불합격하다|bulhapgyeokhada|không đỗ|Học tập|3",
+"신청서를 쓰다|sincheongseoreul sseuda|viết đơn|Thủ tục|3",
+"등록하다|deungnokhada|đăng ký|Thủ tục|2",
+"접수하다|jeopsuhada|tiếp nhận, nộp đăng ký|Thủ tục|3",
+"발급하다|balgeuphada|cấp (giấy tờ)|Thủ tục|3",
+"작성하다|jakseonghada|lập, soạn (văn bản)|Thủ tục|3",
+"기입하다|giiphada|điền vào|Thủ tục|3",
+"연장하다|yeonjanghada|gia hạn|Thủ tục|3",
+"변경하다|byeongyeonghada|thay đổi|Thủ tục|3",
+"반납하다|bannaphada|hoàn trả|Thủ tục|3",
+"신고하다|singohada|khai báo, trình báo|Thủ tục|3",
+"금지하다|geumjihada|cấm|Thủ tục|3",
+"허락받다|heorakbatda|được cho phép|Thủ tục|3",
+"취직하다|chwijikhada|xin được việc|Công việc|2",
+"지원하다|jiwonhada|ứng tuyển; hỗ trợ|Công việc|3",
+"면접을 보다|myeonjeobeul boda|dự phỏng vấn|Công việc|3",
+"승진하다|seungjinhada|được thăng chức|Công việc|3",
+"출장 가다|chuljang gada|đi công tác|Công việc|2",
+"회의하다|hoeuihada|họp|Công việc|2",
+"보고하다|bogohada|báo cáo|Công việc|3",
+"처리하다|cheorihada|xử lý|Công việc|3",
+"해결하다|haegyeolhada|giải quyết|Công việc|2",
+"담당하다|damdanghada|phụ trách|Công việc|3",
+"협력하다|hyeomnyeokhada|hợp tác|Công việc|3",
+"경쟁하다|gyeongjaenghada|cạnh tranh|Công việc|3",
+"운영하다|unyeonghada|vận hành, điều hành|Công việc|3",
+"관리하다|gwallihada|quản lý|Công việc|3",
+"생산하다|saengsanhada|sản xuất|Kinh tế|3",
+"판매하다|panmaehada|bán hàng|Kinh tế|3",
+"수출하다|suchulhada|xuất khẩu|Kinh tế|3",
+"수입하다|suiphada|nhập khẩu|Kinh tế|3",
+"투자하다|tujahada|đầu tư|Kinh tế|3",
+"절약하다|jeoryakhada|tiết kiệm|Kinh tế|3",
+"낭비하다|nangbihada|phung phí|Kinh tế|3",
+"깎다|kkakda|mặc cả, gọt|Mua bán|2",
+"고장내다|gojangnaeda|làm hỏng|Mua bán|3",
+"수리하다|surihada|sửa chữa|Mua bán|3",
+"설치하다|seolchihada|lắp đặt|Mua bán|3",
+"사용하다|sayonghada|sử dụng|Hành động|2",
+"이용하다|iyonghada|dùng (dịch vụ)|Hành động|2",
+"준비되다|junbidoeda|được chuẩn bị xong|Hành động|3",
+"완성하다|wanseonghada|hoàn thành|Hành động|3",
+"시도하다|sidohada|thử sức|Hành động|3",
+"계획하다|gyehwaekhada|lập kế hoạch|Hành động|2",
+"조사하다|josahada|điều tra, khảo sát|Hành động|3",
+"연구하다|yeonguhada|nghiên cứu|Hành động|3",
+"분석하다|bunseokhada|phân tích|Hành động|3",
+"정리되다|jeongnidoeda|được sắp xếp gọn|Hành động|3",
+"반복하다|banbokhada|lặp lại|Hành động|3",
+"구별하다|gubyeolhada|phân biệt|Hành động|3",
+"선택하다|seontaekhada|chọn lựa|Hành động|2",
+"포함하다|pohamhada|bao gồm|Hành động|3",
+"제외하다|jeoehada|loại trừ|Hành động|3",
+"확인되다|hwagindoeda|được xác nhận|Hành động|3",
+"증가하다|jeunggahada|tăng lên|Thay đổi|3",
+"감소하다|gamsohada|giảm xuống|Thay đổi|3",
+"발전하다|baljeonhada|phát triển|Thay đổi|3",
+"발생하다|balsaenghada|phát sinh|Thay đổi|3",
+"사라지다|sarajida|biến mất|Thay đổi|3",
+"나타나다|natanada|xuất hiện|Thay đổi|3",
+"변경되다|byeongyeongdoeda|bị thay đổi|Thay đổi|3",
+"좋아지다|joajida|trở nên tốt hơn|Thay đổi|2",
+"나빠지다|nappajida|trở nên tệ hơn|Thay đổi|2",
+"늦어지다|neujeojida|bị muộn hơn|Thay đổi|3",
+"익숙해지다|iksukhaejida|trở nên quen|Thay đổi|2",
+"친해지다|chinhaejida|trở nên thân|Thay đổi|2",
+"느껴지다|neukkyeojida|được cảm thấy|Thay đổi|3",
+"걱정되다|geokjeongdoeda|thấy lo|Cảm xúc|2",
+"기대되다|gidaedoeda|thấy mong chờ|Cảm xúc|3",
+"감동하다|gamdonghada|xúc động|Cảm xúc|3",
+"후회하다|huhoehada|hối hận|Cảm xúc|3",
+"반성하다|banseonghada|tự kiểm điểm|Cảm xúc|3",
+"실망하다|silmanghada|thất vọng|Cảm xúc|3",
+"만족하다|manjokhada|hài lòng|Cảm xúc|3",
+"즐기다|jeulgida|thưởng thức, hưởng|Cảm xúc|3",
+"웃기다|utgida|làm cho cười|Cảm xúc|3",
+"놀리다|nollida|trêu|Cảm xúc|3",
+"위로하다|wirohada|an ủi|Cảm xúc|3",
+"응원하다|eungwonhada|cổ vũ|Cảm xúc|2",
+"축하하다|chukhahada|chúc mừng|Cảm xúc|2",
+"감사드리다|gamsadeurida|xin cảm ơn (kính)|Cảm xúc|3",
+"조심시키다|josimsikida|nhắc cẩn thận|Cảm xúc|3",
+"살펴보다|salpyeoboda|xem xét kỹ|Nhận thức|3",
+"지켜보다|jikyeoboda|dõi theo|Nhận thức|3",
+"바라보다|baraboda|ngắm nhìn|Nhận thức|3",
+"쳐다보다|chyeodaboda|nhìn lên, trông|Nhận thức|3",
+"떠올리다|tteoollida|nhớ lại, nảy ra|Nhận thức|3",
+"상상하다|sangsanghada|tưởng tượng|Nhận thức|3",
+"기대하다|gidaehada|kỳ vọng|Nhận thức|2",
+"추측하다|chucheukhada|phỏng đoán|Nhận thức|3",
+"판단하다|pandanhada|phán đoán|Nhận thức|3",
+"착각하다|chakgakhada|ngộ nhận|Nhận thức|3",
+"인정하다|injeonghada|thừa nhận|Nhận thức|3",
+"무시하다|musihada|phớt lờ, coi thường|Nhận thức|3",
+"주의하다|juihada|lưu ý|Nhận thức|3",
+"조심스럽다|josimseureopda|thấy e dè, cẩn trọng|Nhận thức|3",
+"운동을 하다|undongeul hada|tập thể thao|Thể thao|2",
+"수영하다|suyeonghada|đi bơi|Thể thao|2",
+"등산하다|deungsanhada|leo núi|Thể thao|2",
+"산책하다|sanchaekhada|đi dạo|Thể thao|2",
+"달리다|dallida|chạy|Thể thao|2",
+"던지고 받다|deonjigo batda|ném và bắt|Thể thao|3",
+"이겨 내다|igyeo naeda|vượt qua, chiến thắng|Thể thao|3",
+"참가 신청하다|chamga sincheonghada|đăng ký tham gia|Thể thao|3",
+"구독하다|gudokhada|đăng ký theo dõi|Công nghệ|3",
+"검색하다|geomsaekhada|tìm kiếm (trên mạng)|Công nghệ|2",
+"저장하다|jeojanghada|lưu lại|Công nghệ|2",
+"삭제하다|samjehada|xoá|Công nghệ|2",
+"업로드하다|eopnodeuhada|tải lên|Công nghệ|3",
+"다운로드하다|daunnodeuhada|tải xuống|Công nghệ|2",
+"설정하다|seoljeonghada|cài đặt (tuỳ chọn)|Công nghệ|3",
+"충전하다|chungjeonhada|sạc pin|Công nghệ|2",
+"연결하다|yeongyeolhada|kết nối|Công nghệ|2",
+"입력하다|imnyeokhada|nhập vào|Công nghệ|3",
+"로그인하다|logeuinhada|đăng nhập|Công nghệ|2"
+];
+
+const ADJS2 = [
+"시끄럽지 않다|sikkeureopji anta|không ồn|Trạng thái|2",
+"조용해지다|joyonghaejida|trở nên yên tĩnh|Trạng thái|3",
+"뜨끈하다|tteukkeunhada|hâm hẩm nóng|Thời tiết & vị|3",
+"미지근하다|mijigeunhada|âm ấm|Thời tiết & vị|3",
+"쌀쌀하다|ssalssalhada|hơi lạnh|Thời tiết & vị|3",
+"무덥다|mudeopda|nóng ẩm bức|Thời tiết & vị|3",
+"건조하다|geonjohada|khô (không khí)|Thời tiết & vị|3",
+"습하다|seuphada|ẩm|Thời tiết & vị|3",
+"맑다|makda|trong, quang (trời)|Thời tiết & vị|2",
+"흐리다|heurida|âm u|Thời tiết & vị|2",
+"고소하다|gosohada|thơm bùi|Thời tiết & vị|3",
+"상하다|sanghada|bị hỏng (đồ ăn)|Thời tiết & vị|3",
+"기름지다|gireumjida|nhiều dầu mỡ|Thời tiết & vị|3",
+"부드럽다|budeureopda|mềm, dịu|Trạng thái|2",
+"딱딱하다|ttakttakhada|cứng|Trạng thái|2",
+"질기다|jilgida|dai|Trạng thái|3",
+"바삭하다|basakhada|giòn|Trạng thái|3",
+"뾰족하다|ppyojokhada|nhọn|Trạng thái|3",
+"둥글다|dunggeulda|tròn|Trạng thái|2",
+"납작하다|napjakhada|bẹt|Trạng thái|3",
+"투명하다|tumyeonghada|trong suốt|Trạng thái|3",
+"화려하다|hwaryeohada|lộng lẫy, sặc sỡ|Trạng thái|3",
+"단순하다|dansunhada|đơn thuần|Đánh giá|3",
+"구체적이다|guchejeogida|cụ thể|Đánh giá|3",
+"분명해지다|bunmyeonghaejida|trở nên rõ|Đánh giá|3",
+"정확하다|jeonghwakhada|chính xác|Đánh giá|2",
+"틀리다|teullida|sai|Đánh giá|2",
+"맞다|matda|đúng, khớp|Đánh giá|2",
+"적절하다|jeokjeolhada|thích đáng|Đánh giá|3",
+"부적절하다|bujeokjeolhada|không thích đáng|Đánh giá|3",
+"유리하다|yurihada|có lợi|Đánh giá|3",
+"불리하다|bullihada|bất lợi|Đánh giá|3",
+"효과적이다|hyogwajeogida|hiệu quả|Đánh giá|3",
+"필수적이다|pilsujeogida|thiết yếu|Đánh giá|3",
+"흔하다|heunhada|thường thấy, phổ biến|Đánh giá|3",
+"드물다|deumulda|hiếm|Đánh giá|3",
+"귀하다|gwihada|quý|Đánh giá|3",
+"비싸지다|bissajida|trở nên đắt|Đánh giá|3",
+"유일하다|yuilhada|duy nhất|Đánh giá|3",
+"같지 않다|gatji anta|không giống|Đánh giá|2",
+"공평하다|gongpyeonghada|công bằng|Xã hội|3",
+"불공평하다|bulgongpyeonghada|không công bằng|Xã hội|3",
+"자유롭다|jayuropda|tự do|Xã hội|3",
+"엄격하다|eomgyeokhada|nghiêm khắc|Con người|3",
+"관대하다|gwandaehada|khoan dung|Con người|3",
+"예의 있다|yeui itda|có phép tắc|Con người|3",
+"예의 없다|yeui eopda|vô phép|Con người|3",
+"겸손하다|gyeomsonhada|khiêm tốn|Con người|3",
+"건방지다|geonbangjida|ngạo mạn|Con người|3",
+"욕심이 많다|yoksimi manta|nhiều lòng tham|Con người|3",
+"인기가 있다|ingiga itda|được yêu thích|Con người|2",
+"유행하다|yuhaenghada|đang là xu hướng|Con người|3",
+"어울리다|eoullida|phù hợp, hợp với|Con người|2",
+"닮다|damda|giống (ngoại hình)|Con người|3",
+"젊어 보이다|jeolmeo boida|trông trẻ|Con người|3",
+"귀찮다|gwichanta|thấy lười, phiền|Cảm xúc|2",
+"심란하다|simnanhada|bất an trong lòng|Cảm xúc|3",
+"불안하다|buranhada|bất an|Cảm xúc|3",
+"편안하다|pyeonanhada|an yên, dễ chịu|Cảm xúc|2",
+"반갑지 않다|bangapji anta|không mừng gì|Cảm xúc|3",
+"서운하다|seounhada|thấy chạnh lòng|Cảm xúc|3",
+"고통스럽다|gotongseureopda|đau đớn|Cảm xúc|3",
+"지겹다|jigyeopda|ngán, chán ngấy|Cảm xúc|3",
+"설레다|seolleda|rộn ràng, háo hức|Cảm xúc|3",
+"뿌듯하다|ppudeuthada|thấy tự hào ấm lòng|Cảm xúc|3",
+"자랑스럽다|jarangseureopda|đáng tự hào|Cảm xúc|3",
+"부럽다|bureopda|đáng ganh, thấy thèm|Cảm xúc|3",
+"안타깝다|antakkapda|đáng tiếc, xót|Cảm xúc|3",
+"불쌍하다|bulssanghada|đáng thương|Cảm xúc|3",
+"힘들다|himdeulda|vất vả, khó nhọc|Cảm xúc|2",
+"괴롭다|goeropda|khổ tâm|Cảm xúc|3",
+"지치다|jichida|kiệt sức|Cảm xúc|3",
+"졸리다|jollida|buồn ngủ|Cơ thể|2",
+"어지럽다|eojireopda|chóng mặt|Cơ thể|3",
+"간지럽다|ganjireopda|ngứa|Cơ thể|3",
+"쑤시다|ssusida|nhức|Cơ thể|3",
+"붓다(몸)|butda|bị sưng|Cơ thể|3",
+"낫다|natda|khỏi bệnh; tốt hơn|Cơ thể|2"
+];
+
+const ADVS2 = [
+"대부분|daebubun|phần lớn|Mức độ|2",
+"대체로|daechero|đại thể, nói chung|Mức độ|3",
+"상당히|sangdanghi|khá là|Mức độ|3",
+"엄청|eomcheong|cực kỳ|Mức độ|2",
+"굉장히|gwoengjanghi|vô cùng|Mức độ|3",
+"조금씩|jogeumssik|từng chút một|Mức độ|2",
+"하나씩|hanassik|từng cái một|Mức độ|2",
+"골고루|golgoru|đều đặn, dàn đều|Mức độ|3",
+"충분히|chungbunhi|một cách đầy đủ|Mức độ|2",
+"완전히|wanjeonhi|hoàn toàn|Mức độ|2",
+"거의 다|geoui da|gần hết|Mức độ|2",
+"겨우겨우|gyeougyeou|chật vật lắm|Mức độ|3",
+"이만큼|imankeum|chừng này|Mức độ|3",
+"그만큼|geumankeum|chừng ấy|Mức độ|3",
+"얼마나 더|eolmana deo|còn bao nhiêu nữa|Mức độ|3",
+"다만|daman|chỉ có điều|Liên kết|3",
+"단지|danji|chỉ là|Liên kết|3",
+"특별히|teukbyeolhi|đặc biệt là|Thái độ|2",
+"주로|juro|chủ yếu|Thái độ|2",
+"보통은|botongeun|thường thì|Thái độ|2",
+"아무튼|amuteun|dù sao thì|Thái độ|3",
+"어쨌든|eojjaetdeun|dù thế nào|Thái độ|3",
+"하여튼|hayeoteun|tóm lại thì|Thái độ|3",
+"솔직히|soljikhi|nói thật thì|Thái độ|3",
+"개인적으로|gaeinjeogeuro|về mặt cá nhân|Thái độ|3",
+"다시 한번|dasi hanbeon|một lần nữa|Thời gian|2",
+"처음부터|cheoeumbuteo|từ đầu|Thời gian|2",
+"끝까지|kkeutkkaji|đến cuối|Thời gian|2",
+"마지막으로|majimageuro|cuối cùng là|Thời gian|2",
+"그때|geuttae|lúc đó|Thời gian|2",
+"이때|ittae|lúc này|Thời gian|3",
+"언젠가|eonjenga|một lúc nào đó|Thời gian|3",
+"조만간|jomangan|sớm thôi|Thời gian|3",
+"방금 전에|banggeum jeone|vừa lúc trước|Thời gian|2",
+"지금까지|jigeumkkaji|cho đến giờ|Thời gian|2",
+"앞으로|apeuro|từ nay về sau|Thời gian|2",
+"그 후에|geu hue|sau đó|Thời gian|2",
+"동시에|dongsie|đồng thời|Thời gian|3",
+"잠시|jamsi|trong chốc lát|Thời gian|2",
+"영원히|yeongwonhi|mãi mãi|Thời gian|3",
+"하루빨리|harupalli|càng sớm càng tốt|Thời gian|3",
+"매번|maebeon|lần nào cũng|Tần suất|2",
+"번번이|beonbeoni|lần nào cũng (tiêu cực)|Tần suất|3",
+"드물게|deumulge|hiếm khi|Tần suất|3",
+"좀처럼|jomcheoreom|hầu như không|Tần suất|3",
+"대신에|daesine|thay vào đó|Cách thức|2",
+"따로따로|ttarottaro|riêng từng cái|Cách thức|3",
+"함부로|hamburo|một cách bừa bãi|Cách thức|3",
+"조심스럽게|josimseureopge|một cách cẩn trọng|Cách thức|3",
+"천천히 그리고 정확히|cheoncheonhi geurigo jeonghwakhi|chậm và chính xác|Cách thức|3",
+"꼼꼼히|kkomkkomhi|một cách tỉ mỉ|Cách thức|3",
+"대충대충|daechungdaechung|làm cho xong|Cách thức|3",
+"끝내|kkeunnae|cuối cùng cũng (không)|Cách thức|3",
+"무려|muryeo|tới tận (nhấn số lượng)|Mức độ|3",
+"하필|hapil|lại đúng lúc (không may)|Thái độ|3",
+"괜히|gwaenhi|vô cớ, tự dưng|Thái độ|3",
+"일부러라도|ilbureorado|dù phải cố ý|Thái độ|3",
+"되게|doege|rất (khẩu ngữ)|Mức độ|3",
+"꽤|kkwae|khá|Mức độ|2",
+"워낙|wonak|vốn dĩ quá|Mức độ|3",
+"하도|hado|quá đến nỗi|Mức độ|3"
+];
+const PHRASES2 = [
+"잘 지내요|jal jinaeyo|Tôi vẫn ổn|Chào hỏi|2",
+"덕분에요|deokbuneyo|Nhờ anh/chị cả|Chào hỏi|2",
+"그동안 잘 지내셨어요?|geudongan jal jinaesyeosseoyo|Thời gian qua anh/chị vẫn ổn chứ?|Chào hỏi|2",
+"또 뵙겠습니다|tto boepgetseumnida|Hẹn gặp lại ạ|Chào hỏi|2",
+"먼저 가 보겠습니다|meonjeo ga bogetseumnida|Tôi xin đi trước|Chào hỏi|2",
+"좋은 하루 보내세요|joeun haru bonaeseyo|Chúc một ngày tốt lành|Chào hỏi|2",
+"주말 잘 보내세요|jumal jal bonaeseyo|Chúc cuối tuần vui|Chào hỏi|2",
+"새해 복 많이 받으세요|saehae bok mani badeuseyo|Chúc mừng năm mới|Chào hỏi|2",
+"명절 잘 보내세요|myeongjeol jal bonaeseyo|Chúc kỳ lễ vui vẻ|Chào hỏi|2",
+"건강하세요|geonganghaseyo|Chúc anh/chị sức khoẻ|Chào hỏi|2",
+"오시는 길 힘들지 않았어요?|osineun gil himdeulji anasseoyo|Đường đến có vất vả không?|Chào hỏi|3",
+"들어오세요|deureooseyo|Mời vào|Chào hỏi|2",
+"편하게 앉으세요|pyeonhage anjeuseyo|Anh/chị ngồi thoải mái nhé|Chào hỏi|2",
+"신경 써 주셔서 감사합니다|singyeong sseo jusyeoseo gamsahamnida|Cảm ơn vì đã để tâm|Lịch sự|3",
+"바쁘신데 죄송합니다|bappeusinde joesonghamnida|Xin lỗi đã làm phiền lúc anh/chị bận|Lịch sự|3",
+"제가 잘못했습니다|jega jalmothaetseumnida|Là lỗi của tôi|Lịch sự|2",
+"다음부터 조심하겠습니다|daeumbuteo josimhagetseumnida|Lần sau tôi sẽ cẩn thận|Lịch sự|3",
+"이해해 주셔서 감사합니다|ihaehae jusyeoseo gamsahamnida|Cảm ơn anh/chị đã thông cảm|Lịch sự|3",
+"부탁 하나만 드려도 될까요?|butak hanaman deuryeodo doelkkayo|Tôi xin nhờ một việc được không?|Lịch sự|3",
+"말씀 중에 죄송합니다|malsseum junge joesonghamnida|Xin lỗi đã cắt lời|Lịch sự|3",
+"천천히 하세요|cheoncheonhi haseyo|Anh/chị cứ từ từ|Lịch sự|2",
+"신경 쓰실 필요 없어요|singyeong sseusil piryo eopseoyo|Anh/chị không cần để tâm|Lịch sự|3",
+"수고 많으셨어요|sugo maneusyeosseoyo|Anh/chị vất vả rồi|Lịch sự|2",
+"다음에 제가 살게요|daeume jega salgeyo|Lần sau tôi mời|Lịch sự|2",
+"덕분에 많이 배웠어요|deokbune mani baewosseoyo|Nhờ anh/chị mà tôi học được nhiều|Lịch sự|3",
+"메뉴 추천해 주세요|menyu chucheonhae juseyo|Anh/chị gợi ý món giúp tôi|Nhà hàng|2",
+"제일 인기 있는 게 뭐예요?|jeil ingi inneun ge mwoyeyo|Món nào được gọi nhiều nhất?|Nhà hàng|2",
+"이건 뭐로 만든 거예요?|igeon mworo mandeun geoyeyo|Cái này làm từ gì ạ?|Nhà hàng|2",
+"덜 맵게 해 주세요|deol maepge hae juseyo|Làm ít cay hơn giúp tôi|Nhà hàng|2",
+"고수는 빼 주세요|gosuneun ppae juseyo|Xin bỏ rau mùi|Nhà hàng|3",
+"소금은 적게 넣어 주세요|sogeumeun jeokge neoeo juseyo|Cho ít muối giúp tôi|Nhà hàng|3",
+"공기밥 하나 더 주세요|gonggibap hana deo juseyo|Cho thêm một bát cơm|Nhà hàng|2",
+"물 리필해 주세요|mul ripilhae juseyo|Cho tôi thêm nước|Nhà hàng|3",
+"남은 건 싸 주세요|nameun geon ssa juseyo|Phần còn lại gói cho tôi|Nhà hàng|3",
+"여기 숟가락 하나 더 주세요|yeogi sutgarak hana deo juseyo|Cho thêm một cái thìa|Nhà hàng|2",
+"음식이 아직 안 나왔어요|eumsigi ajik an nawasseoyo|Món vẫn chưa ra|Nhà hàng|2",
+"주문한 것과 달라요|jumunhan geotgwa dallayo|Khác với món tôi gọi|Nhà hàng|3",
+"너무 맛있었어요|neomu masisseosseoyo|Ngon lắm ạ|Nhà hàng|2",
+"잘 먹겠습니다|jal meokgetseumnida|Tôi xin phép ăn ạ|Nhà hàng|2",
+"이거 입어 봐도 될까요?|igeo ibeo bwado doelkkayo|Tôi thử cái này được không?|Mua sắm|2",
+"사이즈가 좀 작아요|saijeuga jom jagayo|Cỡ hơi nhỏ|Mua sắm|2",
+"사이즈가 좀 커요|saijeuga jom keoyo|Cỡ hơi to|Mua sắm|2",
+"다른 걸 보여 주세요|dareun geol boyeo juseyo|Cho tôi xem cái khác|Mua sắm|2",
+"세일 중이에요?|seil jungieyo|Đang giảm giá à?|Mua sắm|2",
+"할인되나요?|harindoenayo|Có được giảm không ạ?|Mua sắm|2",
+"따로 포장해 주세요|ttaro pojanghae juseyo|Gói riêng giúp tôi|Mua sắm|3",
+"선물용으로 포장해 주세요|seonmuryongeuro pojanghae juseyo|Gói làm quà giúp tôi|Mua sắm|3",
+"교환할 수 있어요?|gyohwanhal su isseoyo|Có đổi được không?|Mua sắm|2",
+"영수증 있으면 가능해요|yeongsujeung isseumyeon ganeunghaeyo|Có hoá đơn thì được|Mua sắm|3",
+"카드 할부로 할게요|kadeu halburo halgeyo|Tôi trả thẻ trả góp|Mua sắm|3",
+"봉투 하나 주세요|bongtu hana juseyo|Cho tôi một cái túi|Mua sắm|2",
+"적립해 주세요|jeongniphae juseyo|Tích điểm giúp tôi|Mua sắm|3",
+"지하철로 가는 게 빨라요|jihacheollo ganeun ge ppallayo|Đi tàu điện thì nhanh hơn|Đi lại|2",
+"몇 번 출구로 나가요?|myeot beon chulguro nagayo|Ra cửa số mấy ạ?|Đi lại|2",
+"여기서 얼마나 걸려요?|yeogiseo eolmana geollyeoyo|Từ đây mất bao lâu?|Đi lại|2",
+"반대 방향이에요|bandae banghyangieyo|Ngược hướng rồi|Đi lại|3",
+"다음 역에서 내리세요|daeum yeogeseo naeriseyo|Hãy xuống ở ga sau|Đi lại|2",
+"이 자리 비었어요?|i jari bieosseoyo|Chỗ này trống không?|Đi lại|2",
+"좀 지나가겠습니다|jom jinagagetseumnida|Cho tôi đi qua một chút|Đi lại|3",
+"택시를 불러 주세요|taeksireul bulleo juseyo|Gọi taxi giúp tôi|Đi lại|2",
+"공항까지 가 주세요|gonghangkkaji ga juseyo|Cho tôi đến sân bay|Đi lại|2",
+"조금 더 천천히 가 주세요|jogeum deo cheoncheonhi ga juseyo|Đi chậm hơn một chút|Đi lại|3",
+"여기서 기다려 주세요|yeogiseo gidaryeo juseyo|Chờ tôi ở đây nhé|Đi lại|2",
+"길이 좀 막히네요|giri jom makhineyo|Đường hơi tắc nhỉ|Đi lại|2",
+"어디가 아프세요?|eodiga apeuseyo|Anh/chị đau ở đâu?|Bệnh viện|2",
+"배가 아프고 열이 나요|baega apeugo yeori nayo|Tôi đau bụng và sốt|Bệnh viện|2",
+"며칠째 그래요?|myeochiljjae geuraeyo|Bị như vậy mấy ngày rồi?|Bệnh viện|3",
+"약을 먹어도 안 나아요|yageul meogeodo an naayo|Uống thuốc vẫn không đỡ|Bệnh viện|3",
+"주사를 맞아야 해요?|jusareul majaya haeyo|Tôi phải tiêm không ạ?|Bệnh viện|3",
+"처방전 주세요|cheobangjeon juseyo|Cho tôi đơn thuốc|Bệnh viện|3",
+"하루에 몇 번 먹어요?|harue myeot beon meogeoyo|Uống mấy lần một ngày?|Bệnh viện|2",
+"식후 삼십 분에 드세요|sikhu samsip bune deuseyo|Uống sau ăn 30 phút|Bệnh viện|3",
+"보험 적용되나요?|boheom jeogyongdoenayo|Có áp dụng bảo hiểm không?|Bệnh viện|3",
+"예약을 하고 왔어요|yeyageul hago wasseoyo|Tôi đã đặt hẹn trước|Bệnh viện|2",
+"잠깐 시간 괜찮으세요?|jamkkan sigan gwaenchaneuseyo|Anh/chị rảnh một chút không?|Công ty|2",
+"회의 자료 보내 드렸어요|hoeui jaryo bonae deuryeosseoyo|Tôi đã gửi tài liệu họp|Công ty|3",
+"언제까지 하면 될까요?|eonjekkaji hamyeon doelkkayo|Làm đến khi nào thì được ạ?|Công ty|3",
+"오늘 안에 끝내겠습니다|oneul ane kkeunnaegetseumnida|Tôi sẽ xong trong hôm nay|Công ty|3",
+"내용을 다시 확인해 보겠습니다|naeyongeul dasi hwaginhae bogetseumnida|Tôi sẽ kiểm tra lại nội dung|Công ty|3",
+"제가 처리하겠습니다|jega cheorihagetseumnida|Tôi sẽ xử lý|Công ty|3",
+"조금 늦을 것 같습니다|jogeum neujeul geot gatseumnida|Có lẽ tôi sẽ muộn một chút|Công ty|2",
+"몸이 안 좋아서 쉬고 싶습니다|momi an joaseo swigo sipseumnida|Tôi không khoẻ, muốn xin nghỉ|Công ty|2",
+"수고하셨습니다, 내일 뵙겠습니다|sugohasyeotseumnida, naeil boepgetseumnida|Anh/chị vất vả rồi, mai gặp lại|Công ty|2",
+"전화 좀 받아 주시겠어요?|jeonhwa jom bada jusigesseoyo|Anh/chị nghe điện giúp tôi được không?|Công ty|3",
+"혹시 통장을 만들 수 있나요?|hoksi tongjangeul mandeul su innayo|Tôi mở sổ tài khoản được không ạ?|Hành chính|3",
+"신분증을 가져왔어요|sinbunjeungeul gajyeowasseoyo|Tôi có mang giấy tờ|Hành chính|2",
+"여기에 뭘 쓰면 돼요?|yeogie mwol sseumyeon dwaeyo|Tôi phải viết gì vào đây?|Hành chính|2",
+"번호표를 뽑으세요|beonhopyoreul ppobeuseyo|Hãy lấy số thứ tự|Hành chính|3",
+"서류가 하나 더 필요해요|seoryuga hana deo piryohaeyo|Cần thêm một giấy tờ nữa|Hành chính|3",
+"언제 나와요?|eonje nawayo|Khi nào thì xong (được cấp)?|Hành chính|2",
+"비자를 연장하고 싶어요|bijareul yeonjanghago sipeoyo|Tôi muốn gia hạn visa|Hành chính|3",
+"주소가 바뀌었어요|jusoga bakkwieosseoyo|Địa chỉ của tôi đã đổi|Hành chính|3",
+"인터넷으로도 신청할 수 있어요|inteoneseurodo sincheonghal su isseoyo|Có thể đăng ký qua mạng|Hành chính|3",
+"방을 보러 왔어요|bangeul boreo wasseoyo|Tôi đến xem phòng|Nhà ở|2",
+"월세가 얼마예요?|wolsega eolmayeyo|Tiền thuê tháng bao nhiêu?|Nhà ở|2",
+"보증금이 얼마예요?|bojeunggeumi eolmayeyo|Tiền cọc bao nhiêu?|Nhà ở|3",
+"관리비는 따로예요?|gwallibineun ttaroyeyo|Phí quản lý tính riêng ạ?|Nhà ở|3",
+"가구가 포함돼 있어요?|gaguga pohamdwae isseoyo|Có kèm nội thất không?|Nhà ở|3",
+"언제 입주할 수 있어요?|eonje ipjuhal su isseoyo|Khi nào tôi vào ở được?|Nhà ở|3",
+"수리를 좀 해 주세요|surireul jom hae juseyo|Nhờ anh/chị sửa giúp|Nhà ở|3",
+"물이 안 나와요|muri an nawayo|Không có nước|Nhà ở|2",
+"보일러가 고장났어요|boilleoga gojangnasseoyo|Lò sưởi bị hỏng|Nhà ở|3",
+"층간 소음이 심해요|cheunggan soeumi simhaeyo|Tiếng ồn giữa các tầng rất to|Nhà ở|3",
+"한국어를 배우기 시작했어요|hangugeoreul baeugi sijakhaesseoyo|Tôi đã bắt đầu học tiếng Hàn|Lớp học|2",
+"발음을 고쳐 주세요|bareumeul gochyeo juseyo|Sửa phát âm cho tôi nhé|Lớp học|3",
+"칠판이 잘 안 보여요|chilpani jal an boyeoyo|Tôi không thấy rõ bảng|Lớp học|2",
+"숙제가 뭐예요?|sukjega mwoyeyo|Bài tập là gì ạ?|Lớp học|2",
+"언제까지 제출해요?|eonjekkaji jechulhaeyo|Nộp đến khi nào ạ?|Lớp học|2",
+"시험 범위가 어디까지예요?|siheom beomwiga eodikkajiyeyo|Phạm vi thi đến đâu ạ?|Lớp học|3",
+"한 번 더 설명해 주세요|han beon deo seolmyeonghae juseyo|Giải thích lại giúp em|Lớp học|2",
+"이해했어요|ihaehaesseoyo|Em hiểu rồi|Lớp học|2",
+"질문해도 될까요?|jilmunhaedo doelkkayo|Em hỏi được không ạ?|Lớp học|2",
+"같이 공부할래요?|gachi gongbuhallaeyo|Cùng học nhé?|Lớp học|2",
+"뭐 하고 있어요?|mwo hago isseoyo|Bạn đang làm gì?|Trò chuyện|2",
+"요즘 어떻게 지내요?|yojeum eotteoke jinaeyo|Dạo này bạn sống thế nào?|Trò chuyện|2",
+"취미가 있으세요?|chwimiga isseuseyo|Anh/chị có sở thích gì?|Trò chuyện|2",
+"한국 음식 좋아하세요?|hanguk eumsik joahaseyo|Anh/chị thích đồ Hàn không?|Trò chuyện|2",
+"어디 살아요?|eodi sarayo|Bạn sống ở đâu?|Trò chuyện|2",
+"가족이 몇 명이에요?|gajogi myeot myeongieyo|Gia đình bạn mấy người?|Trò chuyện|2",
+"형제가 있어요?|hyeongjega isseoyo|Bạn có anh chị em không?|Trò chuyện|2",
+"한국에 온 지 얼마나 됐어요?|hanguge on ji eolmana dwaesseoyo|Bạn sang Hàn bao lâu rồi?|Trò chuyện|2",
+"한국말 어디서 배웠어요?|hangungmal eodiseo baewosseoyo|Bạn học tiếng Hàn ở đâu?|Trò chuyện|2",
+"저도 그렇게 생각해요|jeodo geureoke saenggakhaeyo|Tôi cũng nghĩ vậy|Trò chuyện|2",
+"그렇군요|geureokunyo|À, thế à|Trò chuyện|2",
+"재미있을 것 같아요|jaemiisseul geot gatayo|Nghe thú vị đấy|Trò chuyện|2",
+"저는 잘 모르겠어요|jeoneun jal moreugesseoyo|Tôi cũng không rõ|Trò chuyện|2",
+"한번 생각해 볼게요|hanbeon saenggakhae bolgeyo|Tôi sẽ thử nghĩ xem|Trò chuyện|2",
+"그럴 줄 알았어요|geureol jul arasseoyo|Tôi biết sẽ như vậy mà|Trò chuyện|3",
+"어쩔 줄 몰랐어요|eojjeol jul mollasseoyo|Tôi đã không biết làm sao|Trò chuyện|3",
+"깜짝 놀랐어요|kkamjjak nollasseoyo|Tôi giật mình|Trò chuyện|2",
+"다행이네요|dahaengineyo|May quá nhỉ|Trò chuyện|2",
+"아쉽네요|aswimneyo|Tiếc thật|Trò chuyện|3",
+"부럽네요|bureomneyo|Thích thế, ganh quá|Trò chuyện|3",
+"대단하네요|daedanhaneyo|Giỏi thật đấy|Trò chuyện|2",
+"힘들었겠네요|himdeureotgenneyo|Hẳn là vất vả lắm|Trò chuyện|3",
+"푹 쉬세요|puk swiseyo|Nghỉ cho thật kỹ nhé|Quan tâm|2",
+"무리하지 마세요|murihaji maseyo|Đừng làm quá sức|Quan tâm|3",
+"조심해서 가세요|josimhaeseo gaseyo|Về cẩn thận nhé|Quan tâm|2",
+"도착하면 연락 주세요|dochakhamyeon yeollak juseyo|Đến rồi nhắn cho tôi nhé|Quan tâm|2",
+"밥 꼭 챙겨 먹어요|bap kkok chaenggyeo meogeoyo|Nhớ ăn uống đầy đủ nhé|Quan tâm|3",
+"좋은 결과가 있을 거예요|joeun gyeolgwaga isseul geoyeyo|Sẽ có kết quả tốt thôi|Quan tâm|3",
+"응원할게요|eungwonhalgeyo|Tôi sẽ cổ vũ bạn|Quan tâm|2",
+"잘될 거예요|jaldoel geoyeyo|Sẽ ổn thôi mà|Quan tâm|2",
+"너무 걱정하지 마세요|neomu geokjeonghaji maseyo|Đừng lo quá|Quan tâm|2",
+"제가 옆에 있어요|jega yeope isseoyo|Tôi ở bên bạn đây|Quan tâm|2",
+"여기 와이파이 돼요?|yeogi waipai dwaeyo|Ở đây có wifi không?|Tiện ích|2",
+"충전 좀 해도 돼요?|chungjeon jom haedo dwaeyo|Tôi sạc pin một chút được không?|Tiện ích|2",
+"화장실 좀 쓸 수 있을까요?|hwajangsil jom sseul su isseulkkayo|Tôi dùng nhà vệ sinh được không?|Tiện ích|3",
+"사진 좀 찍어 주실래요?|sajin jom jjigeo jusillaeyo|Chụp giúp tôi tấm ảnh nhé?|Tiện ích|2",
+"여기 앉아도 될까요?|yeogi anjado doelkkayo|Tôi ngồi đây được không?|Tiện ích|2",
+"짐 좀 맡길 수 있어요?|jim jom matgil su isseoyo|Tôi gửi hành lý được không?|Tiện ích|3",
+"몇 시까지 해요?|myeot sikkaji haeyo|Mở đến mấy giờ ạ?|Tiện ích|2",
+"예약 안 해도 돼요?|yeyak an haedo dwaeyo|Không đặt trước cũng được chứ?|Tiện ích|2",
+"현금만 받아요?|hyeongeumman badayo|Chỉ nhận tiền mặt ạ?|Tiện ích|2",
+"영업시간이 어떻게 되나요?|yeongeopsigani eotteoke doenayo|Giờ mở cửa thế nào ạ?|Tiện ích|3"
+];
+
+const SENTENCES2 = [
+"저는 베트남 하노이에서 온 지 이 년 됐어요.|jeoneun beteunam hanoieseo on ji i nyeon dwaesseoyo|Tôi từ Hà Nội, Việt Nam sang được hai năm rồi.|Giới thiệu|2",
+"한국 회사에서 일하면서 한국어를 배우고 있어요.|hanguk hoesaeseo ilhamyeonseo hangugeoreul baeugo isseoyo|Tôi vừa làm ở công ty Hàn vừa học tiếng Hàn.|Giới thiệu|2",
+"제 꿈은 통역사가 되는 거예요.|je kkumeun tongyeoksaga doeneun geoyeyo|Ước mơ của tôi là thành phiên dịch.|Giới thiệu|2",
+"가족은 모두 베트남에 있어요.|gajogeun modu beteuname isseoyo|Gia đình tôi đều ở Việt Nam.|Giới thiệu|2",
+"고향이 그리울 때가 많아요.|gohyangi geuriul ttaega manayo|Tôi hay nhớ quê nhà.|Giới thiệu|3",
+"한국 친구를 많이 사귀고 싶어요.|hanguk chingureul mani sagwigo sipeoyo|Tôi muốn kết bạn nhiều với người Hàn.|Giới thiệu|2",
+"성격은 좀 조용한 편이에요.|seonggyeogeun jom joyonghan pyeonieyo|Tính tôi thuộc kiểu khá trầm.|Giới thiệu|2",
+"일곱 시에 일어나서 바로 세수해요.|ilgop sie ireonaseo baro sesuhaeyo|Tôi dậy lúc bảy giờ rồi rửa mặt ngay.|Sinh hoạt|2",
+"아침에는 보통 빵과 커피를 먹어요.|achimeneun botong ppanggwa keopireul meogeoyo|Buổi sáng tôi thường ăn bánh mì và uống cà phê.|Sinh hoạt|2",
+"출근 시간에는 지하철이 아주 복잡해요.|chulgeun sigganeneun jihacheori aju bokjaphaeyo|Giờ đi làm tàu điện rất đông.|Sinh hoạt|2",
+"퇴근하고 나서 운동을 하러 가요.|toegeunhago naseo undongeul hareo gayo|Sau khi tan làm tôi đi tập thể dục.|Sinh hoạt|2",
+"일주일에 두 번 장을 봐요.|iljuire du beon jangeul bwayo|Tuần tôi đi chợ hai lần.|Sinh hoạt|2",
+"주말에는 방을 청소하고 빨래를 해요.|jumareneun bangeul cheongsohago ppallaereul haeyo|Cuối tuần tôi dọn phòng và giặt giũ.|Sinh hoạt|2",
+"자기 전에 한국 드라마를 한 편 봐요.|jagi jeone hanguk deuramareul han pyeon bwayo|Trước khi ngủ tôi xem một tập phim Hàn.|Sinh hoạt|2",
+"요즘 잠이 잘 안 와요.|yojeum jami jal an wayo|Dạo này tôi khó ngủ.|Sinh hoạt|3",
+"하루 종일 서 있어서 다리가 아파요.|haru jongil seo isseoseo dariga apayo|Đứng cả ngày nên chân tôi đau.|Sinh hoạt|3",
+"오늘은 아무것도 하기 싫어요.|oneureun amugeotdo hagi sireoyo|Hôm nay tôi chẳng muốn làm gì cả.|Sinh hoạt|3",
+"냉장고에 먹을 게 하나도 없어요.|naengjanggoe meogeul ge hanado eopseoyo|Trong tủ lạnh chẳng còn gì ăn.|Sinh hoạt|2",
+"집 근처에 편의점이 있어서 편해요.|jip geuncheoe pyeonijeomi isseoseo pyeonhaeyo|Gần nhà có cửa hàng tiện lợi nên rất tiện.|Sinh hoạt|2",
+"여기 제일 잘하는 메뉴가 뭐예요?|yeogi jeil jalhaneun menyuga mwoyeyo|Ở đây món nào ngon nhất ạ?|Nhà hàng|2",
+"매운 음식은 조금씩 먹어 보고 있어요.|maeun eumsigeun jogeumssik meogeo bogo isseoyo|Tôi đang tập ăn cay từng chút một.|Nhà hàng|3",
+"김치찌개는 제가 제일 좋아하는 음식이에요.|kimchijjigaeneun jega jeil joahaneun eumsigieyo|Canh kim chi là món tôi thích nhất.|Nhà hàng|2",
+"고기보다 생선을 더 좋아해요.|gogiboda saengseoneul deo joahaeyo|Tôi thích cá hơn thịt.|Nhà hàng|2",
+"음식이 좀 짠 것 같아요.|eumsigi jom jjan geot gatayo|Món này hơi mặn thì phải.|Nhà hàng|2",
+"계산은 제가 할게요.|gyesaneun jega halgeyo|Để tôi thanh toán.|Nhà hàng|2",
+"다음에는 제가 한번 요리해 드릴게요.|daeumeneun jega hanbeon yorihae deurilgeyo|Lần sau tôi sẽ nấu cho anh/chị.|Nhà hàng|3",
+"이 옷은 너무 비싸서 못 사겠어요.|i oseun neomu bissaseo mot sagesseoyo|Áo này đắt quá nên tôi không mua được.|Mua sắm|2",
+"세일할 때까지 기다릴 거예요.|seilhal ttaekkaji gidaril geoyeyo|Tôi sẽ đợi đến khi giảm giá.|Mua sắm|2",
+"인터넷으로 사는 게 더 싸요.|inteoneseuro saneun ge deo ssayo|Mua trên mạng thì rẻ hơn.|Mua sắm|2",
+"어제 산 신발이 좀 작아서 바꿔야 해요.|eoje san sinbari jom jagaseo bakkwoya haeyo|Giày mua hôm qua hơi nhỏ nên tôi phải đổi.|Mua sắm|2",
+"택배가 아직 안 왔어요.|taekbaega ajik an wasseoyo|Hàng vẫn chưa tới.|Mua sắm|2",
+"환불받는 데 며칠 걸려요?|hwanbulbanneun de myeochil geollyeoyo|Hoàn tiền mất mấy ngày ạ?|Mua sắm|3",
+"버스를 잘못 타서 한참 돌아왔어요.|beoseureul jalmot taseo hancham dorawasseoyo|Tôi đi nhầm xe buýt nên phải đi vòng mãi.|Đi lại|3",
+"지하철이 버스보다 정확해서 좋아요.|jihacheori beoseuboda jeonghwakhaeseo joayo|Tàu điện đúng giờ hơn xe buýt nên tôi thích.|Đi lại|2",
+"길을 잃어서 지도를 봤어요.|gireul ireoseo jidoreul bwasseoyo|Tôi bị lạc nên phải xem bản đồ.|Đi lại|2",
+"막차를 놓쳐서 택시를 탔어요.|makchareul nochyeoseo taeksireul tasseoyo|Tôi trượt chuyến cuối nên đi taxi.|Đi lại|3",
+"비 오는 날에는 길이 더 막혀요.|bi oneun nareneun giri deo makhyeoyo|Ngày mưa đường càng tắc.|Đi lại|2",
+"회사까지 걸어서 십오 분 걸려요.|hoesakkaji georeoseo sibo bun geollyeoyo|Đi bộ đến công ty mất mười lăm phút.|Đi lại|2",
+"감기에 걸려서 병원에 다녀왔어요.|gamgie geollyeoseo byeongwone danyeowasseoyo|Tôi bị cảm nên đã đi bệnh viện.|Sức khoẻ|2",
+"목이 아프고 기침이 나요.|mogi apeugo gichimi nayo|Tôi đau họng và bị ho.|Sức khoẻ|2",
+"의사 선생님이 푹 쉬라고 했어요.|uisa seonsaengnimi puk swirago haesseoyo|Bác sĩ bảo tôi phải nghỉ cho kỹ.|Sức khoẻ|3",
+"약을 먹고 나니까 좀 나아졌어요.|yageul meokgo nanikka jom naajyeosseoyo|Uống thuốc rồi tôi đỡ hơn một chút.|Sức khoẻ|3",
+"요즘 스트레스 때문에 잠을 잘 못 자요.|yojeum seuteureseu ttaemune jameul jal mot jayo|Dạo này vì stress nên tôi ngủ không ngon.|Sức khoẻ|3",
+"건강을 위해서 담배를 끊었어요.|geongangeul wihaeseo dambaereul kkeuneosseoyo|Vì sức khoẻ tôi đã bỏ thuốc.|Sức khoẻ|3",
+"운동을 꾸준히 하니까 몸이 가벼워졌어요.|undongeul kkujunhi hanikka momi gabyeowojyeosseoyo|Tập đều nên người tôi nhẹ hơn.|Sức khoẻ|3",
+"오늘은 미세먼지가 심하니까 마스크를 쓰세요.|oneureun misemeonjiga simhanikka maseukeureul sseuseyo|Hôm nay bụi mịn nặng nên hãy đeo khẩu trang.|Thời tiết|3",
+"장마철에는 비가 계속 와요.|jangmacheoreneun biga gyesok wayo|Mùa mưa thì mưa liên tục.|Thời tiết|3",
+"눈이 많이 와서 길이 미끄러워요.|nuni mani waseo giri mikkeureowoyo|Tuyết nhiều nên đường trơn.|Thời tiết|3",
+"봄에는 꽃이 많이 피어서 예뻐요.|bomeneun kkochi mani pieoseo yeppeoyo|Mùa xuân hoa nở nhiều nên rất đẹp.|Thời tiết|2",
+"가을 날씨가 제일 시원하고 좋아요.|gaeul nalssiga jeil siwonhago joayo|Thời tiết mùa thu mát và dễ chịu nhất.|Thời tiết|2",
+"내일은 기온이 많이 떨어진다고 해요.|naeireun gioni mani tteoreojindago haeyo|Nghe nói mai nhiệt độ sẽ giảm mạnh.|Thời tiết|3",
+"회의는 두 시부터 시작합니다.|hoeuineun du sibuteo sijakhamnida|Cuộc họp bắt đầu từ hai giờ.|Công việc|2",
+"이 일은 제가 담당하고 있습니다.|i ireun jega damdanghago itseumnida|Việc này do tôi phụ trách.|Công việc|3",
+"보고서를 금요일까지 제출해야 합니다.|bogoseoreul geumyoilkkaji jechulhaeya hamnida|Phải nộp báo cáo trước thứ Sáu.|Công việc|3",
+"내용을 조금 수정하면 좋겠습니다.|naeyongeul jogeum sujeonghamyeon joketseumnida|Nên sửa nội dung một chút thì tốt.|Công việc|3",
+"고객이 불만을 말했어요.|gogaegi bulmaneul malhaesseoyo|Khách hàng đã phàn nàn.|Công việc|3",
+"다음 주에 출장을 갈 예정이에요.|daeum jue chuljangeul gal yejeongieyo|Tuần sau tôi dự định đi công tác.|Công việc|3",
+"야근이 많아서 좀 힘들어요.|yageuni manaseo jom himdeureoyo|Phải làm thêm nhiều nên hơi mệt.|Công việc|3",
+"월급날이 언제예요?|wolgeumnari eonjeyeyo|Ngày lĩnh lương là khi nào?|Công việc|2",
+"면접을 잘 봐서 합격했어요.|myeonjeobeul jal bwaseo hapgyeokhaesseoyo|Tôi phỏng vấn tốt nên đã đỗ.|Công việc|3",
+"자격증을 따려고 공부하고 있어요.|jagyeokjeungeul ttaryeogo gongbuhago isseoyo|Tôi đang học để lấy chứng chỉ.|Công việc|3",
+"한국어 단어를 외우는 게 제일 어려워요.|hangugeo daneoreul oeuneun ge jeil eoryeowoyo|Khó nhất với tôi là học thuộc từ vựng.|Học tập|2",
+"받아쓰기를 하면 듣기가 좋아져요.|badasseugireul hamyeon deutgiga joajyeoyo|Luyện chép chính tả thì nghe sẽ tốt hơn.|Học tập|3",
+"매일 삼십 분씩 듣기 연습을 해요.|maeil samsip bunssik deutgi yeonseubeul haeyo|Mỗi ngày tôi luyện nghe ba mươi phút.|Học tập|2",
+"읽기보다 말하기가 더 어려워요.|ikgiboda malhagiga deo eoryeowoyo|Nói khó hơn đọc.|Học tập|2",
+"틀려도 자꾸 말해 보는 게 중요해요.|teullyeodo jakku malhae boneun ge jungyohaeyo|Sai cũng cứ nói nhiều mới quan trọng.|Học tập|3",
+"선생님 설명을 들으니까 이해가 됐어요.|seonsaengnim seolmyeongeul deureunikka ihaega dwaesseoyo|Nghe thầy/cô giảng là tôi hiểu ra.|Học tập|3",
+"시험에 떨어져서 다시 준비하고 있어요.|siheome tteoreojyeoseo dasi junbihago isseoyo|Tôi thi không đỗ nên đang chuẩn bị lại.|Học tập|3",
+"토픽 이 급을 목표로 공부해요.|topik i geubeul mokpyoro gongbuhaeyo|Tôi học với mục tiêu TOPIK cấp 2.|Học tập|3",
+"한국 친구와 언어 교환을 하고 있어요.|hanguk chinguwa eoneo gyohwaneul hago isseoyo|Tôi đang trao đổi ngôn ngữ với bạn Hàn.|Học tập|3",
+"공부한 내용을 노트에 정리해요.|gongbuhan naeyongeul noteue jeongnihaeyo|Tôi ghi gọn nội dung đã học vào vở.|Học tập|2",
+"시간이 있으면 영화 보러 갈까요?|sigani isseumyeon yeonghwa boreo galkkayo|Nếu có thời gian thì mình đi xem phim nhé?|Hẹn hò|2",
+"금요일 저녁은 어때요?|geumyoil jeonyeogeun eottaeyo|Tối thứ Sáu thì sao?|Hẹn hò|2",
+"그날은 선약이 있어요.|geunareun seonyagi isseoyo|Hôm đó tôi đã có hẹn trước.|Hẹn hò|3",
+"장소는 제가 예약할게요.|jangsoneun jega yeyakhalgeyo|Địa điểm để tôi đặt.|Hẹn hò|3",
+"차가 막혀서 십 분쯤 늦을 것 같아요.|chaga makhyeoseo sip bunjjeum neujeul geot gatayo|Đường tắc nên tôi sẽ muộn khoảng mười phút.|Hẹn hò|3",
+"다음에 꼭 다시 만나요.|daeume kkok dasi mannayo|Lần sau nhất định gặp lại nhé.|Hẹn hò|2",
+"오늘 정말 즐거웠어요.|oneul jeongmal jeulgeowosseoyo|Hôm nay tôi vui thật sự.|Hẹn hò|2",
+"사진을 보내 줄게요.|sajineul bonae julgeyo|Tôi sẽ gửi ảnh cho bạn.|Hẹn hò|2",
+"연락이 안 돼서 걱정했어요.|yeollagi an dwaeseo geokjeonghaesseoyo|Không liên lạc được nên tôi đã lo.|Hẹn hò|3",
+"주말에 등산을 갔다 왔어요.|jumare deungsaneul gatda wasseoyo|Cuối tuần tôi đã đi leo núi.|Giải trí|2",
+"한국 영화를 자막 없이 보고 싶어요.|hanguk yeonghwareul jamak eopsi bogo sipeoyo|Tôi muốn xem phim Hàn không cần phụ đề.|Giải trí|3",
+"노래방에서 한국 노래를 불렀어요.|noraebangeseo hanguk noraereul bulleosseoyo|Tôi đã hát nhạc Hàn ở quán karaoke.|Giải trí|2",
+"제주도에 여행 가 보고 싶어요.|jejudoe yeohaeng ga bogo sipeoyo|Tôi muốn thử đi du lịch đảo Jeju.|Giải trí|2",
+"표를 미리 예약하는 게 좋아요.|pyoreul miri yeyakhaneun ge joayo|Nên đặt vé trước thì tốt.|Giải trí|2",
+"축구 경기를 보면서 응원했어요.|chukgu gyeonggireul bomyeonseo eungwonhaesseoyo|Tôi vừa xem bóng đá vừa cổ vũ.|Giải trí|2",
+"요즘 운동을 시작한 지 한 달 됐어요.|yojeum undongeul sijakhan ji han dal dwaesseoyo|Tôi bắt đầu tập thể dục được một tháng.|Giải trí|3",
+"설날에는 가족이 모두 모여요.|seollareneun gajogi modu moyeoyo|Tết âm lịch cả gia đình tụ họp.|Văn hoá|2",
+"추석에는 송편을 만들어 먹어요.|chuseogeneun songpyeoneul mandeureo meogeoyo|Trung thu người ta làm bánh songpyeon.|Văn hoá|3",
+"한국에서는 나이를 많이 물어봐요.|hangugeseoneun naireul mani mureobwayo|Ở Hàn người ta hay hỏi tuổi.|Văn hoá|3",
+"어른께는 두 손으로 물건을 드려요.|eoreunkkeneun du soneuro mulgeoneul deuryeoyo|Với người lớn thì đưa đồ bằng hai tay.|Văn hoá|3",
+"식사할 때 어른이 먼저 드세요.|siksahal ttae eoreuni meonjeo deuseyo|Khi ăn thì người lớn ăn trước.|Văn hoá|3",
+"한복을 입고 사진을 찍었어요.|hanbogeul ipgo sajineul jjigeosseoyo|Tôi đã mặc hanbok chụp ảnh.|Văn hoá|2",
+"한국 문화와 베트남 문화가 비슷한 점이 많아요.|hanguk munhwawa beteunam munhwaga biseuthan jeomi manayo|Văn hoá Hàn và Việt có nhiều điểm giống nhau.|Văn hoá|3",
+"은행에서 통장을 만들었어요.|eunhaengeseo tongjangeul mandeureosseoyo|Tôi đã mở sổ tài khoản ở ngân hàng.|Hành chính|2",
+"고향에 돈을 송금했어요.|gohyange doneul songgeumhaesseoyo|Tôi đã chuyển tiền về quê.|Hành chính|3",
+"외국인 등록증을 발급받았어요.|oegugin deungnokjeungeul balgeupbadasseoyo|Tôi đã được cấp thẻ người nước ngoài.|Hành chính|3",
+"비자를 연장하러 출입국 사무소에 갔어요.|bijareul yeonjanghareo churipguk samusoe gasseoyo|Tôi đến cục xuất nhập cảnh để gia hạn visa.|Hành chính|3",
+"서류가 부족해서 다시 가야 해요.|seoryuga bujokhaeseo dasi gaya haeyo|Thiếu giấy tờ nên tôi phải đi lại.|Hành chính|3",
+"인터넷 신청이 훨씬 편해요.|inteonet sincheongi hwolssin pyeonhaeyo|Đăng ký qua mạng tiện hơn nhiều.|Hành chính|3",
+"방을 구하는 데 시간이 많이 걸렸어요.|bangeul guhaneun de sigani mani geollyeosseoyo|Tìm phòng mất của tôi nhiều thời gian.|Nhà ở|3",
+"집주인에게 연락해 보세요.|jipjuinege yeollakhae boseyo|Hãy thử liên lạc với chủ nhà.|Nhà ở|3",
+"관리비까지 하면 한 달에 오십만 원이에요.|gwallibikkaji hamyeon han dare osipman wonieyo|Tính cả phí quản lý thì một tháng năm trăm nghìn won.|Nhà ở|3",
+"이사하는 날에 친구가 도와줬어요.|isahaneun nare chinguga dowajwosseoyo|Hôm chuyển nhà bạn tôi đã giúp.|Nhà ở|2",
+"짐이 많아서 용달차를 불렀어요.|jimi manaseo yongdalchareul bulleosseoyo|Nhiều đồ nên tôi đã gọi xe chở hàng.|Nhà ở|3",
+"처음에는 한국 생활이 많이 낯설었어요.|cheoeumeneun hanguk saenghwari mani natseoreosseoyo|Ban đầu cuộc sống ở Hàn rất xa lạ với tôi.|Cảm nghĩ|3",
+"지금은 많이 익숙해졌어요.|jigeumeun mani iksukhaejyeosseoyo|Giờ thì tôi đã quen nhiều.|Cảm nghĩ|2",
+"한국 사람들이 생각보다 친절해요.|hanguk saramdeuri saenggakboda chinjeolhaeyo|Người Hàn thân thiện hơn tôi tưởng.|Cảm nghĩ|2",
+"실수할 때마다 더 배우는 것 같아요.|silsuhal ttaemada deo baeuneun geot gatayo|Mỗi lần mắc lỗi tôi lại học được thêm.|Cảm nghĩ|3",
+"포기하지 않으면 꼭 될 거예요.|pogihaji aneumyeon kkok doel geoyeyo|Không bỏ cuộc thì nhất định sẽ được.|Cảm nghĩ|3",
+"오늘도 한 걸음 발전했어요.|oneuldo han georeum baljeonhaesseoyo|Hôm nay tôi lại tiến thêm một bước.|Cảm nghĩ|3",
+"한국어로 꿈을 꾼 적도 있어요.|hangugeoro kkumeul kkun jeokdo isseoyo|Tôi còn từng mơ bằng tiếng Hàn.|Cảm nghĩ|3",
+"일 년 후에는 더 잘할 수 있을 거예요.|il nyeon hueneun deo jalhal su isseul geoyeyo|Một năm sau tôi sẽ nói tốt hơn.|Cảm nghĩ|3"
+];
+const GRAMMAR2 = [
+{p:"V/A + 는데도 / 은데도", lv:"Trung cấp", s:"“dù… vậy mà vẫn…”",
+ f:"Động từ → 는데도 ・ Tính từ → 은데도/ㄴ데도 ・ Quá khứ → 았/었는데도",
+ d:"Mạnh hơn 지만: nhấn rằng kết quả đi ngược với điều đáng lẽ phải xảy ra.",
+ e:[["약을 먹었는데도 열이 안 내려요.","Uống thuốc rồi mà vẫn không hạ sốt."],["비싼데도 사람이 많아요.","Đắt vậy mà vẫn đông người."]]},
+{p:"V + 느라고", lv:"Trung cấp", s:"“vì mải… nên (không làm được gì khác)”",
+ f:"V + 느라고 ・ Vế sau thường mang nghĩa tiêu cực ・ Chủ ngữ hai vế giống nhau",
+ d:"Lý do tiêu tốn thời gian, sức lực. Không dùng với câu mệnh lệnh, và vế sau không ở thì tương lai.",
+ e:[["숙제하느라고 잠을 못 잤어요.","Vì mải làm bài nên tôi không ngủ được."],["일하느라고 연락을 못 했어요.","Vì bận làm nên tôi không liên lạc được."]]},
+{p:"V/A + 더라고요", lv:"Trung cấp", s:"Kể lại điều mình trực tiếp thấy, nghe",
+ f:"V/A + 더라고요 ・ Dạng thân mật: 더라",
+ d:"Dùng cho trải nghiệm của chính người nói trong quá khứ. Không dùng để nói về cảm xúc bên trong của người khác.",
+ e:[["그 식당 음식이 맛있더라고요.","Đồ ăn quán đó ngon thật đấy (tôi đã ăn thử)."],["한국 겨울이 정말 춥더라고요.","Mùa đông Hàn lạnh thật."]]},
+{p:"V + 곤 하다", lv:"Trung cấp", s:"“thường hay làm” (thói quen lặp lại)",
+ f:"V + 곤 해요 ・ Quá khứ: V + 곤 했어요",
+ d:"Nhấn vào việc lặp đi lặp lại nhiều lần, hay dùng khi kể chuyện cũ.",
+ e:[["어릴 때 할머니 댁에 가곤 했어요.","Hồi nhỏ tôi hay về nhà bà."],["주말에는 공원에 가곤 해요.","Cuối tuần tôi thường ra công viên."]]},
+{p:"V/A + 더니 ・ V + 았/었더니", lv:"Trung cấp", s:"“đã… rồi thì…” (quan sát rồi kết quả)",
+ f:"Người khác: V/A + 더니 ・ Bản thân: V + 았/었더니",
+ d:"더니 kể điều mình quan sát được ở người/vật khác rồi nêu kết quả. 았/었더니 dùng cho hành động của chính mình dẫn tới kết quả.",
+ e:[["친구가 매일 공부하더니 시험에 붙었어요.","Bạn tôi học mỗi ngày, rồi đã đỗ kỳ thi."],["아침을 안 먹었더니 배가 고파요.","Tôi bỏ bữa sáng nên giờ đói."]]},
+{p:"V + 는 대로 / N + 대로", lv:"Trung cấp", s:"“ngay khi…”, “theo đúng như…”",
+ f:"V + 는 대로 (ngay khi) ・ V + 은/ㄴ 대로, N + 대로 (theo như)",
+ d:"Hai nghĩa: ngay sau khi việc gì xong, hoặc làm đúng theo cách đã nêu.",
+ e:[["도착하는 대로 연락할게요.","Đến nơi là tôi gọi ngay."],["설명서대로 하세요.","Hãy làm theo đúng hướng dẫn."]]},
+{p:"N + 에 대해서 / 에 관해서", lv:"Trung cấp", s:"“về vấn đề…”",
+ f:"N에 대해서(= 대하여) ・ N에 대한 + N ・ N에 관해서",
+ d:"Nêu chủ đề đang bàn tới. Dạng bổ nghĩa cho danh từ là 에 대한.",
+ e:[["한국 문화에 대해서 발표했어요.","Tôi đã thuyết trình về văn hoá Hàn."],["이 문제에 대한 의견을 말해 주세요.","Hãy nêu ý kiến về vấn đề này."]]},
+{p:"V + 기 위해서 / N + 을 위해서", lv:"Trung cấp", s:"Mục đích “để…, vì…”",
+ f:"V + 기 위해서 ・ N + 을/를 위해서 ・ Bổ nghĩa: 을 위한 + N",
+ d:"Trang trọng hơn 으려고. Dùng nhiều trong văn viết và thuyết trình.",
+ e:[["취직하기 위해서 자격증을 땄어요.","Tôi lấy chứng chỉ để xin việc."],["가족을 위해서 열심히 일해요.","Tôi làm việc chăm chỉ vì gia đình."]]},
+{p:"N + 덕분에 / N + 탓에", lv:"Trung cấp", s:"“nhờ có…” / “tại vì…” (kết quả xấu)",
+ f:"N 덕분에 ・ V + 은 덕분에 ・ N 탓에 ・ V/A + 은/는 탓에",
+ d:"덕분에 dùng cho kết quả tốt và mang sắc thái biết ơn; 탓에 quy trách nhiệm cho nguyên nhân xấu.",
+ e:[["선생님 덕분에 합격했어요.","Nhờ có thầy/cô mà em đã đỗ."],["날씨 탓에 비행기가 늦었어요.","Tại thời tiết mà máy bay trễ."]]},
+{p:"V/A + 든지 / N + (이)든지", lv:"Trung cấp", s:"“…hay là…”, “bất kể…”",
+ f:"A든지 B든지 ・ 누구든지, 언제든지, 어디든지",
+ d:"Nêu lựa chọn không quan trọng cái nào, hoặc “bất cứ ai/khi nào cũng được”.",
+ e:[["커피든지 차든지 괜찮아요.","Cà phê hay trà đều được."],["언제든지 연락하세요.","Khi nào cũng cứ liên lạc nhé."]]},
+{p:"V + 는 게 좋겠다", lv:"Sơ cấp 2", s:"Khuyên “nên… thì hơn”",
+ f:"V + 는 게 좋겠어요 ・ Phủ định: V + 지 않는 게 좋겠어요",
+ d:"Cách khuyên nhẹ nhàng, lịch sự hơn mệnh lệnh.",
+ e:[["오늘은 쉬는 게 좋겠어요.","Hôm nay anh/chị nên nghỉ thì hơn."],["택시를 타는 게 좋겠어요.","Đi taxi thì tốt hơn."]]},
+{p:"V/A + 을 텐데", lv:"Trung cấp", s:"“chắc là… mà…” (phỏng đoán kèm tiếc nuối, lo lắng)",
+ f:"V/A + 을 텐데/ㄹ 텐데 ・ Quá khứ: 았/었을 텐데",
+ d:"Người nói đoán một điều và vế sau thường là lời khuyên hoặc sự tiếc nuối.",
+ e:[["배고플 텐데 뭐 좀 드세요.","Chắc anh/chị đói rồi, ăn gì đi."],["일찍 왔으면 만났을 텐데.","Giá mà đến sớm thì đã gặp được rồi."]]},
+{p:"V + 을 뻔하다", lv:"Trung cấp", s:"“suýt nữa thì…”",
+ f:"V + 을 뻔했어요/ㄹ 뻔했어요 (luôn ở quá khứ)",
+ d:"Việc gần xảy ra nhưng cuối cùng không xảy ra, thường là việc không hay.",
+ e:[["길이 미끄러워서 넘어질 뻔했어요.","Đường trơn nên tôi suýt ngã."],["지갑을 잃어버릴 뻔했어요.","Tôi suýt làm mất ví."]]},
+{p:"V + 아/어 버리다", lv:"Trung cấp", s:"“…mất rồi” (hoàn tất, nhẹ nhõm hoặc tiếc)",
+ f:"V + 아/어 버렸어요",
+ d:"Nhấn hành động đã xong hẳn, kèm cảm xúc: nhẹ cả người hoặc tiếc hùi hụi.",
+ e:[["친구가 먼저 가 버렸어요.","Bạn tôi đi mất rồi."],["숙제를 다 끝내 버렸어요.","Tôi làm xong hết bài rồi (nhẹ cả người)."]]},
+{p:"V + 아/어 놓다 ・ 아/어 두다", lv:"Trung cấp", s:"“làm sẵn để đó”",
+ f:"V + 아/어 놓았어요(놨어요) ・ V + 아/어 두었어요(뒀어요)",
+ d:"Làm trước và giữ nguyên trạng thái đó cho về sau. 두다 mang sắc thái để dành lâu hơn.",
+ e:[["표를 미리 사 놓았어요.","Tôi đã mua vé sẵn."],["중요한 서류는 복사해 두세요.","Giấy tờ quan trọng hãy photo để sẵn."]]},
+{p:"V + 고 말다", lv:"Trung cấp", s:"“rốt cuộc đã… mất” (ngoài ý muốn)",
+ f:"V + 고 말았어요 ・ Ý chí: V + 고 말겠다",
+ d:"Kết cục xảy ra dù không mong muốn; dạng 고 말겠다 lại thể hiện quyết tâm mạnh.",
+ e:[["결국 지각하고 말았어요.","Rốt cuộc tôi vẫn đến muộn."],["이번에는 꼭 합격하고 말겠어요.","Lần này nhất định tôi sẽ đỗ cho bằng được."]]},
+{p:"V + 아/어 가다 ・ 아/어 오다", lv:"Trung cấp", s:"Tiến trình kéo dài về tương lai (가다) hay từ quá khứ đến nay (오다)",
+ f:"V + 아/어 가요 ・ V + 아/어 왔어요",
+ d:"Diễn tả quá trình tiếp diễn theo trục thời gian.",
+ e:[["일이 거의 끝나 가요.","Việc gần xong rồi."],["십 년 동안 한국에서 살아 왔어요.","Tôi đã sống ở Hàn suốt mười năm nay."]]},
+{p:"V/A + 기는 하다", lv:"Trung cấp", s:"“thì có… nhưng mà”",
+ f:"V/A + 기는 하지만 ・ 기는 한데 ・ 말하기는 해요",
+ d:"Thừa nhận một phần rồi nêu điểm ngược lại ở vế sau.",
+ e:[["맛있기는 한데 좀 비싸요.","Ngon thì ngon nhưng hơi đắt."],["알기는 알지만 설명은 못 해요.","Biết thì biết nhưng tôi không giải thích được."]]},
+{p:"V/A + 는 반면에", lv:"Trung cấp", s:"“trong khi đó thì ngược lại…”",
+ f:"Động từ → 는 반면에 ・ Tính từ → 은/ㄴ 반면에",
+ d:"So sánh hai mặt trái ngược của cùng một đối tượng. Hay dùng trong bài viết TOPIK.",
+ e:[["이 일은 돈을 많이 버는 반면에 아주 바빠요.","Việc này kiếm được nhiều tiền nhưng ngược lại rất bận."],["도시는 편리한 반면에 공기가 나빠요.","Thành phố tiện lợi nhưng không khí lại xấu."]]},
+{p:"N + 에 비해서", lv:"Trung cấp", s:"“so với…”",
+ f:"N에 비해서 ・ N에 비하면 ・ V/A + 은/는 것에 비해서",
+ d:"Trang trọng hơn 보다, dùng khi so sánh có tính đánh giá.",
+ e:[["작년에 비해서 물가가 올랐어요.","So với năm ngoái thì giá cả đã tăng."],["가격에 비해서 품질이 좋아요.","So với giá thì chất lượng tốt."]]},
+{p:"V/A + 을수록", lv:"Trung cấp", s:"“càng… càng…”",
+ f:"V/A + 을수록/ㄹ수록 ・ Thường đi với 면: 하면 할수록",
+ d:"Mức độ vế sau tăng theo vế trước.",
+ e:[["한국어는 배울수록 재미있어요.","Tiếng Hàn càng học càng thú vị."],["많이 연습하면 할수록 좋아져요.","Càng luyện nhiều thì càng giỏi."]]},
+{p:"V + 는 바람에", lv:"Trung cấp", s:"“vì (bất ngờ)… nên đã…” (kết quả xấu)",
+ f:"V + 는 바람에 + vế quá khứ",
+ d:"Nguyên nhân đột ngột, ngoài dự tính, dẫn tới hậu quả không mong muốn.",
+ e:[["늦잠을 자는 바람에 지각했어요.","Vì ngủ quên nên tôi đến muộn."],["비가 오는 바람에 소풍이 취소됐어요.","Vì mưa nên buổi dã ngoại bị huỷ."]]},
+{p:"V + 는 길에", lv:"Trung cấp", s:"“trên đường đi…”",
+ f:"가는 길에 ・ 오는 길에 ・ 퇴근길에",
+ d:"Chỉ dùng với động từ di chuyển như 가다, 오다.",
+ e:[["퇴근하는 길에 마트에 들렀어요.","Trên đường tan làm tôi ghé siêu thị."],["오는 길에 커피 좀 사 올게요.","Trên đường đến tôi sẽ mua cà phê."]]},
+{p:"V/A + 더라도", lv:"Trung cấp", s:"“cho dù… đi nữa”",
+ f:"V/A + 더라도 ・ Mạnh hơn 아도/어도",
+ d:"Giả định điều khó xảy ra hoặc nhấn mạnh sự nhượng bộ tuyệt đối.",
+ e:[["힘들더라도 포기하지 마세요.","Dù khó cũng đừng bỏ cuộc."],["늦더라도 꼭 오세요.","Dù muộn thì cũng nhất định đến nhé."]]},
+{p:"Trích dẫn gián tiếp: 다고 하다", lv:"Trung cấp", s:"Thuật lại câu kể của người khác",
+ f:"Động từ → 는다고/ㄴ다고 ・ Tính từ → 다고 ・ Danh từ → (이)라고 ・ Quá khứ → 았/었다고",
+ d:"Nền tảng của lối nói gián tiếp, xuất hiện liên tục trong đề nghe TOPIK. Khi nói nhanh thường rút thành 대요.",
+ e:[["친구가 내일 온다고 했어요.","Bạn tôi bảo mai sẽ đến."],["한국 겨울이 춥다고 들었어요.","Tôi nghe nói mùa đông Hàn lạnh."],["선생님이라고 해요.","Nghe nói đó là giáo viên."]]},
+{p:"Trích dẫn: (으)라고 / 자고 / 냐고 하다", lv:"Trung cấp", s:"Thuật lại mệnh lệnh, rủ rê, câu hỏi",
+ f:"Mệnh lệnh → (으)라고 하다 ・ Rủ → 자고 하다 ・ Hỏi → (느)냐고 하다",
+ d:"Ba dạng còn lại của lối nói gián tiếp. 주다 trong lời nhờ đổi thành 달라고/주라고.",
+ e:[["의사가 쉬라고 했어요.","Bác sĩ bảo tôi nghỉ ngơi."],["친구가 같이 가자고 했어요.","Bạn rủ tôi cùng đi."],["어디 사냐고 물었어요.","Người ta hỏi tôi sống ở đâu."]]},
+{p:"V/A + 기도 하다", lv:"Trung cấp", s:"“cũng có khi…”, “vừa… cũng vừa…”",
+ f:"V/A + 기도 해요 ・ 기도 하고 ~ 기도 하다",
+ d:"Nêu thêm một khả năng hoặc một mặt khác của sự việc.",
+ e:[["주말에는 집에서 쉬기도 해요.","Cuối tuần cũng có khi tôi nghỉ ở nhà."],["기쁘기도 하고 아쉽기도 해요.","Vừa vui mà cũng vừa tiếc."]]},
+{p:"V/A + 을 만하다", lv:"Trung cấp", s:"“đáng để…”, “có thể chấp nhận được”",
+ f:"V + 을 만해요/ㄹ 만해요 ・ 먹을 만하다, 볼 만하다",
+ d:"Đánh giá rằng việc đó xứng đáng hoặc ở mức tạm ổn.",
+ e:[["그 영화는 한번 볼 만해요.","Phim đó đáng xem một lần."],["생각보다 먹을 만해요.","Ăn được hơn tôi tưởng."]]},
+{p:"V/A + 은/는 데다가", lv:"Trung cấp", s:"“đã… lại còn…”",
+ f:"Động từ → 는 데다가 ・ Tính từ → 은/ㄴ 데다가",
+ d:"Cộng dồn hai yếu tố cùng chiều (cùng tốt hoặc cùng xấu).",
+ e:[["이 집은 싼 데다가 깨끗해요.","Nhà này đã rẻ lại còn sạch."],["비가 오는 데다가 바람도 불어요.","Trời đã mưa lại còn gió."]]},
+{p:"V + 을 겸", lv:"Trung cấp", s:"“tiện thể… luôn”",
+ f:"V + 을 겸/ㄹ 겸 ・ A도 할 겸 B도 할 겸",
+ d:"Một hành động nhằm hai mục đích cùng lúc.",
+ e:[["바람도 쐴 겸 산책을 했어요.","Tôi đi dạo, tiện thể hóng gió."],["한국어도 배울 겸 친구도 사귈 겸 동아리에 들었어요.","Tôi vào câu lạc bộ vừa để học tiếng Hàn vừa để kết bạn."]]},
+{p:"V/A + 는 모양이다", lv:"Trung cấp", s:"“có vẻ như…” (suy đoán từ dấu hiệu bên ngoài)",
+ f:"Động từ → 는 모양이다 ・ Tính từ → 은/ㄴ 모양이다",
+ d:"Khác 것 같다 ở chỗ phải dựa trên căn cứ quan sát được, và không dùng cho việc của chính mình.",
+ e:[["불이 꺼져 있는 걸 보니 자는 모양이에요.","Thấy tắt đèn thì có vẻ bạn ấy đang ngủ."],["길이 젖은 걸 보니 비가 온 모양이에요.","Đường ướt, chắc là đã mưa."]]},
+{p:"V/A + 을 리가 없다", lv:"Trung cấp", s:"“không thể nào…”",
+ f:"V/A + 을 리가 없어요/ㄹ 리가 없어요",
+ d:"Phủ định mạnh một khả năng mà người nói cho là vô lý.",
+ e:[["그 사람이 거짓말할 리가 없어요.","Người đó không thể nào nói dối."],["이 시간에 문을 열 리가 없어요.","Giờ này không thể nào mở cửa."]]},
+{p:"V + (으)ㄴ 지 + thời gian + 되다", lv:"Sơ cấp 2", s:"“đã được bao lâu kể từ khi…”",
+ f:"V + 은 지/ㄴ 지 ~ 됐어요 ・ 지나다, 넘다",
+ d:"Đo khoảng thời gian trôi qua từ một mốc. Chú ý 지 ở đây viết tách khỏi động từ.",
+ e:[["한국에 온 지 일 년 됐어요.","Tôi sang Hàn được một năm rồi."],["밥을 먹은 지 얼마 안 됐어요.","Tôi vừa ăn xong chưa lâu."]]},
+{p:"V/A + 으면서도", lv:"Trung cấp", s:"“tuy… mà lại…” (mâu thuẫn)",
+ f:"V/A + 으면서도/면서도",
+ d:"Hai tính chất trái ngược cùng tồn tại ở một chủ thể.",
+ e:[["알면서도 모르는 척했어요.","Biết mà lại vờ như không biết."],["작으면서도 힘이 세요.","Nhỏ người mà lại khoẻ."]]},
+{p:"V/A + 은/는 척하다", lv:"Trung cấp", s:"“giả vờ…”",
+ f:"Động từ → 는 척하다 ・ Tính từ → 은/ㄴ 척하다 ・ = 체하다",
+ d:"Hành động giả tạo, không đúng sự thật.",
+ e:[["자는 척했어요.","Tôi đã giả vờ ngủ."],["아픈 척하지 마세요.","Đừng giả vờ ốm."]]},
+{p:"V + (으)려면", lv:"Trung cấp", s:"“nếu muốn… thì phải…”",
+ f:"V + 으려면/려면 + điều kiện cần",
+ d:"Kết hợp ý định và điều kiện; vế sau thường là 아야 하다, 는 게 좋다.",
+ e:[["한국어를 잘하려면 매일 연습해야 해요.","Muốn giỏi tiếng Hàn thì phải luyện mỗi ngày."],["표를 사려면 일찍 가세요.","Muốn mua vé thì hãy đi sớm."]]},
+{p:"V + 도록", lv:"Trung cấp", s:"“sao cho…”, “đến mức…”, “cho đến khi…”",
+ f:"V + 도록 ・ 늦지 않도록 ・ 밤새도록",
+ d:"Nêu mục đích hoặc giới hạn mức độ, thời gian. Thường gặp trong văn viết và thông báo.",
+ e:[["잊지 않도록 메모해 두세요.","Hãy ghi lại để không quên."],["목이 아프도록 노래했어요.","Tôi hát đến mức đau cả họng."]]},
+{p:"V/A + 을 정도로", lv:"Trung cấp", s:"“đến mức…”",
+ f:"V/A + 을 정도로/ㄹ 정도로 ・ 을 정도이다",
+ d:"Diễn tả mức độ bằng một ví dụ cụ thể.",
+ e:[["눈물이 날 정도로 매웠어요.","Cay đến mức chảy nước mắt."],["걸을 수 없을 정도로 다리가 아파요.","Chân đau đến mức không đi nổi."]]},
+{p:"N + (이)나 ・ N + 쯤 ・ N + 짜리", lv:"Trung cấp", s:"“những…”, “khoảng…”, “loại trị giá…”",
+ f:"수량 + (이)나 (nhiều hơn mong đợi) ・ N쯤/정도 ・ 숫자 + 짜리",
+ d:"Nhóm trợ từ về số lượng hay gặp trong hội thoại mua bán và đề nghe.",
+ e:[["세 그릇이나 먹었어요.","Tôi ăn những ba bát."],["만 원짜리 한 장 주세요.","Cho tôi một tờ mười nghìn won."]]},
+{p:"N + 끼리 ・ N + 마다 ・ N + 씩", lv:"Trung cấp", s:"“giữa cùng nhóm với nhau”, “mỗi”, “mỗi lần … đơn vị”",
+ f:"친구끼리, 우리끼리 ・ 사람마다 ・ 하나씩",
+ d:"끼리 chỉ nhóm cùng loại tụ lại với nhau; 마다 là “mỗi, cái nào cũng”; 씩 chia đều theo đơn vị.",
+ e:[["친구끼리 여행을 갔어요.","Nhóm bạn chúng tôi rủ nhau đi du lịch."],["사람마다 생각이 달라요.","Mỗi người một suy nghĩ."],["한 명씩 들어오세요.","Mời vào từng người một."]]},
+{p:"Sai động từ: 이/히/리/기/우/구/추", lv:"Trung cấp", s:"“làm cho ai đó làm gì” (câu sai khiến)",
+ f:"먹다→먹이다 ・ 입다→입히다 ・ 울다→울리다 ・ 웃다→웃기다 ・ 자다→재우다 ・ 타다→태우다 ・ 낮다→낮추다",
+ d:"Cặp đôi với câu bị động. Nhiều động từ thường ngày (재우다, 태우다, 보여 주다) chính là dạng sai khiến.",
+ e:[["아이에게 밥을 먹였어요.","Tôi đã cho bé ăn cơm."],["아이를 재웠어요.","Tôi đã ru bé ngủ."],["차에 태워 주세요.","Cho tôi lên xe với."]]},
+{p:"V + 았으면 좋겠다", lv:"Trung cấp", s:"“giá mà…, mong là…”",
+ f:"V/A + 았으면/었으면 좋겠어요 ・ = 면 좋겠어요",
+ d:"Diễn tả mong ước về điều chưa thành hiện thực. Rất hay dùng khi nói về ước mơ.",
+ e:[["비가 그쳤으면 좋겠어요.","Giá mà tạnh mưa."],["빨리 한국어를 잘했으면 좋겠어요.","Mong là tôi sớm giỏi tiếng Hàn."]]},
+{p:"V/A + 잖아요 vs 거든요 (so sánh)", lv:"Trung cấp", s:"Phân biệt hai đuôi giải thích hay nhầm",
+ f:"잖아요: thông tin cả hai đều biết ・ 거든요: thông tin chỉ người nói biết",
+ d:"Dùng nhầm 잖아요 với người trên dễ bị hiểu là trách móc; khi đưa lý do mới thì chọn 거든요.",
+ e:[["어제 제가 말했잖아요.","Thì hôm qua tôi đã nói rồi mà."],["오늘 못 가요. 손님이 오거든요.","Hôm nay tôi không đi được, vì có khách đến."]]},
+{p:"Kính ngữ nâng cao: 드리다·여쭙다·모시다", lv:"Trung cấp", s:"Động từ khiêm nhường khi nói với người trên",
+ f:"주다→드리다 ・ 묻다→여쭙다 ・ 데리다→모시다 ・ 말하다→말씀드리다",
+ d:"Hạ thấp hành động của mình để nâng người nghe lên — bắt buộc trong môi trường công sở Hàn Quốc.",
+ e:[["부장님께 보고드리겠습니다.","Tôi sẽ báo cáo với trưởng ban."],["할머니를 병원에 모시고 갔어요.","Tôi đã đưa bà đi bệnh viện."]]},
+{p:"Danh từ hoá: 기 vs 는 것 vs 음", lv:"Trung cấp", s:"Phân biệt ba cách biến động từ thành danh từ",
+ f:"기: 하기 쉽다, 수영하기 ・ 는 것: 보는 것 ・ 음: 걸음, 웃음 (danh từ cố định)",
+ d:"기 đi với tính từ đánh giá và động từ như 시작하다; 는 것 dùng cho sự việc cụ thể; 음 chủ yếu tạo danh từ cố định.",
+ e:[["한국어 말하기가 어려워요.","Việc nói tiếng Hàn thì khó."],["영화 보는 것을 좋아해요.","Tôi thích việc xem phim."]]}
+];
+/* ===================== CẤP ĐỘ & HỖ TRỢ ===================== */
+/* Những từ cơ bản ở trên nhưng thuộc mức TOPIK 2급 */
+const LV2 = new Set(("손님,부모님,결혼,변호사,기자,직업,사장님,우체국,편의점,백화점,도시,나라,층,식사,반찬,간장,고추장,문화,주소,"+
+"전화번호,번호,가격,취미,꿈,마음,생각,소식,결과,이유,방법,계획,약속,회의,문제,대답,질문,휴가,방학,작년,내년,올해,동물,겨울,가을,"+
+"여름,봄,허리,열,감기,병,오토바이,택시,종이,거울,수건,비누,선물,표,사진,"+
+"설명하다,소개하다,기억하다,잊다,믿다,연습하다,준비하다,여행하다,사귀다,도와주다,빌리다,갚다,걱정하다,놀라다,화내다,주문하다,"+
+"예약하다,계산하다,바꾸다,고르다,고치다,꺼내다,버리다,자르다,끓이다,굽다,볶다,섞다,찍다,지키다,정하다,비교하다,나누다,모으다,"+
+"이기다,지다,떨어지다,남다,되다,태어나다,움직이다,멈추다,건너다,지나가다,출발하다,도착하다,"+
+"중요하다,필요하다,특별하다,유명하다,이상하다,비슷하다,충분하다,부족하다,가능하다,위험하다,안전하다,복잡하다,간단하다,편하다,"+
+"불편하다,강하다,약하다,신선하다,행복하다,무섭다,심심하다,한가하다,피곤하다,건강하다,부끄럽다,그립다,성실하다,게으르다,조심하다,"+
+"부유하다,가난하다,오래되다,어리다,늙다,"+
+"매우,훨씬,점점,전혀,별로,계속,바로,벌써,이미,아직,직접,열심히,갑자기,일부러,대충,제대로,똑바로,거꾸로,혹시,반드시,절대,물론,"+
+"역시,특히,분명히,확실히,당연히,다행히,우연히,무조건,얼마나,그러니까,예를 들면").split(","));
+
+const POS = [
+  {k:"n", label:"Danh từ", ko:"명사", data:NOUNS.concat(NOUNS2, NOUNS3)},
+  {k:"v", label:"Động từ", ko:"동사", data:VERBS.concat(VERBS2)},
+  {k:"a", label:"Tính từ", ko:"형용사", data:ADJS.concat(ADJS2)},
+  {k:"d", label:"Trạng từ", ko:"부사", data:ADVS.concat(ADVS2)},
+];
+function parse(s, pos){
+  const [ko, ro, vi, topic, lv] = s.split("|");
+  const n = lv ? Number(lv) : (LV2.has(ko) ? 2 : 1);
+  return {ko, ro, vi, topic: topic || "Khác", pos, lv: n};
+}
+/* loại bỏ trùng lặp theo cặp (từ, từ loại) */
+function dedupe(items){
+  const seen = new Set(), out = [];
+  for (const it of items){
+    const key = it.pos + "|" + it.ko;
+    if (seen.has(key)) continue;
+    seen.add(key); out.push(it);
+  }
+  return out;
+}
+const WORDS = dedupe(POS.flatMap(p => p.data.map(s => parse(s, p.k))));
+POS.forEach(p => { p.count = WORDS.filter(w => w.pos === p.k).length; });
+const PH = dedupe(PHRASES.concat(PHRASES2).map(s => parse(s, "p")));
+const SE = dedupe(SENTENCES.concat(SENTENCES2).map(s => parse(s, "s")));
+const posLabel = k => (POS.find(p => p.k === k) || {}).label || "";
+const GRAM = GRAMMAR.concat(GRAMMAR2);
+const gLv = g => g.lv === "Sơ cấp 1" ? 1 : (g.lv === "Sơ cấp 2" ? 2 : 3);
+
+let LEVEL = "";           /* "", "1", "2" */
+const okLv = o => !LEVEL || String(o.lv) === LEVEL;
+
+/* lưu tiến độ trên máy người học */
+const store = {
+  get(k, fb){ try{ const v = localStorage.getItem("thmn_" + k); return v ? JSON.parse(v) : fb; }catch(e){ return fb; } },
+  set(k, v){ try{ localStorage.setItem("thmn_" + k, JSON.stringify(v)); }catch(e){} }
+};
+let known = new Set(store.get("known", []));
+let starred = new Set(store.get("star", []));
+const saveKnown = () => store.set("known", [...known]);
+const saveStar = () => store.set("star", [...starred]);
+
+/* ---- giọng đọc tiếng Hàn ---- */
+let voices = [], koVoice = null;
+function loadVoices(){
+  try{ voices = speechSynthesis.getVoices() || []; }catch(e){ voices = []; }
+  koVoice = voices.find(v => /^ko/i.test(v.lang)) || null;
+  checkVoice();
+}
+if (window.speechSynthesis){ loadVoices(); speechSynthesis.addEventListener("voiceschanged", loadVoices); }
+function checkVoice(){
+  const note = document.getElementById("voiceNote"), txt = document.getElementById("voiceNoteTxt");
+  if (!note) return;
+  if (!window.speechSynthesis){
+    txt.textContent = "Trình duyệt này không hỗ trợ đọc tiếng Hàn. Hãy mở app bằng Chrome, Safari hoặc Edge để luyện nghe.";
+    note.hidden = false;
+  } else if (!koVoice && voices.length){
+    txt.innerHTML = "Thiết bị chưa có giọng tiếng Hàn nên âm có thể không chuẩn. Trên Android: <b>Cài đặt → Ngôn ngữ → Đầu ra văn bản thành tiếng nói → tải 한국어</b>. Trên iPhone: <b>Cài đặt → Trợ năng → Nội dung đọc → Giọng nói → Tiếng Hàn</b>.";
+    note.hidden = false;
+  } else note.hidden = true;
+}
+function say(text, rate){
+  if (!window.speechSynthesis) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(String(text).replace(/\(.*?\)/g, "").trim());
+    u.lang = "ko-KR"; u.rate = rate || .9;
+    if (koVoice) u.voice = koVoice;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function sayList(items, rate, done){
+  if (!window.speechSynthesis || !items.length){ done && done(); return; }
+  let i = 0;
+  const step = () => {
+    if (i >= items.length){ done && done(); return; }
+    const u = new SpeechSynthesisUtterance(items[i++]);
+    u.lang = "ko-KR"; u.rate = rate || .9; if (koVoice) u.voice = koVoice;
+    u.onend = step; u.onerror = step;
+    speechSynthesis.speak(u);
+  };
+  speechSynthesis.cancel(); step();
+}
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+const shuffle = a => { const r = a.slice(); for (let i = r.length-1; i>0; i--){ const j = (Math.random()*(i+1))|0; [r[i],r[j]] = [r[j],r[i]]; } return r; };
+const SPK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"><path d="M4 9v6h3.5L13 19V5L7.5 9H4z"/><path d="M17 9.5a4 4 0 0 1 0 5"/></svg>';
+const SPKBIG = '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 9v6h3.5L13 19V5L7.5 9H4z"/><path d="M17 8a6 6 0 0 1 0 8"/><path d="M19.5 5.5a9.5 9.5 0 0 1 0 13"/></svg>';
+const STAR = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 4l2.5 5.2 5.5.8-4 3.9 1 5.6L12 16.8 7 19.5l1-5.6-4-3.9 5.5-.8z"/></svg>';
+const CARET = '<svg class="caret" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg>';
+const MASCOT = '<svg class="mascot" aria-hidden="true"><use href="#tiger"/></svg>';
+const MASCOT_HP = '<svg class="mascot" style="--hp-display:block" aria-hidden="true"><use href="#tiger"/></svg>';
+const lv2badge = o => o.lv === 2 ? '<span class="badge2">2급</span>' : "";
+
+/* ===================== ĐIỀU HƯỚNG ===================== */
+const PAGES = ["home","words","phrases","sentences","grammar"];
+function go(page){
+  PAGES.forEach(p => { document.getElementById("page-" + p).hidden = (p !== page); });
+  document.querySelectorAll("#nav button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.go === page)));
+  document.querySelector(".levelbar").hidden = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  window.scrollTo({top:0, behavior:"instant"});
+  if (page === "home") refreshHome();
+}
+document.getElementById("nav").addEventListener("click", e => {
+  const b = e.target.closest("button[data-go]"); if (b) go(b.dataset.go);
+});
+document.getElementById("page-home").addEventListener("click", e => {
+  const t = e.target.closest("[data-go]"); if (t) go(t.dataset.go);
+});
+document.getElementById("homeBtn").addEventListener("click", () => go("home"));
+document.getElementById("goListen").addEventListener("click", () => {
+  go("words");
+  const b = document.querySelector('#wmodes button[data-m="listen"]');
+  document.querySelectorAll("#wmodes button").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+  wState.mode = "listen"; renderWords();
+});
+document.getElementById("levelSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  LEVEL = b.dataset.lv;
+  document.querySelectorAll("#levelSeg button").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+  fillTopics(); renderWords(); drawPhrases(); drawSentences(); drawGrammar(); refreshHome();
+});
+
+/* ===================== TRANG CHỦ ===================== */
+const TIPS = [
+  "Mỗi ngày 10 từ thôi, nhưng đừng bỏ ngày nào nhé!",
+  "Nghe trước, đọc sau — tai quen rồi miệng sẽ theo.",
+  "Học cả câu thay vì học từ rời sẽ nhớ lâu hơn gấp đôi.",
+  "Sai cũng tốt! 실수해도 괜찮아요.",
+  "Chạm vào thẻ từ để đánh dấu “đã thuộc” nhé."
+];
+function refreshHome(){
+  const w = WORDS.filter(okLv), k = w.filter(x => known.has(x.ko)).length;
+  const pct = w.length ? k / w.length : 0;
+  const arc = document.getElementById("ringArc");
+  arc.style.strokeDashoffset = String(207 - 207 * pct);
+  document.getElementById("ringTxt").textContent = `${k} / ${w.length} từ`;
+  document.getElementById("cntW").textContent = w.length + " từ";
+  document.getElementById("cntP").textContent = PH.filter(okLv).length + " cụm";
+  document.getElementById("cntS").textContent = SE.filter(okLv).length + " câu";
+  document.getElementById("cntG").textContent = GRAM.filter(g => !LEVEL || String(gLv(g)) === LEVEL).length + " mẫu";
+  document.getElementById("bubble").innerHTML =
+    `<b>안녕하세요!</b> Mình là Hoban 🐯 — ${esc(TIPS[(Math.random()*TIPS.length)|0])}`;
+  const pool = w.length ? w : WORDS;
+  const d = pool[(new Date().getDate() * 7 + new Date().getMonth() * 31) % pool.length];
+  document.getElementById("wod").innerHTML = `
+    <button class="playbig" id="wodPlay" aria-label="Nghe phát âm">${SPKBIG}</button>
+    <div style="min-width:0">
+      <div class="k">${esc(d.ko)}</div><div class="r">${esc(d.ro)}</div>
+      <div class="v">${esc(d.vi)} · ${esc(posLabel(d.pos))}${d.lv === 2 ? " · 2급" : ""}</div>
+    </div>`;
+  document.getElementById("wodPlay").onclick = () => say(d.ko);
+}
+
+/* ===================== TỪ VỰNG ===================== */
+let wState = {pos:"", q:"", topic:"", filter:"all", mode:"list"};
+const posBox = document.getElementById("wpos");
+posBox.innerHTML = `<button class="chip" data-p="" aria-pressed="true">Tất cả</button>` +
+  POS.map(p => `<button class="chip" data-p="${p.k}" aria-pressed="false">${p.label} <span class="n">${p.count}</span></button>`).join("");
+posBox.addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  wState.pos = b.dataset.p;
+  posBox.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  fillTopics(); renderWords();
+});
+const topicSel = document.getElementById("wtopic");
+function fillTopics(){
+  const pool = WORDS.filter(w => okLv(w) && (!wState.pos || w.pos === wState.pos));
+  const list = [...new Set(pool.map(w => w.topic))].sort((a,b) => a.localeCompare(b, "vi"));
+  const keep = list.includes(wState.topic) ? wState.topic : "";
+  wState.topic = keep;
+  topicSel.innerHTML = `<option value="">Mọi chủ đề</option>` +
+    list.map(t => `<option value="${esc(t)}"${t === keep ? " selected" : ""}>${esc(t)}</option>`).join("");
+}
+topicSel.addEventListener("change", () => { wState.topic = topicSel.value; renderWords(); });
+document.getElementById("wfilter").addEventListener("change", e => { wState.filter = e.target.value; renderWords(); });
+document.getElementById("wq").addEventListener("input", e => { wState.q = e.target.value.trim(); renderWords(); });
+document.querySelectorAll("#wmodes button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#wmodes button").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+  wState.mode = b.dataset.m; renderWords();
+}));
+
+function currentWords(){
+  const q = norm(wState.q);
+  return WORDS.filter(w => {
+    if (!okLv(w)) return false;
+    if (wState.pos && w.pos !== wState.pos) return false;
+    if (wState.topic && w.topic !== wState.topic) return false;
+    if (wState.filter === "star" && !starred.has(w.ko)) return false;
+    if (wState.filter === "known" && !known.has(w.ko)) return false;
+    if (wState.filter === "unknown" && known.has(w.ko)) return false;
+    if (!q) return true;
+    return w.ko.includes(wState.q) || norm(w.ro).includes(q) || norm(w.vi).includes(q) || norm(w.topic).includes(q);
+  });
+}
+function renderWords(){
+  const list = currentWords(), m = wState.mode;
+  document.getElementById("wlist").hidden = m !== "list";
+  document.getElementById("wcard").hidden = m !== "card";
+  document.getElementById("wquiz").hidden = m !== "quiz";
+  document.getElementById("wlisten").hidden = m !== "listen";
+  document.getElementById("wmeta").innerHTML = `<b>${list.length}</b> từ · đã thuộc <b>${list.filter(w => known.has(w.ko)).length}</b> · đã lưu <b>${list.filter(w => starred.has(w.ko)).length}</b>`;
+  if (m === "list") renderWordList(list);
+  if (m === "card") startCards(list);
+  if (m === "quiz") startQuiz(list);
+  if (m === "listen") startListen(list);
+}
+function renderWordList(list){
+  const box = document.getElementById("wlist");
+  if (!list.length){ box.innerHTML = emptyMsg("Không tìm thấy từ nào. Thử từ khoá khác hoặc bỏ bộ lọc nhé!"); return; }
+  box.innerHTML = list.map(w => `
+    <article class="card${known.has(w.ko) ? " known" : ""}" data-id="${esc(w.ko)}">
+      <div class="acts">
+        <button class="icb js-say" aria-label="Nghe phát âm">${SPK}</button>
+        <button class="icb js-star" aria-label="Lưu từ" aria-pressed="${starred.has(w.ko)}">${STAR}</button>
+      </div>
+      <div class="ko">${esc(w.ko)}</div><div class="ro">${esc(w.ro)}</div>
+      <div class="vi">${esc(w.vi)}</div>
+      <span class="tag">${esc(posLabel(w.pos))} · ${esc(w.topic)}</span>${lv2badge(w)}
+    </article>`).join("");
+}
+function emptyMsg(t){ return `<p class="empty">${MASCOT}<br>${esc(t)}</p>`; }
+document.getElementById("wlist").addEventListener("click", e => {
+  const card = e.target.closest(".card"); if (!card) return;
+  const id = card.dataset.id;
+  if (e.target.closest(".js-say")){ say(id); return; }
+  const st = e.target.closest(".js-star");
+  if (st){ starred.has(id) ? starred.delete(id) : starred.add(id); saveStar(); st.setAttribute("aria-pressed", starred.has(id)); return; }
+  known.has(id) ? known.delete(id) : known.add(id);
+  saveKnown(); card.classList.toggle("known", known.has(id));
+  const bs = document.getElementById("wmeta").querySelectorAll("b");
+  bs[1].textContent = currentWords().filter(w => known.has(w.ko)).length;
+});
+
+/* --- thẻ nhớ --- */
+let deck = [], di = 0, flipped = false;
+function startCards(list){ deck = shuffle(list); di = 0; flipped = false; drawCard(); }
+function drawCard(){
+  const box = document.getElementById("wcard");
+  if (!deck.length){ box.innerHTML = emptyMsg("Chưa có từ nào để luyện. Hãy bỏ bộ lọc nhé."); return; }
+  if (di >= deck.length){
+    box.innerHTML = `<div class="q" style="text-align:center">${MASCOT}
+      <p style="font-family:var(--dp);font-weight:800;font-size:21px;margin:4px 0 4px">잘했어요! Xong một lượt 🎉</p>
+      <p style="color:var(--ink2);margin:0">Bạn đã xem <b>${deck.length}</b> thẻ, thuộc <b>${deck.filter(w => known.has(w.ko)).length}</b> từ.</p>
+      <div class="btns"><button class="btn ok" id="again">Luyện lại từ đầu</button></div></div>`;
+    document.getElementById("again").onclick = () => startCards(currentWords());
+    return;
+  }
+  const w = deck[di];
+  box.innerHTML = `
+    <div class="fc" id="fc">
+      <span class="tag">${esc(posLabel(w.pos))} · ${esc(w.topic)}${w.lv === 2 ? " · 2급" : ""}</span>
+      <div class="big">${esc(w.ko)}</div>
+      ${flipped ? `<div class="ro">${esc(w.ro)}</div><div class="ans">${esc(w.vi)}</div>`
+                : `<div class="hint">Chạm vào thẻ để xem nghĩa</div>`}
+    </div>
+    <div class="bar"><i style="width:${Math.round(di / deck.length * 100)}%"></i></div>
+    <div class="btns">
+      <button class="btn pr" id="sayBtn">${SPK} Nghe</button>
+      <button class="btn no" id="noBtn">Chưa thuộc</button>
+      <button class="btn ok" id="okBtn">Đã thuộc ✓</button>
+    </div>
+    <p class="meta" style="text-align:center">Thẻ ${di + 1} / ${deck.length}</p>`;
+  document.getElementById("fc").onclick = () => { flipped = !flipped; if (flipped) say(w.ko); drawCard(); };
+  document.getElementById("sayBtn").onclick = () => say(w.ko);
+  document.getElementById("okBtn").onclick = () => { known.add(w.ko); saveKnown(); nx(); };
+  document.getElementById("noBtn").onclick = () => { known.delete(w.ko); saveKnown(); nx(); };
+  function nx(){ di++; flipped = false; drawCard(); }
+}
+
+/* --- trắc nghiệm --- */
+let qPool = [], qCur = null, qScore = 0, qDone = 0;
+function startQuiz(list){ qPool = list.slice(); qScore = 0; qDone = 0; nextQ(); }
+function pick4(pool, ans){
+  const opts = [ans];
+  let guard = 0;
+  while (opts.length < 4 && guard++ < 400){
+    const c = pool[(Math.random() * pool.length) | 0];
+    if (!opts.some(o => o.vi === c.vi)) opts.push(c);
+  }
+  return shuffle(opts);
+}
+function nextQ(){
+  const box = document.getElementById("wquiz");
+  if (qPool.length < 4){ box.innerHTML = emptyMsg("Cần ít nhất 4 từ để làm trắc nghiệm. Hãy mở rộng bộ lọc."); return; }
+  const ans = qPool[(Math.random() * qPool.length) | 0]; qCur = ans;
+  box.innerHTML = `<div class="q">
+      <div class="score"><span>Câu ${qDone + 1}</span><span>Đúng ${qScore} / ${qDone}</span></div>
+      <div class="qask">${esc(ans.ko)}</div>
+      <div class="qro">${esc(ans.ro)} · ${esc(posLabel(ans.pos))}</div>
+      <div class="opts">${pick4(qPool, ans).map(o => `<button class="opt" data-vi="${esc(o.vi)}">${esc(o.vi)}</button>`).join("")}</div>
+      <div class="btns"><button class="btn pr" id="qsay">${SPK} Nghe phát âm</button></div>
+    </div>`;
+  document.getElementById("qsay").onclick = () => say(ans.ko);
+  box.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    const right = b.dataset.vi === qCur.vi;
+    qDone++; if (right){ qScore++; known.add(qCur.ko); saveKnown(); }
+    box.querySelectorAll(".opt").forEach(x => {
+      x.disabled = true;
+      if (x.dataset.vi === qCur.vi) x.classList.add("right"); else if (x === b) x.classList.add("wrong");
+    });
+    box.querySelector(".score").lastElementChild.textContent = `Đúng ${qScore} / ${qDone}`;
+    say(qCur.ko);
+    setTimeout(nextQ, right ? 900 : 1700);
+  });
+}
+
+/* --- LUYỆN NGHE (듣기) --- */
+let lPool = [], lCur = null, lScore = 0, lDone = 0, lShown = false;
+function startListen(list){ lPool = list.slice(); lScore = 0; lDone = 0; drawListen(); }
+function drawListen(){
+  const box = document.getElementById("wlisten");
+  if (lPool.length < 4){ box.innerHTML = emptyMsg("Cần ít nhất 4 từ để luyện nghe. Hãy mở rộng bộ lọc."); return; }
+  const ans = lPool[(Math.random() * lPool.length) | 0]; lCur = ans; lShown = false;
+  box.innerHTML = `<div class="q">
+      <div class="score"><span>🎧 Nghe &amp; chọn nghĩa · 듣기</span><span>Đúng ${lScore} / ${lDone}</span></div>
+      <div class="listenbox">
+        ${MASCOT_HP}
+        <button class="wavebtn on" id="lplay" aria-label="Phát lại">${SPKBIG}</button>
+        <p class="secret" id="lsecret">Chạm loa để nghe lại — chữ Hàn sẽ hiện sau khi bạn trả lời</p>
+      </div>
+      <div class="opts">${pick4(lPool, ans).map(o => `<button class="opt" data-vi="${esc(o.vi)}">${esc(o.vi)}</button>`).join("")}</div>
+      <div class="btns">
+        <button class="btn gh" id="lslow">🐢 Nghe chậm</button>
+        <button class="btn gh" id="lskip">Bỏ qua →</button>
+      </div>
+    </div>`;
+  say(ans.ko);
+  document.getElementById("lplay").onclick = () => say(ans.ko);
+  document.getElementById("lslow").onclick = () => say(ans.ko, .55);
+  document.getElementById("lskip").onclick = () => { lDone++; drawListen(); };
+  box.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if (lShown) return; lShown = true;
+    const right = b.dataset.vi === lCur.vi;
+    lDone++; if (right){ lScore++; known.add(lCur.ko); saveKnown(); }
+    box.querySelectorAll(".opt").forEach(x => {
+      x.disabled = true;
+      if (x.dataset.vi === lCur.vi) x.classList.add("right"); else if (x === b) x.classList.add("wrong");
+    });
+    document.getElementById("lplay").classList.remove("on");
+    document.getElementById("lsecret").outerHTML =
+      `<div class="reveal">${esc(lCur.ko)}</div><p class="secret">${esc(lCur.ro)} · ${esc(posLabel(lCur.pos))}</p>`;
+    box.querySelector(".score").lastElementChild.textContent = `Đúng ${lScore} / ${lDone}`;
+    setTimeout(drawListen, right ? 1300 : 2300);
+  });
+}
+
+/* ===================== CỤM TỪ & CÂU ===================== */
+function makeRows(data, ids, unit){
+  const qEl = document.getElementById(ids.q), tEl = document.getElementById(ids.topic),
+        lsEl = document.getElementById(ids.listen), box = document.getElementById(ids.list);
+  let hide = false;
+  function draw(){
+    const needle = norm(qEl.value.trim()), raw = qEl.value.trim(), tp = tEl.value;
+    const pool = data.filter(okLv);
+    const topics = [...new Set(pool.map(d => d.topic))];
+    const keep = topics.includes(tp) ? tp : "";
+    tEl.innerHTML = `<option value="">Mọi tình huống</option>` +
+      topics.map(t => `<option value="${esc(t)}"${t === keep ? " selected" : ""}>${esc(t)}</option>`).join("");
+    const out = pool.filter(d => {
+      if (keep && d.topic !== keep) return false;
+      if (!needle) return true;
+      return d.ko.includes(raw) || norm(d.ro).includes(needle) || norm(d.vi).includes(needle);
+    });
+    document.getElementById(ids.meta).innerHTML =
+      `<b>${out.length}</b> ${unit}${keep ? ` · ${esc(keep)}` : ""}${hide ? " · đang ở chế độ nghe 🎧" : ""}`;
+    box.className = "rows" + (hide ? " hide" : "");
+    box.innerHTML = out.length ? out.map(d => `
+      <article class="row" data-ko="${esc(d.ko)}">
+        <div class="acts"><button class="icb js-say" aria-label="Nghe phát âm">${SPK}</button></div>
+        <div class="ko">${esc(d.ko)}</div><div class="ro">${esc(d.ro)}</div>
+        <div class="vi">${esc(d.vi)}</div>
+        <span class="tag">${esc(d.topic)}</span>${lv2badge(d)}
+      </article>`).join("") : emptyMsg("Không có kết quả phù hợp.");
+    if (hide && out.length){
+      box.insertAdjacentHTML("afterbegin",
+        `<div class="btns" style="margin:0 0 4px"><button class="btn pr js-all">${SPK} Nghe lần lượt cả danh sách</button></div>`);
+    }
+  }
+  qEl.addEventListener("input", draw);
+  tEl.addEventListener("change", draw);
+  lsEl.addEventListener("click", () => {
+    hide = !hide;
+    lsEl.setAttribute("aria-pressed", String(hide));
+    lsEl.classList.toggle("pr", hide);
+    lsEl.innerHTML = hide ? "👀 Hiện chữ lại" : "🎧 Chế độ nghe";
+    draw();
+  });
+  box.addEventListener("click", e => {
+    if (e.target.closest(".js-all")){
+      sayList([...box.querySelectorAll(".row")].slice(0, 15).map(r => r.dataset.ko), .9);
+      return;
+    }
+    const r = e.target.closest(".row"); if (!r) return;
+    say(r.dataset.ko);
+    if (hide) r.classList.add("open");
+  });
+  return draw;
+}
+const drawPhrases = makeRows(PH, {q:"pq", topic:"ptopic", meta:"pmeta", list:"plist", listen:"plisten"}, "cụm từ");
+const drawSentences = makeRows(SE, {q:"sq", topic:"stopic", meta:"smeta", list:"slist", listen:"slisten"}, "câu");
+
+/* ===================== NGỮ PHÁP ===================== */
+const gq = document.getElementById("gq");
+function drawGrammar(){
+  const n = norm(gq.value.trim()), raw = gq.value.trim();
+  const out = GRAM.filter(g => {
+    if (LEVEL && String(gLv(g)) !== LEVEL) return false;
+    if (!n) return true;
+    return g.p.includes(raw) || norm(g.s).includes(n) || norm(g.d).includes(n) || g.f.includes(raw) ||
+           g.e.some(([k, v]) => k.includes(raw) || norm(v).includes(n));
+  });
+  document.getElementById("gmeta").innerHTML = `<b>${out.length}</b> mẫu ngữ pháp · chạm để mở ví dụ, chạm vào ví dụ để nghe`;
+  document.getElementById("glist").innerHTML = out.length ? out.map((g, i) => `
+    <details class="g"${i === 0 ? " open" : ""}>
+      <summary>
+        <span class="lv">${esc(g.lv)}</span>
+        <span class="ghead"><span class="gpat">${esc(g.p)}</span><span class="gsum">${esc(g.s)}</span></span>
+        ${CARET}
+      </summary>
+      <div class="gbody">
+        <div class="form">${esc(g.f)}</div>
+        <p>${esc(g.d)}</p>
+        <p class="lab">Ví dụ · 예문</p>
+        <div class="ex">${g.e.map(([k, v]) => `<div><div class="ko">${esc(k)}</div><div class="vi">${esc(v)}</div></div>`).join("")}</div>
+      </div>
+    </details>`).join("") : emptyMsg("Không tìm thấy mẫu ngữ pháp nào.");
+}
+gq.addEventListener("input", drawGrammar);
+document.getElementById("glist").addEventListener("click", e => {
+  const d = e.target.closest(".ex > div") || e.target.closest(".form");
+  if (d) say((d.querySelector(".ko") || d).textContent);
+});
+
+/* ===================== KHỞI ĐỘNG ===================== */
+fillTopics(); renderWords(); drawPhrases(); drawSentences(); drawGrammar(); refreshHome(); checkVoice();
+
+/* giữ trạng thái khi app được cập nhật */
+try{
+  window.claude?.hot?.snapshot(() => ({w:wState, lv:LEVEL, k:[...known], s:[...starred]}));
+  const boot = d => {
+    if (!d || !d.w) return;
+    Object.assign(wState, d.w); LEVEL = d.lv || "";
+    known = new Set(d.k || [...known]); starred = new Set(d.s || [...starred]);
+    document.getElementById("wq").value = wState.q || "";
+    document.querySelectorAll("#levelSeg button").forEach(x => x.setAttribute("aria-selected", String(x.dataset.lv === LEVEL)));
+    fillTopics(); topicSel.value = wState.topic || "";
+    renderWords(); drawPhrases(); drawSentences(); drawGrammar(); refreshHome();
+  };
+  window.claude?.hot?.ready ? window.claude.hot.ready(boot) : boot(window.claude?.hot?.data);
+}catch(e){}
+</script>
