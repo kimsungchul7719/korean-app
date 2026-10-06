@@ -4564,23 +4564,33 @@ function makeUtt(text, rate){
   const v = pickVoice(); if (v) u.voice = v;
   return u;
 }
+function speakUtt(t, rate){
+  const u = makeUtt(t, rate);
+  u.onstart = () => { ttsState = "ok"; lastErr = ""; };
+  u.onerror = e => { const err = (e && e.error) || "error"; if (err === "interrupted" || err === "canceled") return; lastErr = err; ttsFail(); };
+  try{ speechSynthesis.resume(); }catch(e){}
+  speechSynthesis.speak(u);
+}
+let lastErr = "";
 function say(text, rate){
   if (!window.speechSynthesis){ ttsFail(); return; }
   const t = clean(text); if (!t) return;
+  ttsState = "run";
   try{
-    speechSynthesis.cancel();
+    /* QUAN TRỌNG: Android Chrome chỉ cho phát khi speak() chạy ngay trong cú chạm,
+       nên không dùng setTimeout trước lần speak đầu tiên. */
+    try{ speechSynthesis.cancel(); }catch(e){}
+    speakUtt(t, rate);
+    setTimeout(() => {   /* thử lại 1 lần nếu máy nuốt mất lệnh đầu */
+      try{
+        if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending) speakUtt(t, rate);
+      }catch(e){}
+    }, 320);
     setTimeout(() => {
-      const u = makeUtt(t, rate);
-      u.onstart = () => { ttsState = "ok"; };
-      u.onerror = e => { if (e && e.error === "interrupted") return; ttsFail(); };
-      try{ speechSynthesis.resume(); }catch(e){}
-      speechSynthesis.speak(u);
-      setTimeout(() => {
-        try{
-          if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending) ttsFail();
-        }catch(e){}
-      }, 1200);
-    }, 60);
+      try{
+        if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending) ttsFail();
+      }catch(e){}
+    }, 1600);
   }catch(e){ ttsFail(); }
 }
 function sayList(items, rate, done){
@@ -4596,13 +4606,15 @@ function sayList(items, rate, done){
     speechSynthesis.speak(u);
   };
   try{
-    speechSynthesis.cancel();
+    ttsState = "run";
+    try{ speechSynthesis.cancel(); }catch(e){}
+    step();
     setTimeout(() => {
-      step();
-      setTimeout(() => {
-        try{ if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending) ttsFail(); }catch(e){}
-      }, 1400);
-    }, 60);
+      try{ if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending && i === 1){ i = 0; step(); } }catch(e){}
+    }, 320);
+    setTimeout(() => {
+      try{ if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending) ttsFail(); }catch(e){}
+    }, 1800);
   }catch(e){ ttsFail(); }
 }
 function checkVoice(){
@@ -4612,7 +4624,7 @@ function checkVoice(){
     txt.textContent = "Trình duyệt này không đọc được tiếng Hàn. Hãy mở app bằng Chrome, Safari hoặc Edge.";
     note.hidden = false;
   } else if (!koVoices.length && voices.length){
-    txt.innerHTML = "Thiết bị chưa có giọng tiếng Hàn nên âm có thể không chuẩn. Android: <b>Cài đặt → Ngôn ngữ → Chuyển văn bản thành lời nói → 한국어</b>. iPhone: <b>Cài đặt → Trợ năng → Nội dung đọc → Giọng nói → Tiếng Hàn</b>.";
+    txt.innerHTML = "Máy chưa có giọng tiếng Hàn nên có thể không nghe được. Kéo xuống thẻ <b>Giọng đọc · 성우 목소리</b> rồi nhấn <b>🔎 Chẩn đoán âm thanh</b> để xem cách cài đặt cho máy của bạn.";
     note.hidden = false;
   } else note.hidden = true;
 }
@@ -4743,11 +4755,46 @@ function renderVoiceCard(){
     <p class="vstat">${window.speechSynthesis
       ? (koVoices.length
           ? `Tìm thấy <b>${koVoices.length}</b> giọng tiếng Hàn. Đang dùng: <b>${esc(auto ? auto.name : "mặc định")}</b>.`
-          : "Chưa tìm thấy giọng tiếng Hàn trên thiết bị — âm có thể không chuẩn. Hãy cài giọng 한국어 trong cài đặt máy.")
-      : "Trình duyệt này không hỗ trợ đọc tiếng Hàn."}
-      ${ttsState === "fail" ? "<br>⚠️ Lần phát gần nhất không ra tiếng. Hãy kiểm tra loa và nút Thử bên cạnh." : ""}</p>`;
+          : `⚠️ <b>Máy chưa có giọng tiếng Hàn</b> (tổng ${voices.length} giọng). Nhấn <b>Chẩn đoán</b> để xem cách cài.`)
+      : "⚠️ Trình duyệt này không đọc được tiếng Hàn. Hãy mở bằng <b>Chrome</b>."}
+      ${ttsState === "fail" ? "<br>⚠️ Lần phát gần nhất không ra tiếng." : ""}</p>
+    <div class="btns" style="margin-top:8px">
+      <button class="btn gh" id="voiceDiag">🔎 Chẩn đoán âm thanh · 음성 진단</button>
+    </div>
+    <div id="diagBox"></div>`;
   box.querySelector("#voiceSel").onchange = e => { store.set("voice", e.target.value); renderVoiceCard(); say("안녕하세요"); };
   box.querySelector("#voiceTest").onclick = () => { primeSpeech(); say("안녕하세요. 한국어 공부를 시작할까요?"); };
+  box.querySelector("#voiceDiag").onclick = () => runDiag();
+}
+
+function runDiag(){
+  const d = document.getElementById("diagBox"); if (!d) return;
+  const ua = navigator.userAgent;
+  const samsung = /SamsungBrowser/i.test(ua);
+  const android = /Android/i.test(ua);
+  const ios = /iPhone|iPad/i.test(ua);
+  const sup = !!window.speechSynthesis;
+  const all = sup ? speechSynthesis.getVoices().length : 0;
+  const ko = sup ? speechSynthesis.getVoices().filter(v => /^ko/i.test(v.lang)) : [];
+  d.innerHTML = `<div class="solve" style="margin-top:10px">
+    <b style="color:var(--c5)">Kết quả · 진단 결과</b><br>
+    • Trình duyệt: <b>${samsung ? "Samsung Internet" : (/Chrome/i.test(ua) ? "Chrome" : (/Safari/i.test(ua) ? "Safari" : "khác"))}</b><br>
+    • Hỗ trợ đọc: <b>${sup ? "có" : "KHÔNG"}</b> · tổng giọng: <b>${all}</b> · giọng Hàn: <b>${ko.length}</b><br>
+    ${ko.length ? `• Giọng Hàn: ${ko.map(v => esc(v.name)).join(", ")}<br>` : ""}
+    ${lastErr ? `• Lỗi gần nhất: <b>${esc(lastErr)}</b><br>` : ""}
+    <br><b style="color:var(--c3)">Cách khắc phục</b><br>
+    ${samsung ? "① <b>Hãy mở app bằng Chrome</b> — Samsung Internet thường không đọc được tiếng Hàn.<br>" : ""}
+    ${android ? `${samsung ? "②" : "①"} Cài giọng Hàn: <b>설정(Cài đặt) → 일반(Quản lý chung) → 접근성 → 글자 읽어주기 / 음성 합성</b> →
+       엔진을 <b>Google 텍스트 음성 변환</b>으로 바꾸고 → <b>언어 설치 → 한국어</b> 다운로드.<br>
+       (Play Store에서 <b>Speech Recognition &amp; Synthesis / Google TTS</b> 설치 후 선택)<br>` : ""}
+    ${ios ? "① <b>설정 → 손쉬운 사용 → 말하기 콘텐츠 → 음성 → 한국어</b>에서 음성을 내려받으세요.<br>" : ""}
+    ${android || ios ? "" : "① 기기에 한국어 음성 패키지를 설치하세요.<br>"}
+    ${android ? "③" : "②"} <b>미디어 볼륨</b>을 올려 주세요 (벨소리 볼륨과 다릅니다). 무음/방해금지 모드도 해제.<br>
+    ${android ? "④" : "③"} 블루투스 이어폰이 연결돼 있으면 소리가 그쪽으로 갑니다. 연결을 끊고 다시 시도해 보세요.<br>
+    ${android ? "⑤" : "④"} 그래도 안 되면 브라우저를 완전히 종료 후 다시 열어 주세요.
+  </div>`;
+  primeSpeech();
+  say("안녕하세요");
 }
 
 /* ===================== TỪ VỰNG ===================== */
