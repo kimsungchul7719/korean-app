@@ -240,6 +240,26 @@ select.sel{flex:1 1 140px;background:var(--surface);border:1.5px solid var(--lin
 .empty{text-align:center;color:var(--ink3);padding:40px 16px;font-size:14px}
 .empty .mascot{width:84px;height:84px;margin-bottom:6px}
 
+/* ===== mục tiêu · sổ lỗi · giọng đọc ===== */
+.goalrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.goalrow button{flex:1 1 60px;border:1.5px solid var(--line);background:var(--surface2);border-radius:12px;
+  padding:9px 6px;font-size:13px;font-weight:700;color:var(--ink2)}
+.goalrow button[aria-pressed="true"]{background:var(--c2);border-color:var(--c2);color:#fff}
+.wrongrow{display:flex;gap:9px;margin-top:10px;flex-wrap:wrap}
+.wrongbtn{flex:1 1 130px;border:0;border-radius:15px;padding:12px 10px;font-weight:700;font-size:13.5px;
+  background:var(--bads);color:var(--bad);display:flex;align-items:center;justify-content:center;gap:7px}
+.wrongbtn:disabled{background:var(--surface2);color:var(--ink3);font-weight:600}
+.vrow{display:flex;gap:9px;margin-top:9px;flex-wrap:wrap;align-items:center}
+.vrow select{flex:1 1 170px}
+.vstat{font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.5}
+.toast{position:fixed;left:16px;right:16px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:90;
+  background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.5;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.6);max-width:520px;margin:0 auto}
+.toast b{color:var(--c3)}
+.ex>div{display:flex;gap:9px;align-items:flex-start}
+.ex .exbody{flex:1;min-width:0}
+.ex .icb{flex:none;margin-top:-2px;color:var(--c4)}
+
 /* ===== thi nghe ===== */
 .exintro{background:var(--surface);border-radius:22px;box-shadow:var(--sh);padding:18px;margin-top:12px}
 .exintro h3{margin:0 0 4px;font-family:var(--dp);font-weight:800;font-size:18px}
@@ -355,7 +375,7 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
           <circle id="ringArc" cx="40" cy="40" r="33" fill="none" stroke="#fff" stroke-width="9"
                   stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="207"/>
         </svg>
-        <div><div class="pt" id="ringTxt">0 / 0 từ</div><div class="ps">Tiến độ từ vựng đã thuộc của bạn</div></div>
+        <div><div class="pt" id="ringTxt">0 / 10</div><div class="ps" id="ringSub">Mục tiêu hôm nay · 오늘의 목표</div></div>
       </div>
     </div>
 
@@ -390,6 +410,10 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
       </button>
     </div>
 
+    <div class="card-soft" id="goalCard"></div>
+    <div class="card-soft" id="wrongCard"></div>
+    <div class="card-soft" id="voiceCard"></div>
+
     <div class="card-soft">
       <span class="lab">Từ của hôm nay · 오늘의 단어</span>
       <div class="wod" id="wod"></div>
@@ -422,6 +446,7 @@ nav.bottom button[aria-selected="true"] .nb{background:var(--ncs);color:var(--nc
         <option value="star">Từ đã lưu ★</option>
         <option value="unknown">Chưa thuộc</option>
         <option value="known">Đã thuộc</option>
+        <option value="wrong">Từ hay sai ✗</option>
       </select>
     </div>
     <p class="meta" id="wmeta"></p>
@@ -4442,46 +4467,154 @@ let starred = new Set(store.get("star", []));
 const saveKnown = () => store.set("known", [...known]);
 const saveStar = () => store.set("star", [...starred]);
 
-/* ---- giọng đọc tiếng Hàn ---- */
-let voices = [], koVoice = null;
+/* ---- sổ lỗi sai ---- */
+let wrongW = new Set(store.get("wrongw", []));   /* từ vựng sai */
+let wrongQ = new Set(store.get("wrongq", []));   /* câu thi sai */
+const saveWrongW = () => store.set("wrongw", [...wrongW]);
+const saveWrongQ = () => store.set("wrongq", [...wrongQ]);
+function markWord(ko, right){
+  if (right) wrongW.delete(ko); else wrongW.add(ko);
+  saveWrongW();
+}
+
+/* ---- mục tiêu mỗi ngày ---- */
+const dayStr = d => new Date(d).toISOString().slice(0, 10);
+const TODAY = () => dayStr(Date.now());
+const YESTERDAY = () => dayStr(Date.now() - 86400000);
+let daily = store.get("daily", {d:"", n:0, streak:0, last:""});
+const goalOf = () => store.get("goal", 10);
+function addStudy(n){
+  if (daily.d !== TODAY()) daily = {d:TODAY(), n:0, streak:daily.streak || 0, last:daily.last || ""};
+  daily.n += (n || 1);
+  if (daily.n >= goalOf() && daily.last !== TODAY()){
+    daily.streak = (daily.last === YESTERDAY() ? (daily.streak || 0) + 1 : 1);
+    daily.last = TODAY();
+    toast(`🎉 <b>오늘의 목표 달성!</b> Hoàn thành mục tiêu hôm nay — chuỗi ${daily.streak} ngày 🔥`, 4200);
+  }
+  store.set("daily", daily);
+  updateGoalRing();
+}
+function todayCount(){ return daily.d === TODAY() ? daily.n : 0; }
+function updateGoalRing(){
+  const arc = document.getElementById("ringArc"); if (!arc) return;
+  const g = goalOf(), n = todayCount(), pct = Math.min(1, g ? n / g : 0);
+  arc.style.strokeDashoffset = String(207 - 207 * pct);
+  const t = document.getElementById("ringTxt");
+  const sub = document.getElementById("ringSub");
+  if (t) t.textContent = `${n} / ${g}`;
+  if (sub) sub.innerHTML = `Mục tiêu hôm nay · 오늘의 목표${daily.streak ? ` · 🔥 ${daily.streak} ngày liên tục` : ""}`;
+}
+
+/* ---- giọng đọc tiếng Hàn (ưu tiên giọng nữ) ---- */
+let voices = [], koVoices = [], ttsState = "init", appReady = false;
+const FEM = /(heami|sunhi|seoyeon|sun-?hi|yuna|jiwon|female|nữ|여성|여자|google\s*한국|google\s*korean)/i;
+const MALE = /(injoon|in-?joon|gook|minsik|male|남성|남자)/i;
 function loadVoices(){
   try{ voices = speechSynthesis.getVoices() || []; }catch(e){ voices = []; }
-  koVoice = voices.find(v => /^ko/i.test(v.lang)) || null;
+  koVoices = voices.filter(v => /^ko/i.test(v.lang));
+  if (appReady){ try{ renderVoiceCard(); }catch(e){} }
   checkVoice();
 }
-if (window.speechSynthesis){ loadVoices(); speechSynthesis.addEventListener("voiceschanged", loadVoices); }
+function pickVoice(){
+  const saved = store.get("voice", "");
+  if (saved){ const v = koVoices.find(x => x.voiceURI === saved); if (v) return v; }
+  return koVoices.find(v => FEM.test(v.name))
+      || koVoices.find(v => !MALE.test(v.name))
+      || koVoices[0] || null;
+}
+if (window.speechSynthesis){
+  loadVoices();
+  speechSynthesis.addEventListener("voiceschanged", loadVoices);
+  setTimeout(loadVoices, 400); setTimeout(loadVoices, 1500);
+}
+/* mở khoá âm thanh ở lần chạm đầu tiên (iPhone/Safari bắt buộc) */
+let primed = false;
+function primeSpeech(){
+  if (primed || !window.speechSynthesis) return;
+  primed = true;
+  try{
+    const u = new SpeechSynthesisUtterance("\u200b");
+    u.volume = 0; u.lang = "ko-KR";
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+["pointerdown","touchstart","keydown"].forEach(ev =>
+  document.addEventListener(ev, primeSpeech, {once:true, passive:true}));
+
+let toastEl = null, toastTimer = null;
+function toast(html, ms){
+  clearTimeout(toastTimer);
+  if (!toastEl){ toastEl = document.createElement("div"); toastEl.className = "toast"; document.body.appendChild(toastEl); }
+  toastEl.innerHTML = html;
+  toastEl.hidden = false;
+  toastTimer = setTimeout(() => { if (toastEl) toastEl.hidden = true; }, ms || 5200);
+}
+function ttsFail(){
+  ttsState = "fail";
+  toast('🔇 <b>Không phát được tiếng Hàn.</b> Hãy bật loa / tắt chế độ im lặng, hoặc cài giọng tiếng Hàn: ' +
+        'Android <b>Cài đặt → Ngôn ngữ → Chuyển văn bản thành lời nói → 한국어</b>, ' +
+        'iPhone <b>Cài đặt → Trợ năng → Nội dung đọc → Giọng nói → Tiếng Hàn</b>.', 7000);
+  renderVoiceCard();
+}
+const clean = t => String(t).replace(/【.*?】/g, " ").replace(/\(.*?\)/g, " ").replace(/[()·【】]/g, " ").trim();
+
+function makeUtt(text, rate){
+  const u = new SpeechSynthesisUtterance(clean(text));
+  u.lang = "ko-KR"; u.rate = rate || .9; u.pitch = 1.08; u.volume = 1;
+  const v = pickVoice(); if (v) u.voice = v;
+  return u;
+}
+function say(text, rate){
+  if (!window.speechSynthesis){ ttsFail(); return; }
+  const t = clean(text); if (!t) return;
+  try{
+    speechSynthesis.cancel();
+    setTimeout(() => {
+      const u = makeUtt(t, rate);
+      u.onstart = () => { ttsState = "ok"; };
+      u.onerror = e => { if (e && e.error === "interrupted") return; ttsFail(); };
+      try{ speechSynthesis.resume(); }catch(e){}
+      speechSynthesis.speak(u);
+      setTimeout(() => {
+        try{
+          if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending) ttsFail();
+        }catch(e){}
+      }, 1200);
+    }, 60);
+  }catch(e){ ttsFail(); }
+}
+function sayList(items, rate, done){
+  if (!window.speechSynthesis || !items || !items.length){ done && done(); return; }
+  let i = 0;
+  const step = () => {
+    if (i >= items.length){ done && done(); return; }
+    const u = makeUtt(items[i++], rate);
+    u.onstart = () => { ttsState = "ok"; };
+    u.onend = () => setTimeout(step, 220);
+    u.onerror = () => setTimeout(step, 220);
+    try{ speechSynthesis.resume(); }catch(e){}
+    speechSynthesis.speak(u);
+  };
+  try{
+    speechSynthesis.cancel();
+    setTimeout(() => {
+      step();
+      setTimeout(() => {
+        try{ if (ttsState !== "ok" && !speechSynthesis.speaking && !speechSynthesis.pending) ttsFail(); }catch(e){}
+      }, 1400);
+    }, 60);
+  }catch(e){ ttsFail(); }
+}
 function checkVoice(){
   const note = document.getElementById("voiceNote"), txt = document.getElementById("voiceNoteTxt");
   if (!note) return;
   if (!window.speechSynthesis){
-    txt.textContent = "Trình duyệt này không hỗ trợ đọc tiếng Hàn. Hãy mở app bằng Chrome, Safari hoặc Edge để luyện nghe.";
+    txt.textContent = "Trình duyệt này không đọc được tiếng Hàn. Hãy mở app bằng Chrome, Safari hoặc Edge.";
     note.hidden = false;
-  } else if (!koVoice && voices.length){
-    txt.innerHTML = "Thiết bị chưa có giọng tiếng Hàn nên âm có thể không chuẩn. Trên Android: <b>Cài đặt → Ngôn ngữ → Đầu ra văn bản thành tiếng nói → tải 한국어</b>. Trên iPhone: <b>Cài đặt → Trợ năng → Nội dung đọc → Giọng nói → Tiếng Hàn</b>.";
+  } else if (!koVoices.length && voices.length){
+    txt.innerHTML = "Thiết bị chưa có giọng tiếng Hàn nên âm có thể không chuẩn. Android: <b>Cài đặt → Ngôn ngữ → Chuyển văn bản thành lời nói → 한국어</b>. iPhone: <b>Cài đặt → Trợ năng → Nội dung đọc → Giọng nói → Tiếng Hàn</b>.";
     note.hidden = false;
   } else note.hidden = true;
-}
-function say(text, rate){
-  if (!window.speechSynthesis) return;
-  try{
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(String(text).replace(/\(.*?\)/g, "").trim());
-    u.lang = "ko-KR"; u.rate = rate || .9;
-    if (koVoice) u.voice = koVoice;
-    speechSynthesis.speak(u);
-  }catch(e){}
-}
-function sayList(items, rate, done){
-  if (!window.speechSynthesis || !items.length){ done && done(); return; }
-  let i = 0;
-  const step = () => {
-    if (i >= items.length){ done && done(); return; }
-    const u = new SpeechSynthesisUtterance(items[i++]);
-    u.lang = "ko-KR"; u.rate = rate || .9; if (koVoice) u.voice = koVoice;
-    u.onend = step; u.onerror = step;
-    speechSynthesis.speak(u);
-  };
-  speechSynthesis.cancel(); step();
 }
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
@@ -4556,6 +4689,65 @@ function refreshHome(){
       <div class="v">${esc(d.vi)} · ${esc(posLabel(d.pos))}${d.lv === 2 ? " · 2급" : ""}</div>
     </div>`;
   document.getElementById("wodPlay").onclick = () => say(d.ko);
+  renderGoalCard(); renderWrongCard(); renderVoiceCard(); updateGoalRing();
+}
+function renderGoalCard(){
+  const box = document.getElementById("goalCard"); if (!box) return;
+  const g = goalOf();
+  box.innerHTML = `<span class="lab">Mục tiêu mỗi ngày · 매일 학습 목표</span>
+    <p style="margin:6px 0 0;font-size:13px;color:var(--ink2)">Mỗi từ học thuộc, mỗi câu trả lời đúng đều được tính.
+      Hôm nay: <b style="color:var(--c2)">${todayCount()}</b> / ${g}${daily.streak ? ` · chuỗi 🔥 <b>${daily.streak}</b> ngày` : ""}</p>
+    <div class="goalrow" id="goalRow">
+      ${[5, 10, 20, 30, 50].map(v => `<button data-g="${v}" aria-pressed="${v === g}">${v}</button>`).join("")}
+    </div>`;
+  box.querySelector("#goalRow").onclick = e => {
+    const b = e.target.closest("button"); if (!b) return;
+    store.set("goal", Number(b.dataset.g));
+    renderGoalCard(); updateGoalRing();
+  };
+}
+function renderWrongCard(){
+  const box = document.getElementById("wrongCard"); if (!box) return;
+  const nw = WORDS.filter(w => wrongW.has(w.ko)).length;
+  const nq = [...LIST_ALL, ...READING].filter(q => wrongQ.has(q.id)).length;
+  box.innerHTML = `<span class="lab">Sổ lỗi sai · 오답 노트</span>
+    <p style="margin:6px 0 0;font-size:13px;color:var(--ink2)">Những gì bạn trả lời sai được gom lại đây.
+      Trả lời đúng một lần nữa thì mục đó tự biến mất.</p>
+    <div class="wrongrow">
+      <button class="wrongbtn" id="wrongWBtn" ${nw ? "" : "disabled"}>✗ ${nw} từ sai</button>
+      <button class="wrongbtn" id="wrongQBtn" ${nq ? "" : "disabled"}>✗ ${nq} câu thi sai</button>
+    </div>`;
+  const wb = box.querySelector("#wrongWBtn"), qb = box.querySelector("#wrongQBtn");
+  if (nw) wb.onclick = () => {
+    wState.filter = "wrong"; wState.pos = ""; wState.topic = ""; wState.q = ""; wState.mode = "list";
+    document.querySelectorAll("#wmodes button").forEach(x => x.setAttribute("aria-selected", String(x.dataset.m === "list")));
+    const sel = document.getElementById("wfilter"); if (sel) sel.value = "wrong";
+    const inp = document.getElementById("wq"); if (inp) inp.value = "";
+    document.querySelectorAll("#wpos .chip").forEach((x, i) => x.setAttribute("aria-pressed", String(i === 0)));
+    go("words"); fillTopics(); renderWords();
+  };
+  if (nq) qb.onclick = () => { go("exam"); startWrongExam(); };
+}
+function renderVoiceCard(){
+  const box = document.getElementById("voiceCard"); if (!box || !appReady) return;
+  const cur = store.get("voice", "");
+  const auto = pickVoice();
+  box.innerHTML = `<span class="lab">Giọng đọc · 성우 목소리</span>
+    <div class="vrow">
+      <select class="sel" id="voiceSel">
+        <option value="">Tự động (ưu tiên giọng nữ)</option>
+        ${koVoices.map(v => `<option value="${esc(v.voiceURI)}"${v.voiceURI === cur ? " selected" : ""}>${esc(v.name)}</option>`).join("")}
+      </select>
+      <button class="btn pr" id="voiceTest" style="flex:0 0 auto;padding:11px 16px">${SPK} Thử</button>
+    </div>
+    <p class="vstat">${window.speechSynthesis
+      ? (koVoices.length
+          ? `Tìm thấy <b>${koVoices.length}</b> giọng tiếng Hàn. Đang dùng: <b>${esc(auto ? auto.name : "mặc định")}</b>.`
+          : "Chưa tìm thấy giọng tiếng Hàn trên thiết bị — âm có thể không chuẩn. Hãy cài giọng 한국어 trong cài đặt máy.")
+      : "Trình duyệt này không hỗ trợ đọc tiếng Hàn."}
+      ${ttsState === "fail" ? "<br>⚠️ Lần phát gần nhất không ra tiếng. Hãy kiểm tra loa và nút Thử bên cạnh." : ""}</p>`;
+  box.querySelector("#voiceSel").onchange = e => { store.set("voice", e.target.value); renderVoiceCard(); say("안녕하세요"); };
+  box.querySelector("#voiceTest").onclick = () => { primeSpeech(); say("안녕하세요. 한국어 공부를 시작할까요?"); };
 }
 
 /* ===================== TỪ VỰNG ===================== */
@@ -4595,6 +4787,7 @@ function currentWords(){
     if (wState.filter === "star" && !starred.has(w.ko)) return false;
     if (wState.filter === "known" && !known.has(w.ko)) return false;
     if (wState.filter === "unknown" && known.has(w.ko)) return false;
+    if (wState.filter === "wrong" && !wrongW.has(w.ko)) return false;
     if (!q) return true;
     return w.ko.includes(wState.q) || norm(w.ro).includes(q) || norm(w.vi).includes(q) || norm(w.topic).includes(q);
   });
@@ -4633,6 +4826,7 @@ document.getElementById("wlist").addEventListener("click", e => {
   const st = e.target.closest(".js-star");
   if (st){ starred.has(id) ? starred.delete(id) : starred.add(id); saveStar(); st.setAttribute("aria-pressed", starred.has(id)); return; }
   known.has(id) ? known.delete(id) : known.add(id);
+  if (known.has(id)){ addStudy(1); markWord(id, true); }
   saveKnown(); card.classList.toggle("known", known.has(id));
   const bs = document.getElementById("wmeta").querySelectorAll("b");
   bs[1].textContent = currentWords().filter(w => known.has(w.ko)).length;
@@ -4669,8 +4863,8 @@ function drawCard(){
     <p class="meta" style="text-align:center">Thẻ ${di + 1} / ${deck.length}</p>`;
   document.getElementById("fc").onclick = () => { flipped = !flipped; if (flipped) say(w.ko); drawCard(); };
   document.getElementById("sayBtn").onclick = () => say(w.ko);
-  document.getElementById("okBtn").onclick = () => { known.add(w.ko); saveKnown(); nx(); };
-  document.getElementById("noBtn").onclick = () => { known.delete(w.ko); saveKnown(); nx(); };
+  document.getElementById("okBtn").onclick = () => { known.add(w.ko); markWord(w.ko, true); addStudy(1); saveKnown(); nx(); };
+  document.getElementById("noBtn").onclick = () => { known.delete(w.ko); markWord(w.ko, false); saveKnown(); nx(); };
   function nx(){ di++; flipped = false; drawCard(); }
 }
 
@@ -4700,7 +4894,8 @@ function nextQ(){
   document.getElementById("qsay").onclick = () => say(ans.ko);
   box.querySelectorAll(".opt").forEach(b => b.onclick = () => {
     const right = b.dataset.vi === qCur.vi;
-    qDone++; if (right){ qScore++; known.add(qCur.ko); saveKnown(); }
+    qDone++; markWord(qCur.ko, right);
+    if (right){ qScore++; known.add(qCur.ko); saveKnown(); addStudy(1); }
     box.querySelectorAll(".opt").forEach(x => {
       x.disabled = true;
       if (x.dataset.vi === qCur.vi) x.classList.add("right"); else if (x === b) x.classList.add("wrong");
@@ -4738,7 +4933,8 @@ function drawListen(){
   box.querySelectorAll(".opt").forEach(b => b.onclick = () => {
     if (lShown) return; lShown = true;
     const right = b.dataset.vi === lCur.vi;
-    lDone++; if (right){ lScore++; known.add(lCur.ko); saveKnown(); }
+    lDone++; markWord(lCur.ko, right);
+    if (right){ lScore++; known.add(lCur.ko); saveKnown(); addStudy(1); }
     box.querySelectorAll(".opt").forEach(x => {
       x.disabled = true;
       if (x.dataset.vi === lCur.vi) x.classList.add("right"); else if (x === b) x.classList.add("wrong");
@@ -4819,6 +5015,8 @@ const curTypes = () => exState.mode === "listen" ? EXTYPES : RTYPES;
 const exType = k => curTypes().find(t => t.k === k) || curTypes()[0];
 const curBank = () => exState.mode === "listen" ? LIST_ALL : READING;
 const LIST_ALL = LISTEN.concat(LISTEN2);
+LIST_ALL.forEach((q, i) => q.id = "L" + i);
+READING.forEach((q, i) => q.id = "R" + i);
 const RTYPES = [
   {k:"주제", ko:"무엇에 대한 이야기입니까?", vi:"Đoạn văn nói về điều gì?"},
   {k:"빈칸", ko:"( )에 들어갈 말로 가장 알맞은 것을 고르십시오.", vi:"Chọn từ thích hợp điền vào chỗ trống"},
@@ -4859,6 +5057,8 @@ function examHome(){
           <span class="d"><span class="kr">${esc(t.ko)}</span><span class="vi">${esc(t.vi)}</span></span>
           <span class="c">${examPool(t.k).length}</span></button>`).join("")}
       </div>
+      ${(() => { const n = curBank().filter(q => wrongQ.has(q.id)).length;
+        return n ? `<div class="wrongrow"><button class="wrongbtn" id="exWrong">📕 Ôn ${n} câu đã sai</button></div>` : ""; })()}
       <p class="meta" style="margin:12px 0 6px">Chọn số câu để bắt đầu${best ? ` · điểm cao nhất của bạn: <b>${best}%</b>` : ""}</p>
       <div class="btns">
         <button class="btn gh" data-len="5">5 câu</button>
@@ -4876,6 +5076,18 @@ function examHome(){
     box.querySelectorAll(".extype").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   });
   box.querySelectorAll("[data-len]").forEach(b => b.onclick = () => startExam(Number(b.dataset.len)));
+  const ew = box.querySelector("#exWrong");
+  if (ew) ew.onclick = () => startWrongExam();
+}
+function startWrongExam(){
+  const bank = [...LIST_ALL, ...READING].filter(q => wrongQ.has(q.id));
+  if (!bank.length){ toast("Chưa có câu sai nào được lưu."); return; }
+  exState.mode = bank[0].id[0] === "L" ? "listen" : "read";
+  const pool = bank.filter(q => (exState.mode === "listen") === (q.id[0] === "L"));
+  exState.pool = shuffle(pool); exState.i = 0; exState.score = 0; exState.wrong = [];
+  document.getElementById("examHome").hidden = true;
+  document.getElementById("examRun").hidden = false;
+  drawExam();
 }
 function startExam(len){
   const pool = shuffle(examPool(exState.type));
@@ -4927,7 +5139,9 @@ function drawExam(){
     if (exState.answered) return;
     exState.answered = true;
     const pick = Number(b.dataset.i), right = pick === q.a;
-    if (right) exState.score++; else exState.wrong.push(q);
+    if (right){ exState.score++; wrongQ.delete(q.id); addStudy(1); }
+    else { exState.wrong.push(q); wrongQ.add(q.id); }
+    saveWrongQ();
     box.querySelectorAll("#exOpts .opt").forEach(x => {
       x.disabled = true;
       if (Number(x.dataset.i) === q.a) x.classList.add("right"); else if (x === b) x.classList.add("wrong");
@@ -4978,6 +5192,7 @@ function examResult(){
   const rw = document.getElementById("exRetryWrong");
   if (rw) rw.onclick = () => { exState.pool = shuffle(w); exState.i = 0; exState.score = 0; exState.wrong = []; drawExam(); };
   document.getElementById("exRetry").onclick = () => startExam(n);
+  renderWrongCard();
   document.getElementById("exBack").onclick = () => examHome();
 }
 
@@ -5003,18 +5218,26 @@ function drawGrammar(){
         <div class="form">${esc(g.f)}</div>
         <p>${esc(g.d)}</p>
         <p class="lab">Ví dụ · 예문</p>
-        <div class="ex">${g.e.map(([k, v]) => `<div><div class="ko">${esc(k)}</div><div class="vi">${esc(v)}</div></div>`).join("")}</div>
+        <div class="ex">${g.e.map(([k, v]) => `<div>
+          <div class="exbody"><div class="ko">${esc(k)}</div><div class="vi">${esc(v)}</div></div>
+          <button class="icb js-gsay" data-ko="${esc(k)}" aria-label="Nghe câu này">${SPK}</button></div>`).join("")}</div>
       </div>
     </details>`).join("") : emptyMsg("Không tìm thấy mẫu ngữ pháp nào.");
 }
 gq.addEventListener("input", drawGrammar);
 document.getElementById("glist").addEventListener("click", e => {
-  const d = e.target.closest(".ex > div") || e.target.closest(".form");
-  if (d) say((d.querySelector(".ko") || d).textContent);
+  const b = e.target.closest(".js-gsay");
+  if (b){ say(b.dataset.ko); return; }
+  const d = e.target.closest(".ex > div");
+  if (d){ say(d.querySelector(".ko").textContent); return; }
+  const f = e.target.closest(".form");
+  if (f) say(f.textContent);
 });
 
 /* ===================== KHỞI ĐỘNG ===================== */
-fillTopics(); renderWords(); drawPhrases(); drawSentences(); drawGrammar(); refreshHome(); checkVoice();
+appReady = true;
+fillTopics(); renderWords(); drawPhrases(); drawSentences(); drawGrammar(); refreshHome();
+loadVoices(); checkVoice(); updateGoalRing();
 
 /* giữ trạng thái khi app được cập nhật */
 try{
